@@ -1,0 +1,417 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Sidebar from '../../components/Sidebar';
+import Button from '../../components/Button';
+import { toast } from 'sonner';
+import { campaignAPI } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
+import { Upload } from 'lucide-react';
+
+const CreateCampaign = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    campaign_type: 'influencer_marketing',
+    movie_title: '',
+    poster_url: '',
+    genre: [],
+    release_date: '',
+    campaign_start_date: '',
+    campaign_end_date: '',
+    regions_state: [],
+    regions_district: [],
+    campaign_phases: [],
+    total_budget: '',
+    follower_ranges: [],
+    influencer_categories: [],
+    review_mode: 'automated',
+    tone_language_preferences: '',
+    campaign_brief: ''
+  });
+
+  const genres = ['Action', 'Comedy', 'Drama', 'Romance', 'Thriller', 'Horror', 'Sci-Fi', 'Fantasy'];
+  const states = ['Kerala', 'Tamil Nadu', 'Andhra Pradesh', 'Telangana'];
+  const phases = [
+    { value: 'announcement', label: 'Announcement' },
+    { value: 'teaser', label: 'Teaser' },
+    { value: 'trailer', label: 'Trailer' },
+    { value: 'post_release', label: 'Post Release' }
+  ];
+  const tiers = [
+    { value: 'nano', label: 'Nano (1K-10K)' },
+    { value: 'micro', label: 'Micro (10K-100K)' },
+    { value: 'macro', label: 'Macro (100K-1M)' },
+    { value: 'mega', label: 'Mega (1M+)' }
+  ];
+  const categories = ['Lifestyle', 'Couples', 'Family', 'Youth', 'Kids', 'Music', 'Meme', 'Review', 'Film', 'Fan Pages', 'Actor Pages'];
+
+  const handleMultiSelect = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: prev[field].includes(value)
+        ? prev[field].filter(v => v !== value)
+        : [...prev[field], value]
+    }));
+  };
+
+  const handleTierChange = (tier, count) => {
+    setFormData(prev => {
+      const existing = prev.follower_ranges.find(r => r.tier === tier);
+      if (count === '' || count === 0) {
+        return {
+          ...prev,
+          follower_ranges: prev.follower_ranges.filter(r => r.tier !== tier)
+        };
+      }
+      if (existing) {
+        return {
+          ...prev,
+          follower_ranges: prev.follower_ranges.map(r =>
+            r.tier === tier ? { ...r, count: parseInt(count) } : r
+          )
+        };
+      }
+      return {
+        ...prev,
+        follower_ranges: [...prev.follower_ranges, { tier, count: parseInt(count) }]
+      };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (formData.follower_ranges.length === 0) {
+      toast.error('Please select at least one influencer tier');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await campaignAPI.createCampaign(formData, user.id);
+      toast.success('Campaign created successfully!');
+      navigate('/producer/campaigns');
+    } catch (error) {
+      toast.error('Failed to create campaign');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className=\"flex min-h-screen bg-surface\">
+      <Sidebar />
+      <div className=\"flex-1\">
+        <div className=\"bg-surface-container-lowest border-b border-outline-variant/20 p-8\">
+          <h1 className=\"text-4xl font-heading font-bold text-on-surface mb-2\">Create Campaign</h1>
+          <p className=\"text-lg font-body text-muted-foreground\">Launch a new movie marketing campaign</p>
+        </div>
+
+        <div className=\"p-8\">
+          <form onSubmit={handleSubmit} className=\"max-w-4xl mx-auto space-y-8\" data-testid=\"create-campaign-form\">
+            {/* Campaign Type */}
+            <div className=\"bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-6\">
+              <h2 className=\"text-xl font-heading font-bold text-on-surface mb-4\">Campaign Type</h2>
+              <div className=\"grid grid-cols-2 gap-4\">
+                {[
+                  { value: 'influencer_marketing', label: 'Influencer Marketing' },
+                  { value: 'moment_marketing', label: 'Moment Marketing' }
+                ].map((type) => (
+                  <label
+                    key={type.value}
+                    className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                      formData.campaign_type === type.value
+                        ? 'border-primary bg-primary/5'
+                        : 'border-outline-variant/20 hover:border-primary/50'
+                    }`}
+                  >
+                    <input
+                      type=\"radio\"
+                      name=\"campaign_type\"
+                      value={type.value}
+                      checked={formData.campaign_type === type.value}
+                      onChange={(e) => setFormData({ ...formData, campaign_type: e.target.value })}
+                      className=\"w-4 h-4\"
+                    />
+                    <span className=\"font-body font-semibold\">{type.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Movie Details */}
+            <div className=\"bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-6\">
+              <h2 className=\"text-xl font-heading font-bold text-on-surface mb-4\">Movie Details</h2>
+              <div className=\"space-y-4\">
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Movie Title *</label>
+                  <input
+                    type=\"text\"
+                    value={formData.movie_title}
+                    onChange={(e) => setFormData({ ...formData, movie_title: e.target.value })}
+                    className=\"w-full px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body\"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Poster URL</label>
+                  <div className=\"flex gap-2\">
+                    <input
+                      type=\"url\"
+                      value={formData.poster_url}
+                      onChange={(e) => setFormData({ ...formData, poster_url: e.target.value })}
+                      className=\"flex-1 px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body\"
+                      placeholder=\"https://example.com/poster.jpg\"
+                    />
+                    <Button type=\"button\" variant=\"ghost\">
+                      <Upload className=\"w-5 h-5\" />
+                    </Button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Genre * (Select multiple)</label>
+                  <div className=\"grid grid-cols-4 gap-2\">
+                    {genres.map((genre) => (
+                      <label key={genre} className=\"flex items-center gap-2 p-3 rounded-lg bg-surface-container-highest hover:bg-surface-container-high cursor-pointer\">
+                        <input
+                          type=\"checkbox\"
+                          checked={formData.genre.includes(genre)}
+                          onChange={() => handleMultiSelect('genre', genre)}
+                          className=\"w-4 h-4\"
+                        />
+                        <span className=\"text-sm font-body\">{genre}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className=\"grid grid-cols-3 gap-4\">
+                  <div>
+                    <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Release Date *</label>
+                    <input
+                      type=\"date\"
+                      value={formData.release_date}
+                      onChange={(e) => setFormData({ ...formData, release_date: e.target.value })}
+                      className=\"w-full px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body\"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Campaign Start *</label>
+                    <input
+                      type=\"date\"
+                      value={formData.campaign_start_date}
+                      onChange={(e) => setFormData({ ...formData, campaign_start_date: e.target.value })}
+                      className=\"w-full px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body\"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Campaign End *</label>
+                    <input
+                      type=\"date\"
+                      value={formData.campaign_end_date}
+                      onChange={(e) => setFormData({ ...formData, campaign_end_date: e.target.value })}
+                      className=\"w-full px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body\"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Target Regions */}
+            <div className=\"bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-6\">
+              <h2 className=\"text-xl font-heading font-bold text-on-surface mb-4\">Target Regions</h2>
+              <div className=\"space-y-4\">
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">States *</label>
+                  <div className=\"grid grid-cols-2 gap-2\">
+                    {states.map((state) => (
+                      <label key={state} className=\"flex items-center gap-2 p-3 rounded-lg bg-surface-container-highest hover:bg-surface-container-high cursor-pointer\">
+                        <input
+                          type=\"checkbox\"
+                          checked={formData.regions_state.includes(state)}
+                          onChange={() => handleMultiSelect('regions_state', state)}
+                          className=\"w-4 h-4\"
+                        />
+                        <span className=\"text-sm font-body\">{state}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Districts (comma-separated)</label>
+                  <input
+                    type=\"text\"
+                    value={formData.regions_district.join(', ')}
+                    onChange={(e) => setFormData({ ...formData, regions_district: e.target.value.split(',').map(d => d.trim()) })}
+                    className=\"w-full px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body\"
+                    placeholder=\"Kochi, Chennai, Hyderabad\"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Campaign Phases */}
+            <div className=\"bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-6\">
+              <h2 className=\"text-xl font-heading font-bold text-on-surface mb-4\">Campaign Phases *</h2>
+              <div className=\"grid grid-cols-2 gap-2\">
+                {phases.map((phase) => (
+                  <label key={phase.value} className=\"flex items-center gap-2 p-3 rounded-lg bg-surface-container-highest hover:bg-surface-container-high cursor-pointer\">
+                    <input
+                      type=\"checkbox\"
+                      checked={formData.campaign_phases.includes(phase.value)}
+                      onChange={() => handleMultiSelect('campaign_phases', phase.value)}
+                      className=\"w-4 h-4\"
+                    />
+                    <span className=\"text-sm font-body\">{phase.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Budget & Influencers */}
+            <div className=\"bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-6\">
+              <h2 className=\"text-xl font-heading font-bold text-on-surface mb-4\">Budget & Influencers</h2>
+              <div className=\"space-y-4\">
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Total Budget (INR) *</label>
+                  <input
+                    type=\"number\"
+                    value={formData.total_budget}
+                    onChange={(e) => setFormData({ ...formData, total_budget: e.target.value })}
+                    className=\"w-full px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body font-mono\"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Influencer Tiers * (Enter count for each)</label>
+                  <div className=\"grid grid-cols-2 gap-4\">
+                    {tiers.map((tier) => (
+                      <div key={tier.value} className=\"flex items-center gap-3 p-3 rounded-lg bg-surface-container-highest\">
+                        <label className=\"flex-1 text-sm font-body\">{tier.label}</label>
+                        <input
+                          type=\"number\"
+                          min=\"0\"
+                          value={formData.follower_ranges.find(r => r.tier === tier.value)?.count || ''}
+                          onChange={(e) => handleTierChange(tier.value, e.target.value)}
+                          className=\"w-20 px-3 py-2 rounded bg-surface-container-high font-mono text-center\"
+                          placeholder=\"0\"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Influencer Categories *</label>
+                  <div className=\"grid grid-cols-3 gap-2\">
+                    {categories.map((cat) => (
+                      <label key={cat} className=\"flex items-center gap-2 p-3 rounded-lg bg-surface-container-highest hover:bg-surface-container-high cursor-pointer\">
+                        <input
+                          type=\"checkbox\"
+                          checked={formData.influencer_categories.includes(cat)}
+                          onChange={() => handleMultiSelect('influencer_categories', cat)}
+                          className=\"w-4 h-4\"
+                        />
+                        <span className=\"text-sm font-body\">{cat}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Review Settings */}
+            <div className=\"bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-6\">
+              <h2 className=\"text-xl font-heading font-bold text-on-surface mb-4\">Review Settings</h2>
+              <div className=\"space-y-4\">
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Review Mode *</label>
+                  <div className=\"grid grid-cols-2 gap-4\">
+                    {[
+                      { value: 'automated', label: 'Automated (AI)' },
+                      { value: 'manual', label: 'Manual Review' }
+                    ].map((mode) => (
+                      <label
+                        key={mode.value}
+                        className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                          formData.review_mode === mode.value
+                            ? 'border-primary bg-primary/5'
+                            : 'border-outline-variant/20 hover:border-primary/50'
+                        }`}
+                      >
+                        <input
+                          type=\"radio\"
+                          name=\"review_mode\"
+                          value={mode.value}
+                          checked={formData.review_mode === mode.value}
+                          onChange={(e) => setFormData({ ...formData, review_mode: e.target.value })}
+                          className=\"w-4 h-4\"
+                        />
+                        <span className=\"font-body font-semibold\">{mode.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {formData.review_mode === 'automated' && (
+                  <div>
+                    <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Tone & Language Preferences</label>
+                    <input
+                      type=\"text\"
+                      value={formData.tone_language_preferences}
+                      onChange={(e) => setFormData({ ...formData, tone_language_preferences: e.target.value })}
+                      className=\"w-full px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body\"
+                      placeholder=\"e.g., Exciting, energetic, youthful\"
+                    />
+                  </div>
+                )}
+
+                <div>
+                  <label className=\"block text-sm font-body font-semibold text-on-surface mb-2\">Campaign Brief *</label>
+                  <textarea
+                    value={formData.campaign_brief}
+                    onChange={(e) => setFormData({ ...formData, campaign_brief: e.target.value })}
+                    className=\"w-full px-4 py-3 rounded-lg bg-surface-container-highest border-2 border-transparent focus:border-primary focus:outline-none font-body\"
+                    rows=\"5\"
+                    placeholder=\"Describe your campaign goals, key messages, and what you expect from influencers...\"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className=\"flex gap-4 justify-end\">
+              <Button
+                type=\"button\"
+                variant=\"ghost\"
+                size=\"lg\"
+                onClick={() => navigate('/producer/campaigns')}
+              >
+                Cancel
+              </Button>
+              <Button
+                type=\"submit\"
+                variant=\"primary\"
+                size=\"lg\"
+                disabled={loading}
+                data-testid=\"submit-campaign-button\"
+              >
+                {loading ? 'Creating...' : 'Create Campaign'}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CreateCampaign;
