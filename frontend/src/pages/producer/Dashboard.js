@@ -44,20 +44,18 @@ const ProducerDashboard = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-surface" data-testid="producer-dashboard">
+    <div className="flex min-h-screen bg-[#f8faff]" data-testid="producer-dashboard">
       <Sidebar />
-      
+
       <div className="flex-1">
         {/* Header */}
-        <div className="bg-surface-container-lowest border-b border-outline-variant/20 p-8">
+        <div className="bg-white border-b border-[#eee] px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-heading font-bold text-on-surface mb-2">
+              <h1 className="text-3xl font-heading font-bold text-[#1b1c19] mb-1">
                 Welcome back, {user?.name}
               </h1>
-              <p className="text-lg font-body text-muted-foreground">
-                {user?.production_house}
-              </p>
+              <p className="text-sm text-[#888]">{user?.production_house}</p>
             </div>
             <Button
               variant="primary"
@@ -102,9 +100,9 @@ const ProducerDashboard = () => {
           </div>
 
           {/* Recent Campaigns */}
-          <div className="bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-6">
+          <div className="bg-white rounded-2xl border border-[#eee] p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-heading font-bold text-on-surface">Recent Campaigns</h2>
+              <h2 className="text-xl font-heading font-bold text-[#1b1c19]">Recent Campaigns</h2>
               <Button
                 variant="ghost"
                 size="sm"
@@ -120,7 +118,7 @@ const ProducerDashboard = () => {
                 {dashboard.campaigns.slice(0, 5).map((campaign) => (
                   <div
                     key={campaign.id}
-                    className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg hover:shadow-ambient transition-all cursor-pointer"
+                    className="flex items-center justify-between p-4 bg-[#f8faff] rounded-2xl border border-[#eee] hover:border-[#c7d2fe] hover:bg-white transition-all cursor-pointer"
                     onClick={() => navigate(`/producer/campaigns/${campaign.id}`)}
                     data-testid={`campaign-item-${campaign.id}`}
                   >
@@ -129,25 +127,25 @@ const ProducerDashboard = () => {
                         <img
                           src={campaign.poster_url}
                           alt={campaign.movie_title}
-                          className="w-16 h-16 object-cover rounded-lg"
+                          className="w-14 h-14 object-cover rounded-xl"
                         />
                       )}
                       <div>
-                        <h3 className="font-heading font-semibold text-on-surface">{campaign.movie_title}</h3>
-                        <p className="text-sm font-body text-muted-foreground">
-                          {campaign.campaign_type.replace('_', ' ').toUpperCase()}
+                        <h3 className="font-heading font-semibold text-[#1b1c19]">{campaign.movie_title}</h3>
+                        <p className="text-xs text-[#aaa] font-semibold uppercase tracking-wide mt-0.5">
+                          {campaign.campaign_type.replace('_', ' ')}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-mono uppercase ${
-                        campaign.status === 'active' 
-                          ? 'bg-success/10 text-success' 
-                          : 'bg-muted text-muted-foreground'
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                        campaign.status === 'active'
+                          ? 'bg-[#ecfdf5] text-[#059669]'
+                          : 'bg-[#f3f4f6] text-[#6b7280]'
                       }`}>
-                        {campaign.status}
+                        {campaign.status.toUpperCase()}
                       </span>
-                      <p className="text-sm font-mono text-muted-foreground mt-1">
+                      <p className="text-sm text-[#888] mt-1">
                         ₹{campaign.budget_spent.toLocaleString()} / ₹{campaign.total_budget.toLocaleString()}
                       </p>
                     </div>

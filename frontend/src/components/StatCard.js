@@ -5,27 +5,27 @@ const StatCard = ({ title, value, subtitle, icon: Icon, trend, onClick, clickabl
     <button
       type="button"
       onClick={onClick}
-      className={`w-full bg-surface-container-lowest rounded-DEFAULT p-6 shadow-ambient animate-fade-in text-left ${
-        clickable ? 'transition-all hover:shadow-ambient-lg hover:-translate-y-0.5 cursor-pointer' : 'cursor-default'
+      className={`w-full bg-white rounded-2xl p-6 border border-[#eee] text-left animate-fade-in ${
+        clickable
+          ? 'transition-all hover:shadow-ambient-lg hover:-translate-y-0.5 cursor-pointer'
+          : 'cursor-default'
       }`}
       data-testid="stat-card"
     >
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <p className="text-sm font-body text-muted-foreground uppercase tracking-wider mb-1">{title}</p>
-          <h3 className="text-3xl font-heading font-bold text-on-surface font-mono">{value}</h3>
-        </div>
+      <div className="flex items-start justify-between mb-3">
+        <p className="text-xs font-semibold text-[#aaa] uppercase tracking-wider">{title}</p>
         {Icon && (
-          <div className="p-3 rounded-full bg-primary/10">
-            <Icon className="w-6 h-6 text-primary" />
+          <div className="p-2.5 rounded-xl bg-[#eef1ff]">
+            <Icon className="w-5 h-5 text-[#0028aa]" />
           </div>
         )}
       </div>
+      <h3 className="text-3xl font-heading font-bold text-[#1b1c19] mb-1">{value}</h3>
       {subtitle && (
-        <p className="text-sm font-body text-muted-foreground">{subtitle}</p>
+        <p className="text-sm text-[#888]">{subtitle}</p>
       )}
       {trend && (
-        <div className={`text-sm font-mono mt-2 ${trend > 0 ? 'text-success' : 'text-error'}`}>
+        <div className={`text-xs font-semibold mt-2 ${trend > 0 ? 'text-[#059669]' : 'text-[#dc2626]'}`}>
           {trend > 0 ? '+' : ''}{trend}% from last month
         </div>
       )}

@@ -6,6 +6,12 @@ import './App.css';
 
 // Pages
 import Login from './pages/Login';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import PreviewA from './pages/previews/PreviewA';
+import PreviewB from './pages/previews/PreviewB';
+import PreviewC from './pages/previews/PreviewC';
 import ProducerDashboard from './pages/producer/Dashboard';
 import ProducerCampaigns from './pages/producer/Campaigns';
 import CreateCampaign from './pages/producer/CreateCampaignComplete';
@@ -18,6 +24,7 @@ import DeliverableTracker from './pages/producer/DeliverableTracker';
 
 import InfluencerDashboard from './pages/influencer/Dashboard';
 import InfluencerCampaigns from './pages/influencer/Campaigns';
+import InstagramVerification from './pages/influencer/InstagramVerification';
 
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminUsers from './pages/admin/Users';
@@ -38,7 +45,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
@@ -53,9 +60,14 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/admin-login" element={<Login />} />
+      <Route path="/preview/a" element={<PreviewA />} />
+      <Route path="/preview/b" element={<PreviewB />} />
+      <Route path="/preview/c" element={<PreviewC />} />
       
-      {/* Default route based on role */}
+      {/* Default route */}
       <Route
         path="/"
         element={
@@ -67,10 +79,10 @@ const AppRoutes = () => {
             ) : user.role === 'admin' ? (
               <Navigate to="/admin/dashboard" replace />
             ) : (
-              <Navigate to="/login" replace />
+              <LandingPage />
             )
           ) : (
-            <Navigate to="/login" replace />
+            <LandingPage />
           )
         }
       />
@@ -150,6 +162,8 @@ const AppRoutes = () => {
       />
 
       {/* Influencer Routes */}
+      <Route path="/influencer/verify-instagram" element={<InstagramVerification />} />
+      <Route path="/influencer/verify-instagram/callback" element={<InstagramVerification />} />
       <Route
         path="/influencer/dashboard"
         element={

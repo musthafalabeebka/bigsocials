@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         heading: ['Epilogue', 'sans-serif'],
-        body: ['Manrope', 'sans-serif'],
+        body: ['Plus Jakarta Sans', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
@@ -23,15 +23,15 @@ module.exports = {
           DEFAULT: '#2e51c9',
           foreground: '#ffffff',
         },
-        // Surface Colors
+        // Surface Colors — Design B clean neutral palette
         surface: {
-          DEFAULT: '#fbf9f3',
+          DEFAULT: '#f8faff',
           container: {
             lowest: '#ffffff',
-            low: '#f5f4ee',
-            DEFAULT: '#efeee8',
-            high: '#e9e8e2',
-            highest: '#e3e3dd',
+            low:     '#f8f9fa',
+            DEFAULT: '#f1f3f5',
+            high:    '#e9ebee',
+            highest: '#f1f3f5',
           },
         },
         // On Colors
@@ -39,8 +39,8 @@ module.exports = {
         'on-primary': '#ffffff',
         // Utility
         outline: {
-          DEFAULT: '#79767d',
-          variant: '#c9c5ca',
+          DEFAULT: '#9ca3af',
+          variant: '#e5e7eb',
         },
         error: '#ba1a1a',
         success: '#00a86b',
@@ -86,8 +86,8 @@ module.exports = {
         xs: '2px',
       },
       boxShadow: {
-        'ambient': '0 4px 24px rgba(26, 63, 212, 0.08)',
-        'ambient-lg': '0 8px 32px rgba(26, 63, 212, 0.12)',
+        'ambient':    '0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
+        'ambient-lg': '0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04)',
       },
       keyframes: {
         'accordion-down': {

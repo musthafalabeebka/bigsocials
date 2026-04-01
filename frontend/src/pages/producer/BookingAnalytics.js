@@ -30,6 +30,142 @@ const tooltipStyle = {
 
 const heatColors = ['#dbe5ff', '#adc3ff', '#7f9eff', '#4f79f2', '#214ecf', '#0028aa'];
 
+/* ── District coordinates (lon/lat → SVG px)
+   formula: x = (lon − 74) × 35,  y = (20.5 − lat) × 35 + 20  ── */
+const DISTRICT_COORDS = {
+  'Chennai':           { x: 219, y: 280 },
+  'Kochi':             { x: 79,  y: 390 },
+  'Hyderabad':         { x: 157, y: 129 },
+  'Thiruvananthapuram':{ x: 103, y: 439 },
+  'Vijayawada':        { x: 232, y: 160 },
+  'Coimbatore':        { x: 104, y: 352 },
+};
+
+const SouthIndiaMap = ({ data }) => {
+  const [hovered, setHovered] = React.useState(null);
+  const maxBookings = Math.max(...data.map(d => d.bookings));
+
+  const heatColor = (intensity) => {
+    const idx = Math.min(Math.floor((intensity / 100) * heatColors.length), heatColors.length - 1);
+    return heatColors[idx];
+  };
+
+  return (
+    <div className="relative">
+      <svg viewBox="0 0 380 490" className="w-full" style={{ maxHeight: 380 }}>
+        {/* ── State fills ── */}
+        {/* Karnataka — context (grey) */}
+        <polygon
+          points="28,108 158,108 158,175 140,175 140,265 122,265 122,307 52,307 28,108"
+          fill="#f1f5f9" stroke="#e2e8f0" strokeWidth="1.5"
+        />
+        {/* Kerala */}
+        <polygon
+          points="28,307 52,307 122,307 119,335 112,385 98,440 88,455 52,455 34,423 28,370 28,307"
+          fill="#dbeafe" stroke="#93c5fd" strokeWidth="1.5"
+        />
+        {/* Tamil Nadu */}
+        <polygon
+          points="122,265 220,265 213,475 88,475 98,440 112,385 119,335 122,307 122,265"
+          fill="#e0f2fe" stroke="#7dd3fc" strokeWidth="1.5"
+        />
+        {/* Telangana */}
+        <polygon
+          points="112,45 258,45 258,158 112,184 112,45"
+          fill="#ede9fe" stroke="#c4b5fd" strokeWidth="1.5"
+        />
+        {/* Andhra Pradesh */}
+        <polygon
+          points="220,265 350,265 350,45 258,45 258,158 140,175 140,265 220,265"
+          fill="#dbeafe" stroke="#93c5fd" strokeWidth="1.5"
+        />
+
+        {/* ── State labels ── */}
+        <text x="62"  y="400" fontSize="8" fill="#64748b" fontWeight="600" opacity="0.8">KERALA</text>
+        <text x="145" y="390" fontSize="8" fill="#64748b" fontWeight="600" opacity="0.8">TAMIL</text>
+        <text x="145" y="400" fontSize="8" fill="#64748b" fontWeight="600" opacity="0.8">NADU</text>
+        <text x="155" y="115" fontSize="8" fill="#64748b" fontWeight="600" opacity="0.8">TELANGANA</text>
+        <text x="270" y="200" fontSize="8" fill="#64748b" fontWeight="600" opacity="0.8">ANDHRA</text>
+        <text x="270" y="210" fontSize="8" fill="#64748b" fontWeight="600" opacity="0.8">PRADESH</text>
+        <text x="48"  y="175" fontSize="8" fill="#94a3b8" fontWeight="500" opacity="0.7">KARNATAKA</text>
+
+        {/* ── District heat bubbles ── */}
+        {data.map((d) => {
+          const coords = DISTRICT_COORDS[d.district];
+          if (!coords) return null;
+          const r = 10 + (d.bookings / maxBookings) * 18;
+          const color = heatColor(d.intensity);
+          const isHov = hovered === d.district;
+          return (
+            <g
+              key={d.district}
+              onMouseEnter={() => setHovered(d.district)}
+              onMouseLeave={() => setHovered(null)}
+              style={{ cursor: 'pointer' }}
+            >
+              {/* Glow ring on hover */}
+              {isHov && (
+                <circle cx={coords.x} cy={coords.y} r={r + 5}
+                  fill={color} opacity="0.25" />
+              )}
+              <circle cx={coords.x} cy={coords.y} r={r}
+                fill={color} stroke="white" strokeWidth={isHov ? 2.5 : 1.5} opacity="0.92" />
+              <text
+                x={coords.x} y={coords.y + 3}
+                textAnchor="middle" fontSize="7.5"
+                fill={d.intensity > 60 ? 'white' : '#1e3a8a'}
+                fontWeight="700"
+              >
+                {(d.bookings / 1000).toFixed(0)}K
+              </text>
+              {/* District name label */}
+              <text
+                x={coords.x} y={coords.y + r + 11}
+                textAnchor="middle" fontSize="7"
+                fill="#334155" fontWeight="600"
+              >
+                {d.district}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* ── Tooltip ── */}
+        {hovered && (() => {
+          const d = data.find(x => x.district === hovered);
+          const coords = DISTRICT_COORDS[hovered];
+          if (!d || !coords) return null;
+          const tx = Math.min(coords.x + 14, 260);
+          const ty = Math.max(coords.y - 48, 10);
+          return (
+            <g>
+              <rect x={tx} y={ty} width={110} height={44} rx="6" fill="white"
+                stroke="#e2e8f0" strokeWidth="1"
+                style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.12))' }} />
+              <text x={tx + 8} y={ty + 14} fontSize="9" fontWeight="700" fill="#1b1c19">{d.district}</text>
+              <text x={tx + 8} y={ty + 26} fontSize="8" fill="#64748b">{d.state}</text>
+              <text x={tx + 8} y={ty + 38} fontSize="9" fontWeight="700" fill="#0028aa">
+                {d.bookings.toLocaleString()} bookings
+              </text>
+            </g>
+          );
+        })()}
+      </svg>
+
+      {/* ── Legend ── */}
+      <div className="flex items-center gap-2 mt-2">
+        <span className="text-xs text-[#888] font-semibold">Low</span>
+        <div className="flex gap-0.5">
+          {heatColors.map((c, i) => (
+            <div key={i} className="w-6 h-3 rounded-sm" style={{ background: c }} />
+          ))}
+        </div>
+        <span className="text-xs text-[#888] font-semibold">High</span>
+      </div>
+    </div>
+  );
+};
+
 const BookingAnalytics = () => {
   return (
     <div className="flex min-h-screen bg-surface">
@@ -171,24 +307,7 @@ const BookingAnalytics = () => {
                 <MapPinned className="w-6 h-6 text-primary" />
                 <h2 className="text-2xl font-heading font-bold">Geographic Heat Map</h2>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {mockBookingData.district_wise.map((district, index) => (
-                  <div
-                    key={district.district}
-                    className="rounded-xl p-4 text-white shadow-ambient"
-                    style={{ backgroundColor: heatColors[Math.min(index, heatColors.length - 1)] }}
-                  >
-                    <p className="text-sm font-semibold text-[#0d235e]">{district.district}</p>
-                    <p className="text-xs text-[#14347d]">{district.state}</p>
-                    <p className="mt-4 text-2xl font-heading font-bold text-[#04153e]">
-                      {district.bookings.toLocaleString()}
-                    </p>
-                    <p className="text-xs uppercase tracking-[0.12em] text-[#14347d]">
-                      Heat {district.intensity}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <SouthIndiaMap data={mockBookingData.district_wise} />
             </div>
 
             <div className={chartCard}>
