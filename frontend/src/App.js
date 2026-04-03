@@ -21,6 +21,25 @@ import BookingAnalytics from './pages/producer/BookingAnalytics';
 import InfluencerRecommendations from './pages/producer/InfluencerRecommendations';
 import CampaignPayment from './pages/producer/CampaignPayment';
 import DeliverableTracker from './pages/producer/DeliverableTracker';
+import AiPrAgent from './pages/producer/AiPrAgent';
+import Vendors from './pages/producer/Vendors';
+import Billboards from './pages/producer/Billboards';
+import Brands from './pages/producer/Brands';
+import BrandBriefForm from './pages/producer/BrandBriefForm';
+import FieldAgents from './pages/producer/FieldAgents';
+import TeaCupMarketing from './pages/producer/TeaCupMarketing';
+import TeaCupMarketingPayment from './pages/producer/TeaCupMarketingPayment';
+import TeaShopBoards from './pages/producer/TeaShopBoards';
+import NoticeMarketing from './pages/producer/NoticeMarketing';
+import Ambassadors from './pages/producer/Ambassadors';
+import Media from './pages/producer/Media';
+import Newspapers from './pages/producer/Newspapers';
+import NewspaperPayment from './pages/producer/NewspaperPayment';
+import RadioMedia from './pages/producer/RadioMedia';
+import RadioPayment from './pages/producer/RadioPayment';
+import Kudumbasree from './pages/producer/Kudumbasree';
+import KudumbasreePayment from './pages/producer/KudumbasreePayment';
+import Students from './pages/producer/Students';
 
 import InfluencerDashboard from './pages/influencer/Dashboard';
 import InfluencerCampaigns from './pages/influencer/Campaigns';
@@ -133,6 +152,182 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={['producer']}>
             <BookingAnalytics />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/ai-pr-agent"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <AiPrAgent />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <Vendors />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/billboards"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <Billboards />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/brands"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <Brands />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/brands/new"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <BrandBriefForm />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/field-agents"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <FieldAgents />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/ambassadors"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <Ambassadors />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/ambassadors/kudumbasree"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <Kudumbasree />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/ambassadors/kudumbasree/payment"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <KudumbasreePayment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/ambassadors/students"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <Students />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/ambassadors/students/payment"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <KudumbasreePayment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/media"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <Media />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/media/newspapers"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <Newspapers />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/media/newspapers/payment"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <NewspaperPayment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/media/radio"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <RadioMedia />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/media/radio/payment"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <RadioPayment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/field-agents/tea-cup-marketing"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <TeaCupMarketing />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/field-agents/tea-cup-marketing/payment"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <TeaCupMarketingPayment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/field-agents/tea-shop-boards"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <TeaShopBoards />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/field-agents/tea-shop-boards/payment"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <TeaCupMarketingPayment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/field-agents/notice-marketing"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <NoticeMarketing />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/field-agents/notice-marketing/payment"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <TeaCupMarketingPayment />
           </ProtectedRoute>
         }
       />

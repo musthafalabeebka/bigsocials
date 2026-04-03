@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Film, LayoutDashboard, Users, Settings, LogOut, TrendingUp, Store } from 'lucide-react';
+import { Film, LayoutDashboard, Users, Settings, LogOut, TrendingUp, Store, Sparkles, Handshake } from 'lucide-react';
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -18,9 +18,11 @@ const Sidebar = () => {
       case 'producer':
         return [
           { icon: LayoutDashboard, label: 'Dashboard',   path: '/producer/dashboard' },
-          { icon: Film,            label: 'Campaigns',   path: '/producer/campaigns' },
-          { icon: Store,           label: 'Marketplace', path: '/producer/marketplace' },
+          { icon: Film,            label: 'Influencer Campaigns',   path: '/producer/campaigns' },
+          { icon: Store,           label: 'Influencer Marketplace', path: '/producer/marketplace' },
           { icon: TrendingUp,      label: 'Bookings',    path: '/producer/booking-analytics' },
+          { icon: Sparkles,        label: 'AI PR Agent', path: '/producer/ai-pr-agent' },
+          { icon: Handshake,       label: 'Vendors',     path: '/producer/vendors' },
         ];
       case 'influencer':
         return [

@@ -5,8 +5,157 @@ import { analyticsAPI } from '../../services/api';
 import Sidebar from '../../components/Sidebar';
 import StatCard from '../../components/StatCard';
 import Button from '../../components/Button';
-import { Film, DollarSign, Users, TrendingUp, Plus } from 'lucide-react';
+import { Film, DollarSign, Users, TrendingUp } from 'lucide-react';
 import { toast } from 'sonner';
+
+const storageKeys = {
+  billboards: 'billboard_live_campaigns',
+  newspapers: 'newspaper_media_campaigns',
+  radio: 'radio_media_campaigns',
+  teaCups: 'tea_cup_marketing_campaigns',
+  teaShopBoards: 'tea_shop_boards_campaigns',
+  noticeMarketing: 'notice_marketing_campaigns',
+  kudumbasree: 'kudumbasree_campaigns',
+  students: 'students_campaigns',
+  brandBriefs: 'brand_bidding_briefs',
+};
+
+const readStoredCampaigns = (key) => {
+  if (typeof window === 'undefined') {
+    return [];
+  }
+
+  const raw = window.localStorage.getItem(key);
+  return raw ? JSON.parse(raw) : [];
+};
+
+const normalizeStoredCampaigns = () => {
+  const billboardCampaigns = readStoredCampaigns(storageKeys.billboards).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.campaignName || campaign.title,
+    category: 'Billboards',
+    subtitle: campaign.location,
+    status: (campaign.status || 'live').toLowerCase(),
+    budget: campaign.price || 0,
+    spent: campaign.price || 0,
+    reach: campaign.estimatedReach || 0,
+    route: '/producer/vendors/billboards',
+    routeState: { activeTab: 'live', reportCampaignId: campaign.id },
+  }));
+
+  const newspaperCampaigns = readStoredCampaigns(storageKeys.newspapers).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.campaignName || campaign.newspaperName,
+    category: 'Media',
+    subtitle: `${campaign.newspaperName} • ${campaign.location}`,
+    status: (campaign.status || 'live').toLowerCase(),
+    budget: campaign.price || 0,
+    spent: campaign.price || 0,
+    reach: campaign.estimatedViewership || 0,
+    route: '/producer/vendors/media/newspapers',
+    routeState: { activeTab: 'live', reportCampaignId: campaign.id },
+  }));
+
+  const radioCampaigns = readStoredCampaigns(storageKeys.radio).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.campaignName || campaign.stationName,
+    category: 'Media',
+    subtitle: `${campaign.stationName} • ${campaign.location}`,
+    status: (campaign.status || 'live').toLowerCase(),
+    budget: campaign.price || 0,
+    spent: campaign.price || 0,
+    reach: campaign.listenerReach || 0,
+    route: '/producer/vendors/media/radio',
+    routeState: { activeTab: 'live', reportCampaignId: campaign.id },
+  }));
+
+  const teaCupCampaigns = readStoredCampaigns(storageKeys.teaCups).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.movieName,
+    category: 'Field Agents',
+    subtitle: `Tea Cup Marketing • ${campaign.district}`,
+    status: (campaign.status || 'live').toLowerCase(),
+    budget: campaign.totalCost || 0,
+    spent: campaign.totalCost || 0,
+    reach: campaign.distributed || 0,
+    route: '/producer/vendors/field-agents/tea-cup-marketing',
+    routeState: { activeTab: 'report', reportCampaignId: campaign.id },
+  }));
+
+  const teaShopBoardCampaigns = readStoredCampaigns(storageKeys.teaShopBoards).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.movieName,
+    category: 'Field Agents',
+    subtitle: `Tea Shop Boards • ${campaign.district}`,
+    status: (campaign.status || 'live').toLowerCase(),
+    budget: campaign.totalCost || 0,
+    spent: campaign.totalCost || 0,
+    reach: campaign.outlets || 0,
+    route: '/producer/vendors/field-agents/tea-shop-boards',
+    routeState: { activeTab: 'report', reportCampaignId: campaign.id },
+  }));
+
+  const noticeCampaigns = readStoredCampaigns(storageKeys.noticeMarketing).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.movieName,
+    category: 'Field Agents',
+    subtitle: `Notice Marketing • ${campaign.district}`,
+    status: (campaign.status || 'live').toLowerCase(),
+    budget: campaign.totalCost || 0,
+    spent: campaign.totalCost || 0,
+    reach: (campaign.outlets || 0) * 1000,
+    route: '/producer/vendors/field-agents/notice-marketing',
+    routeState: { activeTab: 'report', reportCampaignId: campaign.id },
+  }));
+
+  const kudumbasreeCampaigns = readStoredCampaigns(storageKeys.kudumbasree).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.campaignName,
+    category: 'Ambassadors',
+    subtitle: `Kudumbasree • ${campaign.district || campaign.state || ''}`.trim(),
+    status: (campaign.status || 'live').toLowerCase(),
+    budget: campaign.budget || 0,
+    spent: campaign.budget || 0,
+    reach: campaign.targetViews || 0,
+    route: '/producer/vendors/ambassadors/kudumbasree',
+  }));
+
+  const studentCampaigns = readStoredCampaigns(storageKeys.students).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.campaignName,
+    category: 'Ambassadors',
+    subtitle: `Students • ${campaign.district || campaign.state || ''}`.trim(),
+    status: (campaign.status || 'live').toLowerCase(),
+    budget: campaign.budget || 0,
+    spent: campaign.budget || 0,
+    reach: campaign.targetViews || 0,
+    route: '/producer/vendors/ambassadors/students',
+  }));
+
+  const brandCampaigns = readStoredCampaigns(storageKeys.brandBriefs).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.movieName,
+    category: 'Brands',
+    subtitle: campaign.opportunityTitle || 'Brand collaboration',
+    status: 'live',
+    budget: Number(campaign.minimumBid || 0),
+    spent: 0,
+    reach: Number(String(campaign.expectedReach || 0).replace(/,/g, '')) || 0,
+    route: '/producer/vendors/brands',
+  }));
+
+  return [
+    ...billboardCampaigns,
+    ...newspaperCampaigns,
+    ...radioCampaigns,
+    ...teaCupCampaigns,
+    ...teaShopBoardCampaigns,
+    ...noticeCampaigns,
+    ...kudumbasreeCampaigns,
+    ...studentCampaigns,
+    ...brandCampaigns,
+  ];
+};
 
 const ProducerDashboard = () => {
   const { user } = useAuth();
@@ -23,11 +172,32 @@ const ProducerDashboard = () => {
       const response = await analyticsAPI.getProducerDashboard(user.id);
       setDashboard(response.data);
     } catch (error) {
-      toast.error('Failed to load dashboard');
+      setDashboard(null);
     } finally {
       setLoading(false);
     }
   };
+
+  const storedCampaigns = normalizeStoredCampaigns();
+  const backendCampaigns = (dashboard?.campaigns || []).map((campaign) => ({
+    id: campaign.id,
+    title: campaign.movie_title,
+    category: 'Influencers',
+    subtitle: campaign.campaign_type.replace('_', ' '),
+    status: campaign.status,
+    budget: campaign.total_budget || 0,
+    spent: campaign.budget_spent || 0,
+    reach: campaign.total_reach || campaign.reach || 0,
+    posterUrl: campaign.poster_url,
+    route: `/producer/campaigns/${campaign.id}`,
+  }));
+
+  const allCampaigns = [...storedCampaigns, ...backendCampaigns];
+  const totalCampaignCount = allCampaigns.length;
+  const activeCampaignCount = allCampaigns.filter((campaign) => campaign.status === 'active' || campaign.status === 'live').length;
+  const totalBudget = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.budget || 0), 0);
+  const totalSpent = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.spent || 0), 0);
+  const totalReach = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.reach || 0), 0);
 
   if (loading) {
     return (
@@ -50,22 +220,11 @@ const ProducerDashboard = () => {
       <div className="flex-1">
         {/* Header */}
         <div className="bg-white border-b border-[#eee] px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-heading font-bold text-[#1b1c19] mb-1">
-                Welcome back, {user?.name}
-              </h1>
-              <p className="text-sm text-[#888]">{user?.production_house}</p>
-            </div>
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={() => navigate('/producer/campaigns/create')}
-              data-testid="create-campaign-button"
-            >
-              Create Campaign
-              <Plus className="w-5 h-5 ml-2" />
-            </Button>
+          <div>
+            <h1 className="text-3xl font-heading font-bold text-[#1b1c19] mb-1">
+              Welcome back, {user?.name}
+            </h1>
+            <p className="text-sm text-[#888]">{user?.production_house}</p>
           </div>
         </div>
 
@@ -74,28 +233,27 @@ const ProducerDashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <StatCard
               title="Total Campaigns"
-              value={dashboard?.total_campaigns || 0}
-              subtitle={`${dashboard?.active_campaigns || 0} active`}
+              value={totalCampaignCount}
+              subtitle={`${activeCampaignCount} active`}
               icon={Film}
             />
             <StatCard
               title="Total Budget"
-              value={`₹${(dashboard?.total_budget || 0).toLocaleString()}`}
-              subtitle={`₹${(dashboard?.total_spent || 0).toLocaleString()} spent`}
+              value={`₹${totalBudget.toLocaleString('en-IN')}`}
+              subtitle={`₹${totalSpent.toLocaleString('en-IN')} spent`}
               icon={DollarSign}
             />
             <StatCard
-              title="Total Influencers"
+              title="Total Partners"
               value={dashboard?.total_influencers || 0}
-              subtitle="Engaged creators"
+              subtitle="Engaged partners"
               icon={Users}
             />
             <StatCard
-              title="Engagement Rate"
-              value="8.5%"
-              subtitle="Avg across campaigns"
+              title="Total Reach"
+              value={totalReach.toLocaleString('en-IN')}
+              subtitle="Sum across all campaigns"
               icon={TrendingUp}
-              trend={12}
             />
           </div>
 
@@ -113,40 +271,41 @@ const ProducerDashboard = () => {
               </Button>
             </div>
 
-            {dashboard?.campaigns && dashboard.campaigns.length > 0 ? (
+            {allCampaigns.length > 0 ? (
               <div className="space-y-4">
-                {dashboard.campaigns.slice(0, 5).map((campaign) => (
+                {allCampaigns.slice(0, 5).map((campaign) => (
                   <div
                     key={campaign.id}
-                    className="flex items-center justify-between p-4 bg-[#f8faff] rounded-2xl border border-[#eee] hover:border-[#c7d2fe] hover:bg-white transition-all cursor-pointer"
-                    onClick={() => navigate(`/producer/campaigns/${campaign.id}`)}
+                    className="flex items-center justify-between rounded-2xl border border-[#dbe5ff] bg-[linear-gradient(135deg,#eef4ff_0%,#dce8ff_100%)] p-4 transition-all cursor-pointer hover:border-[#9eb8ff] hover:shadow-sm"
+                    onClick={() => navigate(campaign.route, campaign.routeState ? { state: campaign.routeState } : undefined)}
                     data-testid={`campaign-item-${campaign.id}`}
                   >
                     <div className="flex items-center gap-4">
-                      {campaign.poster_url && (
+                      {campaign.posterUrl && (
                         <img
-                          src={campaign.poster_url}
-                          alt={campaign.movie_title}
+                          src={campaign.posterUrl}
+                          alt={campaign.title}
                           className="w-14 h-14 object-cover rounded-xl"
                         />
                       )}
                       <div>
-                        <h3 className="font-heading font-semibold text-[#1b1c19]">{campaign.movie_title}</h3>
-                        <p className="text-xs text-[#aaa] font-semibold uppercase tracking-wide mt-0.5">
-                          {campaign.campaign_type.replace('_', ' ')}
+                        <h3 className="font-heading font-semibold text-[#1b1c19]">{campaign.title}</h3>
+                        <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-[#0028aa]">
+                          {campaign.category}
                         </p>
+                        <p className="mt-1 text-xs text-[#5f6f99]">{campaign.subtitle}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                        campaign.status === 'active'
+                        campaign.status === 'active' || campaign.status === 'live'
                           ? 'bg-[#ecfdf5] text-[#059669]'
                           : 'bg-[#f3f4f6] text-[#6b7280]'
                       }`}>
-                        {campaign.status.toUpperCase()}
+                        {String(campaign.status || 'draft').toUpperCase()}
                       </span>
-                      <p className="text-sm text-[#888] mt-1">
-                        ₹{campaign.budget_spent.toLocaleString()} / ₹{campaign.total_budget.toLocaleString()}
+                      <p className="mt-1 text-sm text-[#46557c]">
+                        ₹{Number(campaign.spent || 0).toLocaleString('en-IN')} / ₹{Number(campaign.budget || 0).toLocaleString('en-IN')}
                       </p>
                     </div>
                   </div>
