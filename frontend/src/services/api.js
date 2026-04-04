@@ -206,6 +206,63 @@ const demoUsers = {
     account_type: 'creator',
     mobile: '+91 98765 43210',
   },
+  vendors: {
+    billboards: {
+      id: 'vendor-billboards-demo',
+      email: 'billboards.vendor@test.com',
+      name: 'Billboards Vendor',
+      role: 'vendor',
+      company_name: 'Skyline Outdoor Media',
+      vendor_type: 'billboards',
+      vendor_type_label: 'Billboards',
+      onboarding_completed: true,
+      is_active: true,
+    },
+    media: {
+      id: 'vendor-media-demo',
+      email: 'media.vendor@test.com',
+      name: 'Media Vendor',
+      role: 'vendor',
+      company_name: 'Amplify Media Network',
+      vendor_type: 'media',
+      vendor_type_label: 'Media',
+      onboarding_completed: true,
+      is_active: true,
+    },
+    brands: {
+      id: 'vendor-brands-demo',
+      email: 'brands.vendor@test.com',
+      name: 'Brands Vendor',
+      role: 'vendor',
+      company_name: 'Brand Connect Partners',
+      vendor_type: 'brands',
+      vendor_type_label: 'Brands',
+      onboarding_completed: true,
+      is_active: true,
+    },
+    ambassadors: {
+      id: 'vendor-ambassadors-demo',
+      email: 'ambassadors.vendor@test.com',
+      name: 'Ambassadors Vendor',
+      role: 'vendor',
+      company_name: 'Community Reach Collective',
+      vendor_type: 'ambassadors',
+      vendor_type_label: 'Ambassadors',
+      onboarding_completed: true,
+      is_active: true,
+    },
+    fieldAgents: {
+      id: 'vendor-field-agents-demo',
+      email: 'fieldagents.vendor@test.com',
+      name: 'Field Agents Vendor',
+      role: 'vendor',
+      company_name: 'Ground Force Activations',
+      vendor_type: 'field-agents',
+      vendor_type_label: 'Field Agents',
+      onboarding_completed: true,
+      is_active: true,
+    },
+  },
 };
 
 const mockAdminDashboard = {
@@ -266,6 +323,16 @@ const buildMockUser = (email, role) => {
 
   if (role === 'influencer' && email === demoUsers.influencer.email) {
     return demoUsers.influencer;
+  }
+
+  if (role === 'vendor') {
+    const vendorUser = Object.values(demoUsers.vendors).find(
+      (vendor) => vendor.email === email
+    );
+
+    if (vendorUser) {
+      return vendorUser;
+    }
   }
 
   return null;
@@ -346,6 +413,24 @@ export const authAPI = {
     }
 
     return api.post('/auth/register/influencer', data);
+  },
+
+  registerVendor: async (data) => {
+    if (useMockApi) {
+      return mockDelay({
+        user: {
+          ...demoUsers.vendors.billboards,
+          ...data,
+          id: 'vendor-registered-demo',
+          role: 'vendor',
+          onboarding_completed: false,
+          is_active: true,
+        },
+        message: 'Vendor registered successfully',
+      });
+    }
+
+    return api.post('/auth/register/vendor', data);
   },
 };
 

@@ -3,8 +3,9 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { authAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Film, Instagram, ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Film, Instagram, ArrowLeft, ArrowRight, CheckCircle2, Shield } from 'lucide-react';
 import { districtsByState, allStates } from '../../data/regions';
+import { vendorTypeOptions } from '../vendor/vendorTypes';
 
 const CATEGORIES = ['Lifestyle', 'Couples', 'Family', 'Youth', 'Kids', 'Music', 'Meme', 'Review', 'Film', 'Fan Pages', 'Actor Pages'];
 const STATES = allStates;
@@ -17,6 +18,9 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
 
   const [producerForm, setProducerForm]   = useState({ email: '', name: '', gst_number: '', website: '', mobile: '', password: '', confirm_password: '' });
+  const [vendorForm, setVendorForm] = useState({
+    email: '', name: '', company_name: '', vendor_type: vendorTypeOptions[0].id, mobile: '', website: '', password: '', confirm_password: '',
+  });
   const [influencerForm, setInfluencerForm] = useState({
     email: '', name: '', age: '', account_type: 'creator', instagram_handle: '',
     location_state: 'Kerala', location_district: '', categories: [],
@@ -77,7 +81,32 @@ const RegisterPage = () => {
     } finally { setLoading(false); }
   };
 
+  const handleVendorRegister = async (e) => {
+    e.preventDefault();
+    if (vendorForm.password !== vendorForm.confirm_password) {
+      toast.error('Passwords do not match'); return;
+    }
+    if (vendorForm.password.length < 8) {
+      toast.error('Password must be at least 8 characters'); return;
+    }
+    setLoading(true);
+    try {
+      const { confirm_password, ...payload } = vendorForm;
+      const selectedVendorType = vendorTypeOptions.find((option) => option.id === payload.vendor_type);
+      const response = await authAPI.registerVendor({
+        ...payload,
+        vendor_type_label: selectedVendorType?.title || payload.vendor_type,
+      });
+      login(response.data.user);
+      toast.success('Vendor account created!');
+      navigate('/vendor/onboarding');
+    } catch (err) {
+      toast.error(err.response?.data?.detail || 'Registration failed');
+    } finally { setLoading(false); }
+  };
+
   const setP = (k, v) => setProducerForm(f => ({ ...f, [k]: v }));
+  const setV = (k, v) => setVendorForm(f => ({ ...f, [k]: v }));
   const setI = (k, v) => setInfluencerForm(f => ({ ...f, [k]: v }));
   const toggleCat = (cat) => setInfluencerForm(f => ({
     ...f,
@@ -99,6 +128,11 @@ const RegisterPage = () => {
             icon={Instagram} iconBg="#fce8ff" iconColor="#9333ea"
             title="Influencer" subtitle="Get paid to promote movies"
             onClick={() => setRole('influencer')}
+          />
+          <RoleCard
+            icon={Shield} iconBg="#eef1ff" iconColor="#0028aa"
+            title="Vendor" subtitle="Offer media, billboard, and field activation services"
+            onClick={() => setRole('vendor')}
           />
         </div>
         <div className="mt-8 text-center text-sm text-[#999]">
@@ -144,6 +178,57 @@ const RegisterPage = () => {
         <div className="mt-6 text-center text-sm text-[#999]">
           Already registered?{' '}
           <Link to="/login?role=producer" className="text-[#0028aa] font-semibold hover:underline">Sign in</Link>
+        </div>
+      </AuthShell>
+    );
+  }
+
+  if (role === 'vendor') {
+    return (
+      <AuthShell onBack={() => setRole(null)} wide>
+        <div className="flex items-center gap-3 mb-6 justify-center">
+          <div className="w-10 h-10 rounded-xl bg-[#eef1ff] flex items-center justify-center">
+            <Shield className="w-5 h-5 text-[#0028aa]" />
+          </div>
+          <div>
+            <div className="font-heading font-bold text-[#0028aa]">Vendor Registration</div>
+            <div className="text-xs text-[#999]">Create your vendor account</div>
+          </div>
+        </div>
+
+        <form onSubmit={handleVendorRegister} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Field label="Full Name *" type="text" value={vendorForm.name} onChange={v => setV('name', v)} placeholder="Anand Nair" required accent="#0028aa" />
+            <Field label="Email *" type="email" value={vendorForm.email} onChange={v => setV('email', v)} placeholder="vendor@company.com" required accent="#0028aa" />
+            <Field label="Company Name *" type="text" value={vendorForm.company_name} onChange={v => setV('company_name', v)} placeholder="Prime Outdoor Network" required accent="#0028aa" />
+            <div>
+              <label className="block text-sm font-semibold text-[#1b1c19] mb-1.5">Vendor Type *</label>
+              <select
+                value={vendorForm.vendor_type}
+                onChange={e => setV('vendor_type', e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-[#f8f9fa] border-2 border-transparent text-sm outline-none focus:border-[#0028aa] focus:bg-white transition-colors"
+              >
+                {vendorTypeOptions.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <Field label="Phone Number *" type="tel" value={vendorForm.mobile} onChange={v => setV('mobile', v)} placeholder="+91 98765 43210" mono required accent="#0028aa" />
+            <Field label="Website" type="url" value={vendorForm.website} onChange={v => setV('website', v)} placeholder="https://yourcompany.com" accent="#0028aa" />
+            <Field label="Password *" type="password" value={vendorForm.password} onChange={v => setV('password', v)} placeholder="Min 8 characters" required accent="#0028aa" />
+            <Field label="Confirm Password *" type="password" value={vendorForm.confirm_password} onChange={v => setV('confirm_password', v)} placeholder="Repeat password" required accent="#0028aa" />
+          </div>
+
+          <div className="flex gap-3 pt-2">
+            <SubmitButton loading={loading} label="Create Vendor Account" color="#0028aa" />
+          </div>
+        </form>
+
+        <div className="mt-6 text-center text-sm text-[#999]">
+          Already registered?{' '}
+          <Link to="/login?role=vendor" className="font-semibold hover:underline text-[#0028aa]">Sign in</Link>
         </div>
       </AuthShell>
     );

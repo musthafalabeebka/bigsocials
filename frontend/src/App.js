@@ -40,6 +40,14 @@ import RadioPayment from './pages/producer/RadioPayment';
 import Kudumbasree from './pages/producer/Kudumbasree';
 import KudumbasreePayment from './pages/producer/KudumbasreePayment';
 import Students from './pages/producer/Students';
+import VendorDashboard from './pages/vendor/Dashboard';
+import VendorOnboarding from './pages/vendor/Onboarding';
+import BillboardRequests from './pages/vendor/BillboardRequests';
+import BillboardCompletedRequests from './pages/vendor/BillboardCompletedRequests';
+import MediaRequests from './pages/vendor/MediaRequests';
+import MediaCompletedRequests from './pages/vendor/MediaCompletedRequests';
+import BrandRequests from './pages/vendor/BrandRequests';
+import BrandCompletedRequests from './pages/vendor/BrandCompletedRequests';
 
 import InfluencerDashboard from './pages/influencer/Dashboard';
 import InfluencerCampaigns from './pages/influencer/Campaigns';
@@ -95,6 +103,8 @@ const AppRoutes = () => {
               <Navigate to="/producer/dashboard" replace />
             ) : user.role === 'influencer' ? (
               <Navigate to="/influencer/dashboard" replace />
+            ) : user.role === 'vendor' ? (
+              <Navigate to={user.onboarding_completed ? "/vendor/dashboard" : "/vendor/onboarding"} replace />
             ) : user.role === 'admin' ? (
               <Navigate to="/admin/dashboard" replace />
             ) : (
@@ -364,6 +374,78 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={['influencer']}>
             <InfluencerDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <VendorDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/:vendorType"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <VendorDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/billboards/requests"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <BillboardRequests />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/billboards/completed"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <BillboardCompletedRequests />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/media/requests"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <MediaRequests />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/media/completed"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <MediaCompletedRequests />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/brands/requests"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <BrandRequests />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/brands/completed"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <BrandCompletedRequests />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/onboarding"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <VendorOnboarding />
           </ProtectedRoute>
         }
       />

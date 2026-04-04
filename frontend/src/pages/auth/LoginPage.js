@@ -8,7 +8,7 @@ import { Film, Instagram, ArrowLeft, ArrowRight, Mail, Lock, Chrome } from 'luci
 // Step 1: Choose role  |  Step 2: Choose method  |  Step 3: Enter credentials
 const LoginPage = () => {
   const [searchParams] = useSearchParams();
-  const initialRole = searchParams.get('role'); // 'producer' | 'influencer'
+  const initialRole = searchParams.get('role'); // 'producer' | 'influencer' | 'vendor'
 
   const [role, setRole] = useState(initialRole || null);
   const [method, setMethod] = useState(null); // 'google' | 'email' | 'instagram'
@@ -28,6 +28,7 @@ const LoginPage = () => {
       toast.success('Welcome back!');
       if (role === 'producer') navigate('/producer/dashboard');
       else if (role === 'influencer') navigate('/influencer/dashboard');
+      else if (role === 'vendor') navigate(response.data.user.onboarding_completed ? '/vendor/dashboard' : '/vendor/onboarding');
       else navigate('/admin/dashboard');
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Login failed');
@@ -60,6 +61,13 @@ const LoginPage = () => {
             title="Influencer"
             subtitle="Sign in with Instagram"
             onClick={() => setRole('influencer')}
+          />
+          <RoleCard
+            icon={Lock}
+            iconBg="#eef1ff" iconColor="#0028aa"
+            title="Vendor"
+            subtitle="Sign in with Email"
+            onClick={() => setRole('vendor')}
           />
         </div>
         <div className="mt-8 text-center text-sm text-[#999]">
@@ -100,6 +108,28 @@ const LoginPage = () => {
           New here?{' '}
           <Link to="/register?role=producer" className="text-[#0028aa] font-semibold hover:underline">Create producer account</Link>
         </div>
+      </AuthShell>
+    );
+  }
+
+  if (role === 'vendor' && !method) {
+    return (
+      <AuthShell onBack={back} backLabel="Back">
+        <div className="flex items-center gap-3 mb-8 justify-center">
+          <div className="w-10 h-10 rounded-xl bg-[#eef1ff] flex items-center justify-center">
+            <Lock className="w-5 h-5 text-[#0028aa]" />
+          </div>
+          <div>
+            <div className="font-heading font-bold text-[#0028aa]">Vendor Login</div>
+            <div className="text-xs text-[#999]">Continue with email</div>
+          </div>
+        </div>
+        <MethodButton
+          icon={<Mail className="w-5 h-5 text-[#0028aa]" />}
+          label="Continue with Email"
+          onClick={() => setMethod('email')}
+          secondary
+        />
       </AuthShell>
     );
   }
@@ -193,7 +223,7 @@ const LoginPage = () => {
             <p className="text-xs text-[#999] mt-1">An OTP will be sent to your email on submit</p>
           </div>
         )}
-        <SubmitButton loading={loading} label={`Sign In as ${role === 'producer' ? 'Producer' : 'Influencer'}`} color={accent} />
+        <SubmitButton loading={loading} label={`Sign In as ${role === 'producer' ? 'Producer' : role === 'vendor' ? 'Vendor' : 'Influencer'}`} color={accent} />
       </form>
 
       <div className="mt-6 text-center text-sm text-[#999]">

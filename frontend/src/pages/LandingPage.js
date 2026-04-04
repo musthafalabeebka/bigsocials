@@ -65,6 +65,16 @@ const LandingPage = () => {
                       <div className="text-xs text-[#999]">Instagram Login</div>
                     </div>
                   </Link>
+                  <div className="h-px bg-[#f0f0f0] mx-4" />
+                  <Link to="/login?role=vendor" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#f5f4ff] transition-colors text-sm" onClick={closeAll}>
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#eef1ff]">
+                      <Shield className="w-4 h-4 text-[#0028aa]" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-[#0028aa]">Vendor</div>
+                      <div className="text-xs text-[#999]">Email Login</div>
+                    </div>
+                  </Link>
                 </div>
               </>
             )}
@@ -99,6 +109,16 @@ const LandingPage = () => {
                     <div>
                       <div className="font-semibold text-[#9333ea]">Influencer</div>
                       <div className="text-xs text-[#999]">Join & earn</div>
+                    </div>
+                  </Link>
+                  <div className="h-px bg-[#f0f0f0] mx-4" />
+                  <Link to="/register?role=vendor" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#f5f4ff] transition-colors text-sm" onClick={closeAll}>
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#eef1ff]">
+                      <Shield className="w-4 h-4 text-[#0028aa]" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-[#0028aa]">Vendor</div>
+                      <div className="text-xs text-[#999]">Join as service partner</div>
                     </div>
                   </Link>
                 </div>

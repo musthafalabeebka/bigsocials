@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Film, LayoutDashboard, Users, Settings, LogOut, TrendingUp, Store, Sparkles, Handshake } from 'lucide-react';
+import { Film, LayoutDashboard, Users, Settings, LogOut, TrendingUp, Store, Sparkles, Handshake, BriefcaseBusiness } from 'lucide-react';
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -34,6 +34,11 @@ const Sidebar = () => {
           { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
           { icon: Users,           label: 'Users',     path: '/admin/users' },
           { icon: Settings,        label: 'Settings',  path: '/admin/settings' },
+        ];
+      case 'vendor':
+        return [
+          { icon: LayoutDashboard, label: 'Dashboard', path: '/vendor/dashboard' },
+          { icon: BriefcaseBusiness, label: 'Requests', path: '/vendor/dashboard' },
         ];
       default:
         return [];
