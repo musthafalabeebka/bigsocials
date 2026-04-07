@@ -415,6 +415,48 @@ const Billboards = () => {
           </section>
 
           <section className="rounded-[28px] bg-[#f3f6fb] p-4">
+            <div className="mb-4 rounded-[24px] border border-[#dbe5ff] bg-white p-5 shadow-sm">
+              <div className="max-w-3xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+                <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Book your billboard campaign in 3 steps</h2>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Follow this quick guide to shortlist billboard inventory, send booking requests, and move confirmed placements live.
+                </p>
+              </div>
+
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    1
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Find Billboards</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Search by location, filter by media type, and compare prices to shortlist the right inventory.
+                  </p>
+                </article>
+
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    2
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Send Booking Requests</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Add multiple billboards to your cart and send requests to vendors for confirmation.
+                  </p>
+                </article>
+
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    3
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Pay and Go Live</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Complete payment for accepted requests and track the live billboard campaign from the report view.
+                  </p>
+                </article>
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"

@@ -21,8 +21,8 @@ const ProducerCampaigns = () => {
         <div className="bg-surface-container-lowest border-b border-outline-variant/20 p-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-heading font-bold text-on-surface mb-2">My Campaigns</h1>
-              <p className="text-lg font-body text-muted-foreground">Manage and track all your marketing campaigns</p>
+              <h1 className="text-4xl font-heading font-bold text-on-surface mb-2">Influencer Campaigns</h1>
+              <p className="text-lg font-body text-muted-foreground">Manage and track all of your influencer marketing campaigns</p>
             </div>
             <Button
               variant="primary"
@@ -37,6 +37,52 @@ const ProducerCampaigns = () => {
         </div>
 
         <div className="p-8">
+          <section className="mb-6 rounded-[28px] border border-[#dbe5ff] bg-white p-6 shadow-sm">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+              <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Create your influencer campaign in 3 steps</h2>
+              <p className="mt-2 text-sm text-[#667085]">
+                Use this flow to launch a campaign, review live progress, and track completed work.
+              </p>
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <article
+                className="cursor-pointer rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5 transition hover:-translate-y-0.5 hover:border-[#9eb8ff] hover:shadow-sm"
+                onClick={() => navigate('/producer/campaigns/create')}
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  1
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Create Campaign</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Start a new influencer campaign by setting the movie brief, budget, and creator requirements.
+                </p>
+                <p className="mt-4 text-sm font-semibold text-[#123bb7]">Open create campaign</p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  2
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Track Active Campaigns</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Use the active view to monitor running campaigns, creator progress, and delivery status.
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  3
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Review Completed</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Check completed campaigns to review outcomes, budgets spent, and campaign history.
+                </p>
+              </article>
+            </div>
+          </section>
+
           {/* Filters */}
           <div className="flex gap-3 mb-6">
             {['all', 'active', 'completed'].map((status) => (

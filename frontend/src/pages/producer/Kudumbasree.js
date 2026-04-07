@@ -152,6 +152,52 @@ const Kudumbasree = ({ campaignType = 'kudumbasree' }) => {
           </section>
 
           <section className="rounded-[28px] bg-[#f3f6fb] p-4">
+            <div className="mb-4 rounded-[24px] border border-[#dbe5ff] bg-white p-5 shadow-sm">
+              <div className="max-w-3xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+                <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">
+                  {isStudents ? 'Launch your student campaign in 3 steps' : 'Launch your Kudumbasree campaign in 3 steps'}
+                </h2>
+                <p className="mt-2 text-sm text-[#667085]">
+                  {isStudents
+                    ? 'Use this workflow to create the student activation, complete payment, and track live campaign performance.'
+                    : 'Use this workflow to create the Kudumbasree activation, complete payment, and track live campaign performance.'}
+                </p>
+              </div>
+
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    1
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Create Campaign</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Upload the campaign asset, choose the location, and define the target views and duration.
+                  </p>
+                </article>
+
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    2
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Pay and Launch</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Review the calculated budget, make payment, and push the campaign live to the selected network.
+                  </p>
+                </article>
+
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    3
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Track Live Campaigns</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Open live campaigns and campaign reports to review views, member activity, and performance results.
+                  </p>
+                </article>
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"

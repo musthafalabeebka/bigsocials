@@ -18,11 +18,6 @@ const mediaOptions = [
     path: '/producer/vendors/media/radio',
     cta: 'Browse radio stations',
   },
-  {
-    title: 'TV Ads',
-    description: 'Book television ad spots, channel integrations, and promo bursts around key release windows.',
-    icon: Tv,
-  },
 ];
 
 const Media = () => {
@@ -52,6 +47,48 @@ const Media = () => {
               <p className="mt-3 text-base font-body text-white/80">
                 Pick the media type that best fits your promotional plan and audience reach strategy.
               </p>
+            </div>
+          </section>
+
+          <section className="rounded-[24px] border border-[#dbe5ff] bg-white p-5 shadow-sm">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+              <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Plan your media campaign in 3 steps</h2>
+              <p className="mt-2 text-sm text-[#667085]">
+                Follow this flow to choose the right media channel, book the placement, and track the campaign once it goes live.
+              </p>
+            </div>
+
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  1
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Choose Media Type</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Select the channel that fits your campaign, such as newspapers, radio, or TV ads.
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  2
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Book the Placement</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Review location, reach, timing, and pricing details before confirming the booking.
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  3
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Pay and Track Live</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Complete payment and manage the campaign later from the live campaign views for each media type.
+                </p>
+              </article>
             </div>
           </section>
 

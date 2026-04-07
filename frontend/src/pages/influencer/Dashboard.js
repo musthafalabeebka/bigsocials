@@ -92,6 +92,48 @@ const InfluencerDashboard = () => {
             />
           </div>
 
+          <section className="bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-6 mb-8">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">How It Works</p>
+              <h2 className="mt-2 text-2xl font-heading font-bold text-on-surface">Complete campaigns in 3 steps</h2>
+              <p className="mt-2 text-sm font-body text-muted-foreground">
+                Follow this guide to move from incoming request to completed campaign and payment.
+              </p>
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <article className="rounded-2xl bg-surface-container-low p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-on-primary text-sm font-bold">
+                  1
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-on-surface">Review Requests</h3>
+                <p className="mt-2 text-sm font-body text-muted-foreground">
+                  Check pending campaign invitations, review the brief, and accept the ones that fit your audience.
+                </p>
+              </article>
+
+              <article className="rounded-2xl bg-surface-container-low p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-on-primary text-sm font-bold">
+                  2
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-on-surface">Publish Content</h3>
+                <p className="mt-2 text-sm font-body text-muted-foreground">
+                  Create and post the required content, then complete the campaign deliverables on time.
+                </p>
+              </article>
+
+              <article className="rounded-2xl bg-surface-container-low p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-on-primary text-sm font-bold">
+                  3
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-on-surface">Get Paid</h3>
+                <p className="mt-2 text-sm font-body text-muted-foreground">
+                  Once deliverables are verified, track released payments and campaign earnings from your dashboard.
+                </p>
+              </article>
+            </div>
+          </section>
+
           {/* Pending Requests */}
           {dashboard?.pending_requests > 0 && (
             <button

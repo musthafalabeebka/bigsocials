@@ -17,12 +17,11 @@ const Sidebar = () => {
     switch (user?.role) {
       case 'producer':
         return [
+          { icon: Handshake,       label: 'Vendors',     path: '/producer/vendors' },
           { icon: LayoutDashboard, label: 'Dashboard',   path: '/producer/dashboard' },
-          { icon: Film,            label: 'Influencer Campaigns',   path: '/producer/campaigns' },
           { icon: Store,           label: 'Influencer Marketplace', path: '/producer/marketplace' },
           { icon: TrendingUp,      label: 'Bookings',    path: '/producer/booking-analytics' },
           { icon: Sparkles,        label: 'AI PR Agent', path: '/producer/ai-pr-agent' },
-          { icon: Handshake,       label: 'Vendors',     path: '/producer/vendors' },
         ];
       case 'influencer':
         return [

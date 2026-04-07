@@ -1,9 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Handshake, PanelsTopLeft, BadgeIndianRupee, Megaphone, UserRound, Tv } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Handshake, PanelsTopLeft, BadgeIndianRupee, Megaphone, UserRound, Tv, Users, BrainCircuit } from 'lucide-react';
 import Sidebar from '../../components/Sidebar';
 
 const vendorCategories = [
+  {
+    icon: Users,
+    title: 'Influencers',
+    description: 'Launch and manage influencer campaign workflows for creators, briefs, deliverables, and live campaign tracking.',
+    path: '/producer/campaigns',
+    cta: 'Open influencer campaigns',
+  },
   {
     icon: PanelsTopLeft,
     title: 'Billboards',
@@ -43,12 +50,32 @@ const vendorCategories = [
 
 const Vendors = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div className="min-h-screen bg-[#f8f9fb] flex">
       <Sidebar />
       <main className="flex-1 p-8 lg:p-10">
         <div className="max-w-6xl mx-auto space-y-8">
+          {location.state?.aiRequestsCreated ? (
+            <section className="rounded-[28px] border border-[#dbe5ff] bg-[#eef4ff] p-5 shadow-sm">
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#123bb7]">
+                  <BrainCircuit className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8a94a6]">AI Campaign Manager</p>
+                  <h2 className="mt-1 text-xl font-heading font-bold text-[#101828]">
+                    Requests sent automatically
+                  </h2>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Payment for the {location.state.objective} plan is complete. {location.state.requestCount} channel requests were generated automatically and are now ready for execution.
+                  </p>
+                </div>
+              </div>
+            </section>
+          ) : null}
+
           <section className="rounded-[32px] bg-[linear-gradient(135deg,#0b1437_0%,#1d3fbf_60%,#8cb4ff_100%)] p-8 lg:p-10 text-white shadow-xl">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm font-semibold text-white">

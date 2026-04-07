@@ -277,6 +277,48 @@ const RadioMedia = () => {
           </section>
 
           <section className="rounded-[28px] bg-[#f3f6fb] p-4">
+            <div className="mb-4 rounded-[24px] border border-[#dbe5ff] bg-white p-5 shadow-sm">
+              <div className="max-w-3xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+                <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Book your radio campaign in 3 steps</h2>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Follow this workflow to choose the right station, lock the broadcast timing, and track the live campaign after payment.
+                </p>
+              </div>
+
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    1
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Choose Station</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Search by location and compare available radio stations with their listener reach.
+                  </p>
+                </article>
+
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    2
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Select Timing</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Pick the broadcast time slot and review the price based on the chosen station and location.
+                  </p>
+                </article>
+
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    3
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Pay and Track Live</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Complete payment to launch the radio campaign and monitor it later from live campaigns.
+                  </p>
+                </article>
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"

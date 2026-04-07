@@ -211,6 +211,48 @@ const CreatorsMarketplace = () => {
 
         <div className="p-8">
 
+          <section className="bg-white rounded-2xl border border-[#dbe5ff] p-6 mb-6 shadow-sm">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+              <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Book influencers in 3 steps</h2>
+              <p className="mt-2 text-sm text-[#667085]">
+                Use the marketplace to discover creators, shortlist the right profiles, and move them into your campaign workflow.
+              </p>
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  1
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Discover Creators</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Search by location, niche, follower size, language, and engagement to find matching influencers.
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  2
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Shortlist Profiles</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Compare reach, audience fit, pricing, and verification status before narrowing your creator list.
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  3
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Move to Campaign</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Take the shortlisted influencers into your campaign workflow to confirm bookings and track delivery.
+                </p>
+              </article>
+            </div>
+          </section>
+
           {/* ── Filter panel ── */}
           <div className="bg-white rounded-2xl border border-[#eee] p-4 mb-6">
 

@@ -100,6 +100,39 @@ const fallbackBids = {
   ],
 };
 
+const mockLiveBidBriefs = [
+  {
+    id: 'mock-brand-brief-1',
+    movieName: 'Sarwam Maya',
+    opportunityTitle: 'Product placement in movie',
+    opportunitySlug: 'product-placement-in-movie',
+    starCast: 'Lead ensemble cast',
+    expectedReach: '1,200,000',
+    deliverables: 'Logo in 3 scenes, branded prop visibility, 1 launch event integration',
+    deadline: '2026-04-18',
+    basePrice: 3500000,
+    bids: fallbackBids['product-placement-in-movie'].slice(0, 1).map((bid) => ({
+      ...bid,
+      id: `mock-brand-brief-1-${bid.brand}`,
+    })),
+  },
+  {
+    id: 'mock-brand-brief-2',
+    movieName: 'City Nights',
+    opportunityTitle: 'Brand placement in promotions-online and offline',
+    opportunitySlug: 'brand-placement-in-promotions',
+    starCast: 'Lead pair plus supporting cast',
+    expectedReach: '850,000',
+    deliverables: 'Digital trailer end-card, press meet backdrop, promo contest integration',
+    deadline: '2026-04-22',
+    basePrice: 2200000,
+    bids: fallbackBids['brand-placement-in-promotions'].slice(0, 1).map((bid) => ({
+      ...bid,
+      id: `mock-brand-brief-2-${bid.brand}`,
+    })),
+  },
+];
+
 const loadBriefs = () => {
   if (typeof window === 'undefined') {
     return [];
@@ -136,6 +169,7 @@ const Brands = () => {
       })),
     [briefs]
   );
+  const liveBidBriefs = publishedBriefs.length > 0 ? publishedBriefs : mockLiveBidBriefs;
 
   const updateBidStatus = (briefId, bidId, status) => {
     setBriefs((current) => [...current]);
@@ -176,6 +210,48 @@ const Brands = () => {
           </section>
 
           <section className="rounded-[28px] bg-[#f3f6fb] p-4">
+            <div className="mb-4 rounded-[24px] border border-[#dbe5ff] bg-white p-5 shadow-sm">
+              <div className="max-w-3xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+                <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Launch your brand collaboration in 3 steps</h2>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Use this workflow to create a brief, collect brand bids, and lock the right collaboration for your movie.
+                </p>
+              </div>
+
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    1
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Enter Brief</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Choose a brand opportunity and create the movie brief with deliverables, reach, pricing, and deadline.
+                  </p>
+                </article>
+
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    2
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Review Live Bids</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Check the incoming brand pitches, pricing, and deliverables across your live opportunities.
+                  </p>
+                </article>
+
+                <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                    3
+                  </div>
+                  <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Accept the Right Brand</h3>
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Open the bid details, compare the pitch, and accept or reject based on the best movie fit.
+                  </p>
+                </article>
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"
@@ -239,13 +315,13 @@ const Brands = () => {
                   <h2 className="mt-2 text-3xl font-heading font-bold text-[#101828]">See what brands are bidding.</h2>
                 </div>
                 <div className="rounded-full bg-[#eef1ff] px-4 py-2 text-sm font-semibold text-[#0028aa]">
-                  {publishedBriefs.length} live opportunities
+                  {liveBidBriefs.length} live opportunities
                 </div>
               </div>
 
-              {publishedBriefs.length > 0 ? (
+              {liveBidBriefs.length > 0 ? (
                 <div className="mt-6 grid gap-5">
-                  {publishedBriefs.map((brief) => (
+                  {liveBidBriefs.map((brief) => (
                     <article key={brief.id} className="rounded-[28px] border border-[#e3e8f3] bg-[#f8fbff] p-6">
                       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                         <div className="space-y-2">

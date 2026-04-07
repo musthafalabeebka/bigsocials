@@ -57,6 +57,48 @@ const FieldAgents = () => {
             </div>
           </section>
 
+          <section className="rounded-[24px] border border-[#dbe5ff] bg-white p-5 shadow-sm">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+              <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Launch your field campaign in 3 steps</h2>
+              <p className="mt-2 text-sm text-[#667085]">
+                Use this workflow to select the field format, make the booking, and track live execution reports.
+              </p>
+            </div>
+
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  1
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Choose Format</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Pick the field activation format such as tea cup marketing, tea shop boards, or notice marketing.
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  2
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Book the Campaign</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Enter campaign details, upload the required artwork, and complete payment to start execution.
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  3
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Track Live Reports</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Monitor execution updates, campaign reports, and field proof once the campaign goes live.
+                </p>
+              </article>
+            </div>
+          </section>
+
           <section className="grid gap-6 md:grid-cols-2">
             {options.map((option) => {
               const Icon = option.icon;

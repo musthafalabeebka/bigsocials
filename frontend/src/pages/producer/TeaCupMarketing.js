@@ -97,6 +97,60 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
     : isNoticeMarketing
       ? 'Upload the movie poster or notice artwork, add the movie name, and confirm the print details.'
     : 'Upload the movie poster or cup artwork, add the movie name, and confirm the print details.';
+  const guideTitle = isTeaShopBoards
+    ? 'Launch your tea shop board campaign in 3 steps'
+    : isNoticeMarketing
+      ? 'Launch your notice campaign in 3 steps'
+      : 'Launch your tea cup campaign in 3 steps';
+  const guideDescription = isTeaShopBoards
+    ? 'Follow this workflow to reserve tea shop board locations, complete payment, and track installation with live reporting.'
+    : isNoticeMarketing
+      ? 'Follow this workflow to reserve notice distribution inventory, complete payment, and track execution with live reporting.'
+      : 'Follow this workflow to reserve inventory, complete payment, and track execution with live reporting.';
+  const guideSteps = isTeaShopBoards
+    ? [
+        {
+          title: 'Select District',
+          description: 'Choose the district where you want tea shop boards installed for the movie promotion.',
+        },
+        {
+          title: 'Book and Pay',
+          description: 'Upload the board artwork, enter board quantity and campaign days, then complete payment.',
+        },
+        {
+          title: 'Track Installation',
+          description: 'Use the live report page to review board installation details and campaign execution updates.',
+        },
+      ]
+    : isNoticeMarketing
+      ? [
+          {
+            title: 'Select Location',
+            description: 'Search by state and district to choose the right notice distribution area for the campaign.',
+          },
+          {
+            title: 'Book and Pay',
+            description: 'Upload the notice artwork, enter quantity and dates, then complete payment to launch the campaign.',
+          },
+          {
+            title: 'Track Live Report',
+            description: 'Review campaign details, notice placement images, and field updates from the live report page.',
+          },
+        ]
+      : [
+          {
+            title: 'Select Location',
+            description: 'Search by state and district to find the right tea cup distribution inventory for your campaign.',
+          },
+          {
+            title: 'Book and Pay',
+            description: 'Upload the cup artwork, enter quantity and dates, then complete payment to launch the campaign.',
+          },
+          {
+            title: 'Track Live Report',
+            description: 'Review campaign details, placement images, and execution updates from the live report page.',
+          },
+        ];
   const quantityLabel = isTeaShopBoards ? 'Board quantity' : isNoticeMarketing ? 'Notice quantity' : 'Cup quantity';
   const reportQuantityLabel = isTeaShopBoards ? 'boards installed' : isNoticeMarketing ? 'notices distributed' : 'cups distributed';
   const getReportedQuantity = (row) => (isNoticeMarketing ? (row.outlets || 0) * 1000 : row.distributed);
@@ -300,6 +354,30 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
           </section>
 
           <section className="rounded-[28px] bg-[#f3f6fb] p-4">
+            <div className="mb-4 rounded-[24px] border border-[#dbe5ff] bg-white p-5 shadow-sm">
+              <div className="max-w-3xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+                <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">{guideTitle}</h2>
+                <p className="mt-2 text-sm text-[#667085]">
+                  {guideDescription}
+                </p>
+              </div>
+
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                {guideSteps.map((step, index) => (
+                  <article key={step.title} className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                      {index + 1}
+                    </div>
+                    <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">{step.title}</h3>
+                    <p className="mt-2 text-sm text-[#667085]">
+                      {step.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"

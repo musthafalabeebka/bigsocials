@@ -22,6 +22,7 @@ import InfluencerRecommendations from './pages/producer/InfluencerRecommendation
 import CampaignPayment from './pages/producer/CampaignPayment';
 import DeliverableTracker from './pages/producer/DeliverableTracker';
 import AiPrAgent from './pages/producer/AiPrAgent';
+import AiCampaignManagerPayment from './pages/producer/AiCampaignManagerPayment';
 import Vendors from './pages/producer/Vendors';
 import Billboards from './pages/producer/Billboards';
 import Brands from './pages/producer/Brands';
@@ -178,6 +179,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={['producer']}>
             <Vendors />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/dashboard/ai-campaign-manager/payment"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <AiCampaignManagerPayment />
           </ProtectedRoute>
         }
       />

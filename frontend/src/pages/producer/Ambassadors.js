@@ -50,6 +50,48 @@ const Ambassadors = () => {
             </div>
           </section>
 
+          <section className="rounded-[24px] border border-[#dbe5ff] bg-white p-5 shadow-sm">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+              <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Launch your ambassador campaign in 3 steps</h2>
+              <p className="mt-2 text-sm text-[#667085]">
+                Use this workflow to choose the ambassador network, create the campaign, and track live performance.
+              </p>
+            </div>
+
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  1
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Choose Network</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Select whether you want a family or youth based audience
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  2
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Create and Pay</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Create the campaign brief, set views and duration, then complete payment to launch the activation.
+                </p>
+              </article>
+
+              <article className="rounded-[24px] border border-[#dbe5ff] bg-[#f8faff] p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                  3
+                </div>
+                <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Track Live Campaigns</h3>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Monitor live campaigns and open campaign reports to review views, reach, and performance summaries.
+                </p>
+              </article>
+            </div>
+          </section>
+
           <section className="grid gap-6 md:grid-cols-2">
             {ambassadorOptions.map((option) => {
               const Icon = option.icon;

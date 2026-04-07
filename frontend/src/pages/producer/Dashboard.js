@@ -5,8 +5,7 @@ import { analyticsAPI } from '../../services/api';
 import Sidebar from '../../components/Sidebar';
 import StatCard from '../../components/StatCard';
 import Button from '../../components/Button';
-import { Film, DollarSign, Users, TrendingUp } from 'lucide-react';
-import { toast } from 'sonner';
+import { BrainCircuit, Film, DollarSign, Users, TrendingUp, PanelsTopLeft, Newspaper, Radio, Megaphone, MapPinned, Handshake } from 'lucide-react';
 
 const storageKeys = {
   billboards: 'billboard_live_campaigns',
@@ -157,11 +156,75 @@ const normalizeStoredCampaigns = () => {
   ];
 };
 
+const aiScenarioOptions = [
+  {
+    id: 'visibility',
+    title: 'Visibility',
+    subtitle: 'Mass awareness',
+    goal: 'Maximum reach across large audience',
+    bestFor: 'Big releases, star-driven films',
+    allocations: [
+      { label: 'Billboards', value: '40%', icon: PanelsTopLeft },
+      { label: 'Newspaper', value: '20%', icon: Newspaper },
+      { label: 'Radio', value: '15%', icon: Radio },
+      { label: 'Influencers', value: '15%', icon: Users },
+      { label: 'Tea Branding', value: '5%', icon: Megaphone },
+      { label: 'Notices', value: '5%', icon: MapPinned },
+    ],
+  },
+  {
+    id: 'ticket-sales',
+    title: 'Ticket Sales',
+    subtitle: 'Conversion focus',
+    goal: 'Drive people to theatres',
+    bestFor: 'Release week push',
+    allocations: [
+      { label: 'Notices near theatres', value: '25%', icon: MapPinned },
+      { label: 'Radio reminders', value: '20%', icon: Radio },
+      { label: 'Influencers', value: '20%', icon: Users },
+      { label: 'Ambassadors', value: '15%', icon: Handshake },
+      { label: 'Billboards near theatres', value: '10%', icon: PanelsTopLeft },
+      { label: 'Tea Spots', value: '10%', icon: Megaphone },
+    ],
+  },
+  {
+    id: 'hyperlocal',
+    title: 'Hyperlocal Engagement',
+    subtitle: 'Kerala-style WOM',
+    goal: 'People talking everywhere locally',
+    bestFor: 'Small/mid films, strong story-based cinema',
+    allocations: [
+      { label: 'Tea Shops / Tea Cups', value: '30%', icon: Megaphone },
+      { label: 'Ambassadors', value: '25%', icon: Handshake },
+      { label: 'Notice Marketing', value: '20%', icon: MapPinned },
+      { label: 'Local Influencers', value: '15%', icon: Users },
+      { label: 'Billboards', value: '10%', icon: PanelsTopLeft },
+    ],
+  },
+  {
+    id: 'balanced',
+    title: 'All 3',
+    subtitle: 'Balanced campaign',
+    goal: 'Awareness + Buzz + Conversion',
+    bestFor: 'Most practical campaigns',
+    allocations: [
+      { label: 'Billboards', value: '25%', icon: PanelsTopLeft },
+      { label: 'Influencers', value: '20%', icon: Users },
+      { label: 'Media', value: '15%', icon: Newspaper },
+      { label: 'Tea Branding', value: '15%', icon: Megaphone },
+      { label: 'Ambassadors', value: '15%', icon: Handshake },
+      { label: 'Notices', value: '10%', icon: MapPinned },
+    ],
+  },
+];
+
 const ProducerDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedScenarioId, setSelectedScenarioId] = useState('');
+  const [campaignBudget, setCampaignBudget] = useState('');
 
   useEffect(() => {
     fetchDashboard();
@@ -198,6 +261,10 @@ const ProducerDashboard = () => {
   const totalBudget = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.budget || 0), 0);
   const totalSpent = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.spent || 0), 0);
   const totalReach = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.reach || 0), 0);
+  const selectedScenario =
+    aiScenarioOptions.find((scenario) => scenario.id === selectedScenarioId) || null;
+  const parsedBudget = Number(String(campaignBudget).replace(/,/g, '')) || 0;
+  const canShowAllocation = Boolean(selectedScenario && parsedBudget > 0);
 
   if (loading) {
     return (
@@ -256,6 +323,160 @@ const ProducerDashboard = () => {
               icon={TrendingUp}
             />
           </div>
+
+          <section className="mb-8 rounded-[28px] border border-[#dbe5ff] bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 rounded-full bg-[#eef1ff] px-3 py-1 text-sm font-semibold text-[#0028aa]">
+                  <BrainCircuit className="h-4 w-4" />
+                  AI Campaign Manager
+                </div>
+                <h2 className="mt-4 text-2xl font-heading font-bold text-[#101828]">
+                  Set your budget. Choose your goal. Get the right channel mix.
+                </h2>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Our inbuilt campaign manager helps you distribute your efforts effectively across channels.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-4 lg:grid-cols-2">
+              <article className="rounded-[24px] border border-[#e4e9f4] bg-[#f8faff] p-5 lg:col-span-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
+                <h3 className="mt-2 text-xl font-heading font-bold text-[#101828]">Create your campaign in 3 steps</h3>
+                <div className="mt-4 grid gap-4 md:grid-cols-3">
+                  <div className="rounded-2xl bg-white p-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                      1
+                    </div>
+                    <h4 className="mt-3 text-base font-heading font-bold text-[#101828]">Enter Budget</h4>
+                    <p className="mt-2 text-sm text-[#667085]">
+                      Add the total amount you want to spend for this movie campaign.
+                    </p>
+                  </div>
+                  <div className="rounded-2xl bg-white p-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                      2
+                    </div>
+                    <h4 className="mt-3 text-base font-heading font-bold text-[#101828]">Choose Objective</h4>
+                    <p className="mt-2 text-sm text-[#667085]">
+                      Select whether the goal is visibility, ticket sales, hyperlocal engagement, or a balanced campaign.
+                    </p>
+                  </div>
+                  <div className="rounded-2xl bg-white p-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123bb7] text-sm font-bold text-white">
+                      3
+                    </div>
+                    <h4 className="mt-3 text-base font-heading font-bold text-[#101828]">Review and Continue</h4>
+                    <p className="mt-2 text-sm text-[#667085]">
+                      Check the AI allocation, make payment, and send requests automatically into the vendor workflow.
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article className="rounded-[24px] border border-[#e4e9f4] bg-[#f8faff] p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">Budget</p>
+                <h3 className="mt-2 text-xl font-heading font-bold text-[#101828]">Campaign Budget</h3>
+                <div className="mt-4">
+                  <input
+                    type="text"
+                    value={campaignBudget}
+                    onChange={(event) => setCampaignBudget(event.target.value.replace(/[^\d,]/g, ''))}
+                    placeholder="Enter budget"
+                    className="w-full rounded-2xl border border-[#d9e2f2] bg-white px-4 py-3 text-base font-semibold text-[#101828] outline-none transition focus:border-[#123bb7]"
+                  />
+                </div>
+              </article>
+
+              <article className="rounded-[24px] border border-[#e4e9f4] bg-[#f8faff] p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">Campaign Objective</p>
+                <h3 className="mt-2 text-xl font-heading font-bold text-[#101828]">Choose Objective</h3>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {aiScenarioOptions.map((scenario) => (
+                    <button
+                      key={scenario.id}
+                      type="button"
+                      onClick={() => setSelectedScenarioId(scenario.id)}
+                      className={`rounded-2xl border px-4 py-3 text-left text-sm font-bold transition ${
+                        selectedScenarioId === scenario.id
+                          ? 'border-[#123bb7] bg-[#123bb7] text-white shadow-lg'
+                          : 'border-[#d9e2f2] bg-white text-[#24324b]'
+                      }`}
+                    >
+                      <span className="block">{scenario.title}</span>
+                      <span className={`mt-1 block text-xs ${selectedScenarioId === scenario.id ? 'text-white/80' : 'text-[#7a859c]'}`}>
+                        {scenario.subtitle}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </article>
+            </div>
+
+            {canShowAllocation ? (
+              <div className="mt-6 grid gap-6 xl:grid-cols-[320px,1fr]">
+                <div className="rounded-[24px] bg-[linear-gradient(135deg,#0b1437_0%,#1d3fbf_60%,#8cb4ff_100%)] p-6 text-white">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">{selectedScenario.subtitle}</p>
+                  <h3 className="mt-3 text-3xl font-heading font-bold">{selectedScenario.title}</h3>
+                  <p className="mt-3 text-sm text-white/85">Goal: {selectedScenario.goal}</p>
+                  <p className="mt-3 text-sm text-white/85">Budget: Rs {parsedBudget.toLocaleString('en-IN')}</p>
+                  <p className="mt-4 text-sm font-semibold text-white">Best for: {selectedScenario.bestFor}</p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      navigate('/producer/dashboard/ai-campaign-manager/payment', {
+                        state: {
+                          budget: parsedBudget,
+                          scenarioId: selectedScenario.id,
+                          scenarioTitle: selectedScenario.title,
+                          scenarioSubtitle: selectedScenario.subtitle,
+                          goal: selectedScenario.goal,
+                          bestFor: selectedScenario.bestFor,
+                          allocations: selectedScenario.allocations.map((allocation) => ({
+                            label: allocation.label,
+                            value: allocation.value,
+                            amount: Math.round((parsedBudget * Number(allocation.value.replace('%', ''))) / 100),
+                          })),
+                        },
+                      })
+                    }
+                    className="mt-6 w-full rounded-2xl bg-white px-4 py-3 text-sm font-bold text-[#123bb7] transition hover:bg-[#eef4ff]"
+                  >
+                    Continue
+                  </button>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {selectedScenario.allocations.map((allocation) => {
+                    const Icon = allocation.icon;
+                    const allocationAmount = Math.round((parsedBudget * Number(allocation.value.replace('%', ''))) / 100);
+
+                    return (
+                      <article
+                        key={`${selectedScenario.id}-${allocation.label}`}
+                        className="rounded-[24px] border border-[#e4e9f4] bg-[#f8faff] p-4"
+                      >
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eef1ff] text-[#0028aa]">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <p className="mt-4 text-sm font-semibold uppercase tracking-[0.12em] text-[#8a94a6]">
+                          Allocation
+                        </p>
+                        <h4 className="mt-1 text-lg font-heading font-bold text-[#101828]">{allocation.label}</h4>
+                        <p className="mt-3 text-2xl font-heading font-bold text-[#123bb7]">{allocation.value}</p>
+                        <p className="mt-1 text-sm font-semibold text-[#5f6f99]">Rs {allocationAmount.toLocaleString('en-IN')}</p>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div className="mt-6 rounded-[24px] border border-dashed border-[#d9e2f2] bg-[#f8faff] px-5 py-6 text-sm font-semibold text-[#7a859c]">
+                Add both budget and campaign objective to view the AI allocation and continue.
+              </div>
+            )}
+          </section>
 
           {/* Recent Campaigns */}
           <div className="bg-white rounded-2xl border border-[#eee] p-6">
