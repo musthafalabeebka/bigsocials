@@ -1,7 +1,22 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Handshake, PanelsTopLeft, BadgeIndianRupee, Megaphone, UserRound, Tv, Users, BrainCircuit } from 'lucide-react';
+import {
+  BadgeIndianRupee,
+  BrainCircuit,
+  Clapperboard,
+  Handshake,
+  Headphones,
+  MapPinned,
+  Megaphone,
+  PanelsTopLeft,
+  ShoppingCart,
+  Smartphone,
+  Tv,
+  UserRound,
+  Users,
+} from 'lucide-react';
 import Sidebar from '../../components/Sidebar';
+import { useAuth } from '../../contexts/AuthContext';
 
 const vendorCategories = [
   {
@@ -14,7 +29,7 @@ const vendorCategories = [
   {
     icon: PanelsTopLeft,
     title: 'Billboards',
-    description: 'Outdoor inventory partners for highway, city-center, and theatre-zone visibility.',
+    description: 'Outdoor inventory partners for highway, city-center, and retail-zone visibility.',
     path: '/producer/vendors/billboards',
     cta: 'Browse inventory',
   },
@@ -46,11 +61,48 @@ const vendorCategories = [
     path: '/producer/vendors/ambassadors',
     cta: 'Explore ambassadors',
   },
+  {
+    icon: MapPinned,
+    title: 'BTL',
+    description: 'Below-the-line activation partners for retail stalls, mall promotions, sampling, and local brand experiences.',
+    path: '/producer/vendors/btl',
+    cta: 'Explore BTL options',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'Quick Commerce',
+    description: 'Quick commerce placements for app banners, sponsored listings, cart inserts, and rapid local delivery tie-ins.',
+    path: '/producer/vendors/quick-commerce',
+    cta: 'Explore quick commerce',
+  },
+  {
+    icon: Clapperboard,
+    title: 'Theatre Ads',
+    description: 'Cinema advertising partners for screen slides, lobby branding, standees, and audience-facing theatre promotions.',
+    path: '/producer/vendors/theatre-ads',
+    cta: 'Open theatre ads',
+  },
+  {
+    icon: Headphones,
+    title: 'Audio Marketing (Spotify)',
+    description: 'Streaming audio campaign partners for Spotify-style audio spots, podcast placements, and listener retargeting.',
+    cta: 'Coming soon',
+  },
+  {
+    icon: Smartphone,
+    title: 'Mobile Marketing',
+    description: 'Mobile-first partners for SMS, WhatsApp, push notifications, app inventory, and geo-targeted audience campaigns.',
+    cta: 'Coming soon',
+  },
 ];
 
 const Vendors = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
+  const visibleVendorCategories = user?.account_type === 'brand'
+    ? vendorCategories.filter((category) => category.title !== 'Brands')
+    : vendorCategories;
 
   return (
     <div className="min-h-screen bg-[#f8f9fb] flex">
@@ -82,15 +134,15 @@ const Vendors = () => {
                 <Handshake className="h-4 w-4" />
                 Vendors
               </div>
-              <h1 className="mt-4 text-4xl font-heading font-bold">Find execution partners for every release beat.</h1>
+              <h1 className="mt-4 text-4xl font-heading font-bold">Find execution partners for every launch beat.</h1>
               <p className="mt-3 font-body text-base text-white/80">
-                Organize preferred vendor categories here so producers can move from planning to activation faster.
+                Organize preferred vendor categories here so campaign teams can move from planning to activation faster.
               </p>
             </div>
           </section>
 
           <section className="grid gap-6 md:grid-cols-3">
-            {vendorCategories.map((category) => {
+            {visibleVendorCategories.map((category) => {
               const Icon = category.icon;
               const isInteractive = Boolean(category.path);
 
@@ -107,7 +159,7 @@ const Vendors = () => {
                   </div>
                   <h2 className="text-xl font-heading font-bold text-[#101828]">{category.title}</h2>
                   <p className="mt-2 text-sm font-body text-[#667085]">{category.description}</p>
-                  {isInteractive ? (
+                  {category.cta ? (
                     <p className="mt-4 text-sm font-semibold text-[#0028aa]">{category.cta}</p>
                   ) : null}
                 </article>

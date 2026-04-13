@@ -211,7 +211,7 @@ const CampaignDetails = () => {
                 <h2 className="text-xl font-heading font-bold mb-4">Campaign Details</h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm font-body text-muted-foreground mb-1">Release Date</p>
+                    <p className="text-sm font-body text-muted-foreground mb-1">Launch Date</p>
                     <p className="font-body font-semibold">{new Date(campaign.release_date).toLocaleDateString()}</p>
                   </div>
                   <div>

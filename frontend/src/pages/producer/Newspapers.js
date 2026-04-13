@@ -31,7 +31,7 @@ const newspaperInventory = [
     },
     placements: [
       { id: 'manorama-front-strip', name: 'Front Page Strip', size: '8 x 3 cm', placement: 'Top strip on front page', priceByLocation: { Trivandrum: 42000, Kochi: 45000, Kozhikode: 39000, Kannur: 31000, Thrissur: 36000 } },
-      { id: 'manorama-jacket-half', name: 'Jacket Half Page', size: '25 x 16 cm', placement: 'Half jacket on release day edition', priceByLocation: { Trivandrum: 98000, Kochi: 110000, Kozhikode: 92000, Kannur: 76000, Thrissur: 84000 } },
+      { id: 'manorama-jacket-half', name: 'Jacket Half Page', size: '25 x 16 cm', placement: 'Half jacket on launch day edition', priceByLocation: { Trivandrum: 98000, Kochi: 110000, Kozhikode: 92000, Kannur: 76000, Thrissur: 84000 } },
       { id: 'manorama-ent-quarter', name: 'Entertainment Quarter', size: '16 x 12 cm', placement: 'Entertainment supplement feature block', priceByLocation: { Trivandrum: 56000, Kochi: 59000, Kozhikode: 51000, Kannur: 41000, Thrissur: 47000 } },
     ],
   },
@@ -87,7 +87,7 @@ const fallbackLiveCampaigns = [
     price: 45000,
     status: 'Live',
     insertionCount: 3,
-    reportSummary: 'Front-page placements are delivering strong morning visibility in core urban theatre catchments.',
+    reportSummary: 'Front-page placements are delivering strong morning visibility in core urban retail location catchments.',
   },
   {
     id: 'newspaper-live-2',

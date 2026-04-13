@@ -1,285 +1,452 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
-  Film, Users, TrendingUp, Shield, ChevronDown, BarChart3,
-  Zap, Play, CheckCircle2, ArrowRight, Instagram
+  ArrowRight,
+  BadgeCheck,
+  BarChart3,
+  ChevronDown,
+  Tag,
+  Instagram,
+  MapPinned,
+  Megaphone,
+  Newspaper,
+  Radio,
+  ShieldCheck,
+  Store,
+  Users,
 } from 'lucide-react';
+
+const heroImage =
+  'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2400&q=80';
+
+const channelImage =
+  'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80';
+
+const productionImage =
+  'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80';
+
+const planningImage =
+  'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80';
 
 const LandingPage = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
-  const navigate = useNavigate();
 
-  const closeAll = () => { setLoginOpen(false); setRegisterOpen(false); };
+  const closeAll = () => {
+    setLoginOpen(false);
+    setRegisterOpen(false);
+  };
+
+  const loginItems = [
+    {
+      to: '/login?role=producer',
+      icon: Tag,
+      title: 'Producer',
+      detail: 'Producer dashboard',
+      accent: '#0028aa',
+      bg: '#eef1ff',
+    },
+    {
+      to: '/login?role=brand',
+      icon: Megaphone,
+      title: 'Brand',
+      detail: 'Brand campaign login',
+      accent: '#1a3fd4',
+      bg: '#eef6ff',
+    },
+    {
+      to: '/login?role=influencer',
+      icon: Instagram,
+      title: 'Influencer',
+      detail: 'Creator login',
+      accent: '#1a3fd4',
+      bg: '#eef6ff',
+    },
+    {
+      to: '/login?role=vendor',
+      icon: Store,
+      title: 'Vendor',
+      detail: 'Partner workspace',
+      accent: '#2e51c9',
+      bg: '#edf4ff',
+    },
+  ];
+
+  const registerItems = [
+    {
+      to: '/register?role=producer',
+      icon: Tag,
+      title: 'Brand Team',
+      detail: 'Launch a campaign',
+      accent: '#0028aa',
+      bg: '#eef1ff',
+    },
+    {
+      to: '/register?role=brand',
+      icon: Megaphone,
+      title: 'Brand',
+      detail: 'Plan a promotion',
+      accent: '#1a3fd4',
+      bg: '#eef6ff',
+    },
+  ];
+
+  const channels = [
+    {
+      icon: Instagram,
+      title: 'Creators',
+      copy: 'Verified voices for reels, reviews, launches, store visits, and regional buzz.',
+      color: '#0028aa',
+    },
+    {
+      icon: Newspaper,
+      title: 'Press and media',
+      copy: 'Newspapers, radio, PR pushes, and local coverage planned around key dates.',
+      color: '#1a3fd4',
+    },
+    {
+      icon: MapPinned,
+      title: 'Outdoor reach',
+      copy: 'Billboards, tea shop boards, notice campaigns, field teams, and student networks.',
+      color: '#2e51c9',
+    },
+    {
+      icon: BarChart3,
+      title: 'Performance',
+      copy: 'Budget tracking, delivery status, proof of work, and campaign-level reporting.',
+      color: '#4f73e6',
+    },
+  ];
+
+  const audiences = [
+    {
+      image: productionImage,
+      label: 'For campaign teams',
+      title: 'Build launch momentum across every market.',
+      copy: 'Coordinate creators, PR, media buys, outdoor inventory, and local ground activity across every campaign phase.',
+    },
+    {
+      image: planningImage,
+      label: 'For brands',
+      title: 'Turn launches into regional demand.',
+      copy: 'Book creators and offline partners for product drops, retail pushes, festivals, campus activations, and city-by-city promotions.',
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-white font-body text-[#1b1c19]">
+    <div className="min-h-screen bg-[#f8faff] font-body text-[#1b1c19]">
+      <nav className="fixed left-0 right-0 top-0 z-50 border-b border-black/10 bg-white/95 px-4 py-3 backdrop-blur md:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+          <Link to="/" className="flex items-center gap-3" onClick={closeAll}>
+            <div className="flex h-9 w-9 items-center justify-center rounded-[8px] bg-[#0028aa]">
+              <Megaphone className="h-5 w-5 text-white" />
+            </div>
+            <span className="font-heading text-xl font-extrabold tracking-normal">
+              Big<span className="text-[#0028aa]">Socials</span>
+            </span>
+          </Link>
 
-      {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-white"
-        style={{ borderBottom: '1px solid #eee' }}>
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#0028aa]">
-            <Film className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl font-heading font-bold">
-            Big<span className="text-[#0028aa]">Social</span>
-          </span>
-        </div>
-
-        <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-[#666]">
-          <a href="#features" className="hover:text-[#0028aa] transition-colors">Features</a>
-          <a href="#how" className="hover:text-[#0028aa] transition-colors">How It Works</a>
-          <a href="#stats" className="hover:text-[#0028aa] transition-colors">Results</a>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {/* Login dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => { setLoginOpen(!loginOpen); setRegisterOpen(false); }}
-              className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold border-[1.5px] border-[#0028aa] text-[#0028aa] hover:bg-[#eef1ff] transition-colors"
-            >
-              Login <ChevronDown className={`w-4 h-4 transition-transform ${loginOpen ? 'rotate-180' : ''}`} />
-            </button>
-            {loginOpen && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={closeAll} />
-                <div className="absolute right-0 mt-2 w-56 rounded-2xl overflow-hidden shadow-xl z-50 bg-white border border-[#eee]">
-                  <Link to="/login?role=producer" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#f5f4ff] transition-colors text-sm" onClick={closeAll}>
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#eef1ff]">
-                      <Film className="w-4 h-4 text-[#0028aa]" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-[#0028aa]">Producer</div>
-                      <div className="text-xs text-[#999]">Google / Email OTP</div>
-                    </div>
-                  </Link>
-                  <div className="h-px bg-[#f0f0f0] mx-4" />
-                  <Link to="/login?role=influencer" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#fdf5ff] transition-colors text-sm" onClick={closeAll}>
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#fce8ff]">
-                      <Instagram className="w-4 h-4 text-[#9333ea]" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-[#9333ea]">Influencer</div>
-                      <div className="text-xs text-[#999]">Instagram Login</div>
-                    </div>
-                  </Link>
-                  <div className="h-px bg-[#f0f0f0] mx-4" />
-                  <Link to="/login?role=vendor" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#f5f4ff] transition-colors text-sm" onClick={closeAll}>
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#eef1ff]">
-                      <Shield className="w-4 h-4 text-[#0028aa]" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-[#0028aa]">Vendor</div>
-                      <div className="text-xs text-[#999]">Email Login</div>
-                    </div>
-                  </Link>
-                </div>
-              </>
-            )}
+          <div className="hidden items-center gap-8 text-sm font-bold text-[#525252] md:flex">
+            <a href="#solutions" className="transition-colors hover:text-[#0028aa]">
+              Solutions
+            </a>
+            <a href="#channels" className="transition-colors hover:text-[#0028aa]">
+              Channels
+            </a>
+            <a href="#workflow" className="transition-colors hover:text-[#0028aa]">
+              Workflow
+            </a>
           </div>
 
-          {/* Register dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => { setRegisterOpen(!registerOpen); setLoginOpen(false); }}
-              className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-[#0028aa] text-white hover:bg-[#1a3fd4] transition-colors"
-            >
-              Get Started <ChevronDown className={`w-4 h-4 transition-transform ${registerOpen ? 'rotate-180' : ''}`} />
-            </button>
-            {registerOpen && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={closeAll} />
-                <div className="absolute right-0 mt-2 w-56 rounded-2xl overflow-hidden shadow-xl z-50 bg-white border border-[#eee]">
-                  <Link to="/register?role=producer" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#f5f4ff] transition-colors text-sm" onClick={closeAll}>
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#eef1ff]">
-                      <Film className="w-4 h-4 text-[#0028aa]" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-[#0028aa]">Producer</div>
-                      <div className="text-xs text-[#999]">Register your film</div>
-                    </div>
-                  </Link>
-                  <div className="h-px bg-[#f0f0f0] mx-4" />
-                  <Link to="/register?role=influencer" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#fdf5ff] transition-colors text-sm" onClick={closeAll}>
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#fce8ff]">
-                      <Instagram className="w-4 h-4 text-[#9333ea]" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-[#9333ea]">Influencer</div>
-                      <div className="text-xs text-[#999]">Join & earn</div>
-                    </div>
-                  </Link>
-                  <div className="h-px bg-[#f0f0f0] mx-4" />
-                  <Link to="/register?role=vendor" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#f5f4ff] transition-colors text-sm" onClick={closeAll}>
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#eef1ff]">
-                      <Shield className="w-4 h-4 text-[#0028aa]" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-[#0028aa]">Vendor</div>
-                      <div className="text-xs text-[#999]">Join as service partner</div>
-                    </div>
-                  </Link>
-                </div>
-              </>
-            )}
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setLoginOpen(!loginOpen);
+                  setRegisterOpen(false);
+                }}
+                className="flex items-center gap-1.5 rounded-[8px] border border-[#0028aa] px-3 py-2 text-sm font-bold text-[#0028aa] transition-colors hover:bg-[#0028aa] hover:text-white md:px-5"
+              >
+                Login
+                <ChevronDown className={`h-4 w-4 transition-transform ${loginOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {loginOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={closeAll} />
+                  <div className="absolute right-0 z-50 mt-2 w-60 overflow-hidden rounded-[8px] border border-black/10 bg-white shadow-xl">
+                    {loginItems.map(({ to, icon: Icon, title, detail, accent, bg }) => (
+                      <Link
+                        key={title}
+                        to={to}
+                        className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#f5f5f0]"
+                        onClick={closeAll}
+                      >
+                        <span
+                          className="flex h-9 w-9 items-center justify-center rounded-[8px]"
+                          style={{ backgroundColor: bg }}
+                        >
+                          <Icon className="h-4 w-4" style={{ color: accent }} />
+                        </span>
+                        <span>
+                          <span className="block text-sm font-extrabold text-[#1b1c19]">{title}</span>
+                          <span className="block text-xs font-semibold text-[#737373]">{detail}</span>
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setRegisterOpen(!registerOpen);
+                  setLoginOpen(false);
+                }}
+                className="flex items-center gap-1.5 rounded-[8px] bg-[#0028aa] px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-[#1a3fd4] md:px-5"
+              >
+                Start
+                <ChevronDown className={`h-4 w-4 transition-transform ${registerOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {registerOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={closeAll} />
+                  <div className="absolute right-0 z-50 mt-2 w-64 overflow-hidden rounded-[8px] border border-black/10 bg-white shadow-xl">
+                    {registerItems.map(({ to, icon: Icon, title, detail, accent, bg }) => (
+                      <Link
+                        key={title}
+                        to={to}
+                        className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#f5f5f0]"
+                        onClick={closeAll}
+                      >
+                        <span
+                          className="flex h-9 w-9 items-center justify-center rounded-[8px]"
+                          style={{ backgroundColor: bg }}
+                        >
+                          <Icon className="h-4 w-4" style={{ color: accent }} />
+                        </span>
+                        <span>
+                          <span className="block text-sm font-extrabold text-[#1b1c19]">{title}</span>
+                          <span className="block text-xs font-semibold text-[#737373]">{detail}</span>
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </nav>
 
-      {/* HERO */}
-      <section className="pt-28 pb-20 px-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 bg-[#eef1ff] text-[#0028aa] border border-[#c7d2fe]">
-              🎬 South India's Movie Marketing Platform
+      <header
+        className="relative flex min-h-[82svh] items-end overflow-hidden bg-[#0028aa] px-4 pb-12 pt-28 text-white md:px-8 md:pb-16"
+        style={{
+          backgroundImage: `linear-gradient(90deg, rgba(0,40,170,0.92) 0%, rgba(0,40,170,0.72) 45%, rgba(0,40,170,0.22) 100%), url(${heroImage})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+        }}
+      >
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="max-w-3xl">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-[8px] border border-white/25 bg-white/10 px-3 py-2 text-xs font-extrabold uppercase tracking-normal text-white">
+              <BadgeCheck className="h-4 w-4 text-white" />
+              Marketing for brands and campaign teams
             </div>
-            <h1 className="text-5xl md:text-6xl font-heading font-extrabold mb-6 leading-[1.1]">
-              Market Your Movie<br />
-              <span className="text-[#0028aa]">the Smart Way</span>
+            <h1 className="font-heading text-5xl font-black leading-[1.02] tracking-normal md:text-7xl">
+              Launch campaigns people actually notice.
             </h1>
-            <p className="text-lg text-[#666] mb-8 leading-relaxed">
-              Connect with 12,000+ verified influencers across Kerala, Tamil Nadu, Andhra Pradesh
-              and Telangana. AI-powered campaigns, transparent escrow, real results.
+            <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-white/[0.82] md:text-xl">
+              Plan creator, media, outdoor, and ground campaigns from one place, built for brand launches,
+              brand launches, retail pushes, and regional growth.
             </p>
-
-            <div className="flex flex-wrap gap-x-6 gap-y-2 mb-10">
-              {['AI Script Review', 'Escrow Payments', 'Live Analytics', 'Multi-Phase Campaigns'].map(f => (
-                <div key={f} className="flex items-center gap-1.5 text-sm font-semibold text-[#0028aa]">
-                  <CheckCircle2 className="w-4 h-4" /> {f}
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <Link to="/register?role=producer"
-                className="flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-base bg-[#0028aa] text-white hover:bg-[#1a3fd4] transition-all hover:-translate-y-0.5 hover:shadow-lg">
-                Start as Producer <ArrowRight className="w-4 h-4" />
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link
+                to="/register?role=producer"
+                className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-white px-6 py-4 text-base font-extrabold text-[#0028aa] transition-colors hover:bg-[#eef1ff]"
+              >
+                Start a campaign
+                <ArrowRight className="h-5 w-5" />
               </Link>
-              <Link to="/register?role=influencer"
-                className="flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-base border-[1.5px] border-[#9333ea] text-[#9333ea] hover:bg-[#fdf5ff] transition-all hover:-translate-y-0.5">
-                <Instagram className="w-4 h-4" /> Join as Influencer
-              </Link>
-            </div>
-          </div>
-
-          {/* Dashboard mockup */}
-          <div className="hidden lg:block">
-            <div className="rounded-3xl p-6 shadow-2xl bg-[#0028aa]">
-              <div className="flex items-center gap-2 mb-5">
-                <div className="w-3 h-3 rounded-full bg-red-400" />
-                <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                <div className="w-3 h-3 rounded-full bg-green-400" />
-                <span className="text-white/40 text-xs ml-2 font-mono">bigsocial.in — Campaign Dashboard</span>
-              </div>
-              <div className="space-y-3 mb-4">
-                {[
-                  { title: 'Baahubali 3', status: 'Active', reach: '2.4M', color: '#34d399' },
-                  { title: 'Pushpa Returns', status: 'Review', reach: '1.8M', color: '#fbbf24' },
-                  { title: 'KGF 4', status: 'Live', reach: '5.1M', color: '#60a5fa' },
-                ].map(({ title, status, reach, color }) => (
-                  <div key={title} className="flex items-center justify-between px-4 py-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.08)' }}>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: `${color}25` }}>
-                        <Film className="w-4 h-4" style={{ color }} />
-                      </div>
-                      <span className="text-white font-semibold text-sm">{title}</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: `${color}22`, color }}>{status}</span>
-                      <span className="text-xs text-white/50 font-mono">{reach}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="p-4 rounded-2xl" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                <div className="text-white/40 text-xs mb-1">Total Reach This Month</div>
-                <div className="text-3xl font-heading font-extrabold text-white">9.3M</div>
-                <div className="text-xs mt-1 text-[#34d399] font-semibold">↑ 24% vs last month</div>
-              </div>
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Stats */}
-        <div id="stats" className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-12 border-t border-[#eee]">
-          {[['500+', 'Movies Marketed'], ['12,000+', 'Active Influencers'], ['₹80Cr+', 'Budget Managed'], ['4 States', 'Coverage']].map(([num, label]) => (
-            <div key={label}>
-              <div className="text-3xl font-heading font-extrabold text-[#0028aa]">{num}</div>
-              <div className="text-sm text-[#888] mt-1">{label}</div>
+      <section className="border-b border-black/10 bg-white px-4 py-5 md:px-8">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 md:grid-cols-4">
+          {[
+            ['12,000+', 'creators and local partners'],
+            ['4', 'state-level campaign regions'],
+            ['INR 80Cr+', 'campaign budget capacity'],
+            ['500+', 'brand activations'],
+          ].map(([value, label]) => (
+            <div key={label} className="border-l-4 border-[#0028aa] pl-4">
+              <div className="font-heading text-2xl font-black text-[#0028aa] md:text-3xl">{value}</div>
+              <div className="mt-1 text-sm font-semibold leading-5 text-[#666]">{label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* FEATURES */}
-      <section id="features" className="py-20 px-6 bg-[#fbf9f3]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-4xl font-heading font-bold mb-4">Built for Movie Marketing</h2>
-            <p className="text-[#888]">Every feature designed for South Indian film campaigns.</p>
+      <section id="solutions" className="px-4 py-16 md:px-8 md:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 max-w-3xl">
+            <p className="mb-3 text-sm font-extrabold uppercase tracking-normal text-[#0028aa]">
+              Built for high-stakes launches
+            </p>
+            <h2 className="font-heading text-4xl font-black leading-tight md:text-5xl">
+              One platform for cultural reach and commercial outcomes.
+            </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: Zap,         bg: '#eef1ff', ic: '#0028aa', title: 'AI Script Review',      desc: 'Auto-review content against your campaign brief, brand safety guidelines, and tone preferences.' },
-              { icon: Users,       bg: '#fce8ff', ic: '#9333ea', title: 'Smart Influencer Match', desc: 'Recommendations by follower tier (Nano→Mega), location, category, and engagement rate.' },
-              { icon: Shield,      bg: '#ecfdf5', ic: '#059669', title: 'Escrow Protection',      desc: 'Funds locked safely. Released to influencers only after the verified post goes live.' },
-              { icon: BarChart3,   bg: '#fff7ed', ic: '#ea580c', title: 'Live Analytics',         desc: 'Real-time reach, engagement, and ROI tracking across all campaign phases.' },
-              { icon: Play,        bg: '#eff6ff', ic: '#2563eb', title: 'Phase Management',       desc: 'Manage Announcement, Teaser, Trailer and Post-Release from one place.' },
-              { icon: TrendingUp,  bg: '#fef2f2', ic: '#dc2626', title: 'Booking Analytics',      desc: 'Exclusive box office data to align your influencer campaign with real-time collections.' },
-            ].map(({ icon: Icon, bg, ic, title, desc }) => (
-              <div key={title} className="p-6 bg-white rounded-2xl shadow-sm hover:-translate-y-1 transition-all border border-[#f0f0f0]">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ background: bg }}>
-                  <Icon className="w-5 h-5" style={{ color: ic }} />
+
+          <div className="grid gap-5 lg:grid-cols-2">
+            {audiences.map(({ image, label, title, copy }) => (
+              <article key={label} className="overflow-hidden rounded-[8px] border border-black/10 bg-white">
+                <img src={image} alt="" className="h-64 w-full object-cover" />
+                <div className="p-6 md:p-8">
+                  <p className="mb-3 text-sm font-extrabold uppercase tracking-normal text-[#0028aa]">{label}</p>
+                  <h3 className="font-heading text-2xl font-black leading-tight">{title}</h3>
+                  <p className="mt-4 text-base font-medium leading-7 text-[#5f5f5f]">{copy}</p>
                 </div>
-                <h3 className="font-heading font-bold text-base mb-2">{title}</h3>
-                <p className="text-sm text-[#888] leading-relaxed">{desc}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="channels" className="bg-[#0028aa] px-4 py-16 text-white md:px-8 md:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="mb-3 text-sm font-extrabold uppercase tracking-normal text-white/75">
+              Campaign channels
+            </p>
+            <h2 className="font-heading text-4xl font-black leading-tight md:text-5xl">
+              Pick the right mix for every launch window.
+            </h2>
+            <p className="mt-5 text-lg font-medium leading-8 text-white/70">
+              Move from awareness to action with creators, media, outdoor placements, and on-ground
+              partners working around the same brief, budget, and calendar.
+            </p>
+            <img src={channelImage} alt="" className="mt-8 h-72 w-full rounded-[8px] object-cover" />
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {channels.map(({ icon: Icon, title, copy, color }) => (
+              <div key={title} className="rounded-[8px] border border-white/[0.12] bg-white/[0.08] p-6">
+                <div
+                  className="mb-5 flex h-11 w-11 items-center justify-center rounded-[8px]"
+                  style={{ backgroundColor: color }}
+                >
+                  <Icon className="h-5 w-5 text-white" />
+                </div>
+                <h3 className="font-heading text-xl font-black">{title}</h3>
+                <p className="mt-3 text-sm font-medium leading-6 text-white/[0.68]">{copy}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section id="how" className="py-20 px-6 max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl font-heading font-bold mb-14">Launch in 3 Steps</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {[
-            { n: '1', title: 'Create Campaign',   desc: 'Set your movie details, budget, target regions, and the influencer tiers you need.' },
-            { n: '2', title: 'Pick Influencers',  desc: 'Browse AI recommendations, confirm your lineup, and lock funds into escrow.' },
-            { n: '3', title: 'Go Live & Pay',     desc: 'Content submitted, reviewed, posted — payment automatically released.' },
-          ].map(({ n, title, desc }) => (
-            <div key={n} className="flex flex-col items-center">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-heading font-extrabold mb-5 bg-[#0028aa] text-white shadow-lg">
-                {n}
+      <section id="workflow" className="bg-white px-4 py-16 md:px-8 md:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+            <div>
+              <p className="mb-3 text-sm font-extrabold uppercase tracking-normal text-[#0028aa]">
+                Workflow
+              </p>
+              <h2 className="font-heading text-4xl font-black leading-tight md:text-5xl">
+                From brief to proof without loose ends.
+              </h2>
+            </div>
+            <p className="text-lg font-medium leading-8 text-[#5f5f5f]">
+              Keep campaign planning, partner selection, approvals, payments, and performance in a single operating rhythm.
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-4">
+            {[
+              ['01', 'Build the brief', 'Audience, region, budget, launch dates, content tone, and campaign goal.'],
+              ['02', 'Select partners', 'Creators, vendors, media channels, and field teams matched to the brief.'],
+              ['03', 'Approve delivery', 'Content, bookings, proofs, and go-live status reviewed before launch.'],
+              ['04', 'Track results', 'Spend, reach, engagement, partner status, and proof of work stay visible.'],
+            ].map(([number, title, copy]) => (
+              <div key={title} className="rounded-[8px] border border-[#dbe4ff] bg-[#f8faff] p-6">
+                <div className="mb-8 font-mono text-sm font-bold text-[#0028aa]">{number}</div>
+                <h3 className="font-heading text-xl font-black">{title}</h3>
+                <p className="mt-3 text-sm font-medium leading-6 text-[#666]">{copy}</p>
               </div>
-              <h3 className="font-heading font-bold text-lg mb-3">{title}</h3>
-              <p className="text-sm text-[#888] leading-relaxed">{desc}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-16 md:px-8 md:py-24">
+        <div className="mx-auto grid max-w-7xl gap-4 lg:grid-cols-3">
+          {[
+            {
+              icon: ShieldCheck,
+              title: 'Controlled spend',
+              copy: 'Campaign budgets stay attached to approved work and partner milestones.',
+            },
+            {
+              icon: Users,
+              title: 'Regional depth',
+              copy: 'Plan by state, district, category, audience, and channel mix.',
+            },
+            {
+              icon: Radio,
+              title: 'Online and offline',
+              copy: 'Creator content, media placements, retail reach, and local activations work together.',
+            },
+          ].map(({ icon: Icon, title, copy }) => (
+            <div key={title} className="rounded-[8px] border border-black/10 bg-white p-7">
+              <Icon className="h-8 w-8 text-[#0028aa]" />
+              <h3 className="mt-5 font-heading text-2xl font-black">{title}</h3>
+              <p className="mt-3 text-base font-medium leading-7 text-[#666]">{copy}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-6 text-center bg-[#0028aa]">
-        <h2 className="text-4xl font-heading font-bold text-white mb-6">Ready to Market Your Film?</h2>
-        <p className="text-white/70 mb-10 text-lg">Join 500+ producers and 12,000+ influencers on BigSocial.</p>
-        <div className="flex flex-wrap gap-4 justify-center">
-          <Link to="/register?role=producer"
-            className="px-8 py-4 rounded-2xl font-bold text-base bg-white text-[#0028aa] hover:bg-[#f0f4ff] transition-colors">
-            Start as Producer
-          </Link>
-          <Link to="/register?role=influencer"
-            className="px-8 py-4 rounded-2xl font-bold text-base border-2 border-white/40 text-white hover:bg-white/10 transition-colors">
-            Join as Influencer
-          </Link>
+      <section className="bg-[#0028aa] px-4 py-16 text-white md:px-8 md:py-20">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-3xl">
+            <p className="mb-3 text-sm font-extrabold uppercase tracking-normal text-white/75">
+              Ready for the next launch
+            </p>
+            <h2 className="font-heading text-4xl font-black leading-tight md:text-5xl">
+              Bring creators, media, and ground teams into one campaign.
+            </h2>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
+            <Link
+              to="/register?role=producer"
+              className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-white px-6 py-4 text-base font-extrabold text-[#0028aa] transition-colors hover:bg-[#eef1ff]"
+            >
+              Start a campaign
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+            <Link
+              to="/login?role=producer"
+              className="inline-flex items-center justify-center rounded-[8px] border border-white/50 px-6 py-4 text-base font-extrabold text-white transition-colors hover:bg-white hover:text-[#0028aa]"
+            >
+              Login
+            </Link>
+          </div>
         </div>
       </section>
 
-      <footer className="py-8 text-center text-sm text-[#999] border-t border-[#f0f0f0] bg-white">
-        © 2026 BigSocial · Movie Marketing Platform · India ·{' '}
-        <Link to="/admin-login" className="text-[#ccc] hover:text-[#999] transition-colors text-xs">Admin</Link>
+      <footer className="border-t border-black/10 bg-white px-4 py-8 md:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 text-sm font-semibold text-[#737373] md:flex-row md:items-center md:justify-between">
+          <p>© 2026 BigSocials. Marketing platform for brands and campaign teams.</p>
+          <Link to="/admin-login" className="text-[#a3a3a3] transition-colors hover:text-[#0028aa]">
+            Admin
+          </Link>
+        </div>
       </footer>
     </div>
   );

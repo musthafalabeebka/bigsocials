@@ -23,14 +23,14 @@ const CreateCampaign = () => {
       <div className="flex-1">
         <div className="bg-surface-container-lowest border-b border-outline-variant/20 p-8">
           <h1 className="text-4xl font-heading font-bold text-on-surface mb-2">Create Campaign</h1>
-          <p className="text-lg font-body text-muted-foreground">Launch a new movie marketing campaign</p>
+          <p className="text-lg font-body text-muted-foreground">Launch a new brand marketing campaign</p>
         </div>
 
         <div className="p-8">
           <form onSubmit={handleSubmit} className="max-w-4xl mx-auto bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-8">
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-body font-semibold text-on-surface mb-2">Movie Title</label>
+                <label className="block text-sm font-body font-semibold text-on-surface mb-2">Brand Campaign</label>
                 <input
                   type="text"
                   value={formData.movie_title}

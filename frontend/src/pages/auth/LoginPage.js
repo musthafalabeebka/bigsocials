@@ -3,12 +3,12 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { authAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Film, Instagram, ArrowLeft, ArrowRight, Mail, Lock, Chrome } from 'lucide-react';
+import { Tag, Instagram, ArrowLeft, ArrowRight, Mail, Lock, Megaphone } from 'lucide-react';
 
 // Step 1: Choose role  |  Step 2: Choose method  |  Step 3: Enter credentials
 const LoginPage = () => {
   const [searchParams] = useSearchParams();
-  const initialRole = searchParams.get('role'); // 'producer' | 'influencer' | 'vendor'
+  const initialRole = searchParams.get('role'); // 'producer' | 'brand' | 'influencer' | 'vendor'
 
   const [role, setRole] = useState(initialRole || null);
   const [method, setMethod] = useState(null); // 'google' | 'email' | 'instagram'
@@ -23,10 +23,15 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await authAPI.login(email, role === 'admin' ? password : null, role);
-      login(response.data.user);
+      const authRole = role === 'brand' ? 'producer' : role;
+      const response = await authAPI.login(email, authRole === 'admin' ? password : null, authRole);
+      const nextUser = role === 'brand'
+        ? { ...response.data.user, account_type: 'brand', name: response.data.user.name || 'Brand User' }
+        : response.data.user;
+      login(nextUser);
       toast.success('Welcome back!');
-      if (role === 'producer') navigate('/producer/dashboard');
+      if (role === 'brand') navigate('/producer/dashboard');
+      else if (role === 'producer') navigate('/producer/dashboard');
       else if (role === 'influencer') navigate('/influencer/dashboard');
       else if (role === 'vendor') navigate(response.data.user.onboarding_completed ? '/vendor/dashboard' : '/vendor/onboarding');
       else navigate('/admin/dashboard');
@@ -49,11 +54,18 @@ const LoginPage = () => {
         <p className="text-sm text-[#888] mb-8 text-center">Choose how you'd like to sign in</p>
         <div className="space-y-4">
           <RoleCard
-            icon={Film}
+            icon={Tag}
             iconBg="#eef1ff" iconColor="#0028aa"
             title="Producer"
             subtitle="Sign in with Google or Email OTP"
             onClick={() => setRole('producer')}
+          />
+          <RoleCard
+            icon={Megaphone}
+            iconBg="#eef6ff" iconColor="#1a3fd4"
+            title="Brand"
+            subtitle="Sign in with Email"
+            onClick={() => setRole('brand')}
           />
           <RoleCard
             icon={Instagram}
@@ -78,35 +90,47 @@ const LoginPage = () => {
     );
   }
 
-  /* ─── Step 2: Method Selection (Producer) ─── */
-  if (role === 'producer' && !method) {
+  /* ─── Step 2: Method Selection (Brand Team / Brand) ─── */
+  if ((role === 'producer' || role === 'brand') && !method) {
+    const isBrand = role === 'brand';
+
     return (
       <AuthShell onBack={back} backLabel="Back">
         <div className="flex items-center gap-3 mb-8 justify-center">
           <div className="w-10 h-10 rounded-xl bg-[#eef1ff] flex items-center justify-center">
-            <Film className="w-5 h-5 text-[#0028aa]" />
+            {isBrand ? (
+              <Megaphone className="w-5 h-5 text-[#0028aa]" />
+            ) : (
+              <Tag className="w-5 h-5 text-[#0028aa]" />
+            )}
           </div>
           <div>
-            <div className="font-heading font-bold text-[#0028aa]">Producer Login</div>
+            <div className="font-heading font-bold text-[#0028aa]">
+              {isBrand ? 'Brand Login' : 'Producer Login'}
+            </div>
             <div className="text-xs text-[#999]">Choose your sign-in method</div>
           </div>
         </div>
         <div className="space-y-3">
-          <MethodButton
-            icon={<GoogleIcon />}
-            label="Continue with Google"
-            onClick={() => setMethod('google')}
-          />
+          {!isBrand && (
+            <MethodButton
+              icon={<GoogleIcon />}
+              label="Continue with Google"
+              onClick={() => setMethod('google')}
+            />
+          )}
           <MethodButton
             icon={<Mail className="w-5 h-5 text-[#666]" />}
-            label="Continue with Email / OTP"
+            label={isBrand ? 'Continue with Email' : 'Continue with Email / OTP'}
             onClick={() => setMethod('email')}
             secondary
           />
         </div>
         <div className="mt-8 text-center text-sm text-[#999]">
           New here?{' '}
-          <Link to="/register?role=producer" className="text-[#0028aa] font-semibold hover:underline">Create producer account</Link>
+          <Link to={`/register?role=${role}`} className="text-[#0028aa] font-semibold hover:underline">
+            {isBrand ? 'Create brand account' : 'Create producer account'}
+          </Link>
         </div>
       </AuthShell>
     );
@@ -192,6 +216,7 @@ const LoginPage = () => {
   const accentBg = role === 'influencer' ? '#fce8ff' : '#eef1ff';
   const MethodIcon = method === 'google' ? GoogleIcon : method === 'instagram' ? () => <Instagram className="w-5 h-5" style={{ color: accent }} /> : () => <Mail className="w-5 h-5" style={{ color: accent }} />;
   const methodLabel = method === 'google' ? 'Google Account' : method === 'instagram' ? 'Instagram Account' : 'Email / OTP';
+  const roleLabel = role === 'brand' ? 'Brand' : role === 'producer' ? 'Producer' : role === 'vendor' ? 'Vendor' : 'Influencer';
 
   return (
     <AuthShell onBack={back} backLabel="Back">
@@ -203,7 +228,7 @@ const LoginPage = () => {
           <div className="font-heading font-bold" style={{ color: accent }}>
             Sign in via {methodLabel}
           </div>
-          <div className="text-xs text-[#999] capitalize">{role} login</div>
+          <div className="text-xs text-[#999]">{roleLabel} login</div>
         </div>
       </div>
 
@@ -223,7 +248,7 @@ const LoginPage = () => {
             <p className="text-xs text-[#999] mt-1">An OTP will be sent to your email on submit</p>
           </div>
         )}
-        <SubmitButton loading={loading} label={`Sign In as ${role === 'producer' ? 'Producer' : role === 'vendor' ? 'Vendor' : 'Influencer'}`} color={accent} />
+        <SubmitButton loading={loading} label={`Sign In as ${roleLabel}`} color={accent} />
       </form>
 
       <div className="mt-6 text-center text-sm text-[#999]">
@@ -243,11 +268,11 @@ const AuthShell = ({ children, onBack, backLabel }) => (
       <div className="text-center mb-8">
         <Link to="/" className="inline-flex items-center gap-2 mb-2">
           <div className="w-9 h-9 rounded-xl bg-[#0028aa] flex items-center justify-center">
-            <Film className="w-5 h-5 text-white" />
+            <Tag className="w-5 h-5 text-white" />
           </div>
-          <span className="text-2xl font-heading font-bold">Big<span className="text-[#0028aa]">Social</span></span>
+          <span className="text-2xl font-heading font-bold">Big<span className="text-[#0028aa]">Socials</span></span>
         </Link>
-        <p className="text-sm text-[#888]">Movie Marketing Platform</p>
+        <p className="text-sm text-[#888]">Marketing Platform for Brands</p>
       </div>
 
       <div className="bg-white rounded-3xl shadow-sm border border-[#eee] p-8">

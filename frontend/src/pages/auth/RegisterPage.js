@@ -3,11 +3,11 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { authAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Film, Instagram, ArrowLeft, ArrowRight, CheckCircle2, Shield } from 'lucide-react';
+import { Tag, Instagram, ArrowLeft, ArrowRight, CheckCircle2, Shield, Megaphone } from 'lucide-react';
 import { districtsByState, allStates } from '../../data/regions';
 import { vendorTypeOptions } from '../vendor/vendorTypes';
 
-const CATEGORIES = ['Lifestyle', 'Couples', 'Family', 'Youth', 'Kids', 'Music', 'Meme', 'Review', 'Film', 'Fan Pages', 'Actor Pages'];
+const CATEGORIES = ['Lifestyle', 'Couples', 'Family', 'Youth', 'Kids', 'Music', 'Meme', 'Review', 'Brand', 'Fan Pages', 'Actor Pages'];
 const STATES = allStates;
 
 const RegisterPage = () => {
@@ -43,9 +43,12 @@ const RegisterPage = () => {
     try {
       const { confirm_password, ...payload } = producerForm;
       const response = await authAPI.registerProducer(payload);
-      login(response.data.user);
-      toast.success('Producer account created!');
-      navigate('/producer/dashboard');
+      const nextUser = role === 'brand'
+        ? { ...response.data.user, account_type: 'brand' }
+        : response.data.user;
+      login(nextUser);
+      toast.success(`${role === 'brand' ? 'Brand' : 'Brand team'} account created!`);
+      navigate(role === 'brand' ? '/brand/dashboard' : '/producer/dashboard');
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Registration failed');
     } finally { setLoading(false); }
@@ -120,13 +123,18 @@ const RegisterPage = () => {
         <p className="text-sm text-[#888] mb-8 text-center">Create your free account</p>
         <div className="space-y-4">
           <RoleCard
-            icon={Film} iconBg="#eef1ff" iconColor="#0028aa"
-            title="Producer" subtitle="Market your film to 12,000+ influencers"
+            icon={Tag} iconBg="#eef1ff" iconColor="#0028aa"
+            title="Brand Team" subtitle="Market your brand across creators, media, and offline channels"
             onClick={() => setRole('producer')}
           />
           <RoleCard
+            icon={Megaphone} iconBg="#eef6ff" iconColor="#1a3fd4"
+            title="Brand" subtitle="Launch product, retail, and regional promotion campaigns"
+            onClick={() => setRole('brand')}
+          />
+          <RoleCard
             icon={Instagram} iconBg="#fce8ff" iconColor="#9333ea"
-            title="Influencer" subtitle="Get paid to promote movies"
+            title="Influencer" subtitle="Get paid to promote brands"
             onClick={() => setRole('influencer')}
           />
           <RoleCard
@@ -143,23 +151,40 @@ const RegisterPage = () => {
     );
   }
 
-  /* ─── Producer Registration Form ─── */
-  if (role === 'producer') {
+  /* ─── Brand team registration form ─── */
+  if (role === 'producer' || role === 'brand') {
+    const isBrand = role === 'brand';
+
     return (
       <AuthShell onBack={() => setRole(null)} wide>
         <div className="flex items-center gap-3 mb-6 justify-center">
           <div className="w-10 h-10 rounded-xl bg-[#eef1ff] flex items-center justify-center">
-            <Film className="w-5 h-5 text-[#0028aa]" />
+            {isBrand ? (
+              <Megaphone className="w-5 h-5 text-[#0028aa]" />
+            ) : (
+              <Tag className="w-5 h-5 text-[#0028aa]" />
+            )}
           </div>
           <div>
-            <div className="font-heading font-bold text-[#0028aa]">Producer Registration</div>
-            <div className="text-xs text-[#999]">Register your production company</div>
+            <div className="font-heading font-bold text-[#0028aa]">
+              {isBrand ? 'Brand Registration' : 'Brand Team Registration'}
+            </div>
+            <div className="text-xs text-[#999]">
+              {isBrand ? 'Register your brand or company' : 'Register your campaign team'}
+            </div>
           </div>
         </div>
 
         <form onSubmit={handleProducerRegister} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label="Full Name *" type="text" value={producerForm.name} onChange={v => setP('name', v)} placeholder="Kiran Rao" required />
+            <Field
+              label={isBrand ? 'Brand / Company Name *' : 'Full Name *'}
+              type="text"
+              value={producerForm.name}
+              onChange={v => setP('name', v)}
+              placeholder={isBrand ? 'Bluebird Foods' : 'Kiran Rao'}
+              required
+            />
             <Field label="Email *" type="email" value={producerForm.email} onChange={v => setP('email', v)} placeholder="kiran@studio.com" required />
             <Field label="GST Number *" type="text" value={producerForm.gst_number} onChange={v => setP('gst_number', v)} placeholder="22AAAAA0000A1Z5" mono required />
             <Field label="Phone Number *" type="tel" value={producerForm.mobile} onChange={v => setP('mobile', v)} placeholder="+91 98765 43210" mono required />
@@ -171,13 +196,13 @@ const RegisterPage = () => {
           </div>
 
           <div className="flex gap-3 pt-2">
-            <SubmitButton loading={loading} label="Create Producer Account" color="#0028aa" />
+            <SubmitButton loading={loading} label={isBrand ? 'Create Brand Account' : 'Create Brand Team Account'} color="#0028aa" />
           </div>
         </form>
 
         <div className="mt-6 text-center text-sm text-[#999]">
           Already registered?{' '}
-          <Link to="/login?role=producer" className="text-[#0028aa] font-semibold hover:underline">Sign in</Link>
+          <Link to={`/login?role=${role}`} className="text-[#0028aa] font-semibold hover:underline">Sign in</Link>
         </div>
       </AuthShell>
     );
@@ -352,11 +377,11 @@ const AuthShell = ({ children, onBack, wide }) => (
       <div className="text-center mb-8">
         <Link to="/" className="inline-flex items-center gap-2 mb-2">
           <div className="w-9 h-9 rounded-xl bg-[#0028aa] flex items-center justify-center">
-            <Film className="w-5 h-5 text-white" />
+            <Tag className="w-5 h-5 text-white" />
           </div>
           <span className="text-2xl font-heading font-bold">Big<span className="text-[#0028aa]">Social</span></span>
         </Link>
-        <p className="text-sm text-[#888]">Movie Marketing Platform</p>
+        <p className="text-sm text-[#888]">Marketing Platform for Brands</p>
       </div>
 
       <div className="bg-white rounded-3xl shadow-sm border border-[#eee] p-8">

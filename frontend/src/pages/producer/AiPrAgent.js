@@ -10,11 +10,33 @@ import {
 import Sidebar from '../../components/Sidebar';
 import { Button } from '../../components/ui/button';
 import { toast } from 'sonner';
+import { useAuth } from '../../contexts/AuthContext';
+
+export const PRODUCER_PR_BRIEFS_STORAGE_KEY = 'producer_pr_briefs';
+
+const readStoredBriefs = () => {
+  if (typeof window === 'undefined') {
+    return [];
+  }
+
+  try {
+    const raw = window.localStorage.getItem(PRODUCER_PR_BRIEFS_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
+const writeStoredBriefs = (briefs) => {
+  if (typeof window !== 'undefined') {
+    window.localStorage.setItem(PRODUCER_PR_BRIEFS_STORAGE_KEY, JSON.stringify(briefs));
+  }
+};
 
 const publications = [
   {
-    id: 'filmibeat',
-    name: 'Filmibeat',
+    id: 'brandibeat',
+    name: 'Brandibeat',
     locations: {
       Kerala: 420000,
       TamilNadu: 510000,
@@ -107,24 +129,25 @@ const locationOptions = [
 
 const buildPrDirection = ({ brief, publicationName, locationLabel, placements }) => {
   const sanitizedBrief = brief.trim();
-  const sourceText = sanitizedBrief || 'New movie campaign announcement with cast-led publicity push.';
+  const sourceText = sanitizedBrief || 'New brand campaign announcement with creator-led publicity push.';
   const shortBrief =
     sourceText.length > 180 ? `${sourceText.slice(0, 177).trim()}...` : sourceText;
 
   return {
     angle: `Position this story for ${publicationName} as a high-interest entertainment update tailored for ${locationLabel} audiences.`,
-    headline: `${publicationName}: make the movie conversation about ${shortBrief.toLowerCase()}`,
+    headline: `${publicationName}: make the brand conversation about ${shortBrief.toLowerCase()}`,
     placement: placements[0],
-    copy: `Lead with the strongest hook from the brief, connect it to release momentum, and package it for ${placements[0].toLowerCase()} before expanding into supporting updates.`,
+    copy: `Lead with the strongest hook from the brief, connect it to launch momentum, and package it for ${placements[0].toLowerCase()} before expanding into supporting updates.`,
     outreach: [
       `Open with an exclusive entertainment angle for ${publicationName}.`,
       `Prioritize ${placements[0].toLowerCase()} and ${placements[1].toLowerCase()}.`,
-      `Use the brief to create a sharper cast, trailer, or release-week narrative for ${locationLabel}.`,
+      `Use the brief to create a sharper creator, launch, or campaign-week narrative for ${locationLabel}.`,
     ],
   };
 };
 
 const AiPrAgent = () => {
+  const { user } = useAuth();
   const [selectedLocation, setSelectedLocation] = useState('Kerala');
   const [selectedPublicationId, setSelectedPublicationId] = useState(publications[0].id);
   const [brief, setBrief] = useState('');
@@ -138,11 +161,27 @@ const AiPrAgent = () => {
 
   const handleSaveBrief = () => {
     if (!brief.trim()) {
-      toast.error('Add a producer brief before saving.');
+      toast.error('Add a brand brief before saving.');
       return;
     }
 
-    toast.success('Producer brief saved.');
+    const title = brief.trim().split('\n')[0].slice(0, 80) || 'Brand PR brief';
+    const nextBrief = {
+      id: `producer-pr-brief-${Date.now()}`,
+      title,
+      brief: brief.trim(),
+      publicationName: selectedPublication.name,
+      location: locationLabel,
+      expectedReach: selectedPublication.locations[selectedLocation],
+      basePrice: selectedPublication.prices[selectedLocation],
+      placements: selectedPublication.placements,
+      producerName: user?.name || 'Campaign Team',
+      createdAt: new Date().toISOString(),
+      status: 'open',
+    };
+
+    writeStoredBriefs([nextBrief, ...readStoredBriefs()]);
+    toast.success('Brand brief saved to Bid Box.');
   };
 
   const handleGenerateDirection = () => {
@@ -271,7 +310,7 @@ const AiPrAgent = () => {
                       </div>
                       <h3 className="mt-4 text-lg font-heading font-bold text-[#101828]">{placement}</h3>
                       <p className="mt-2 text-sm font-body text-[#667085]">
-                        Suggested placement for trailer drops, interviews, buzz stories, and release-week announcements.
+                        Suggested placement for launch drops, interviews, buzz stories, and launch-week announcements.
                       </p>
                     </article>
                   ))}
@@ -322,7 +361,7 @@ const AiPrAgent = () => {
                     <FileText className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#667085]">Producer Brief</p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#667085]">Brand Brief</p>
                     <h2 className="mt-1 text-2xl font-heading font-bold text-[#101828]">Add your media brief</h2>
                   </div>
                 </div>
@@ -331,7 +370,7 @@ const AiPrAgent = () => {
                   value={brief}
                   onChange={(event) => setBrief(event.target.value)}
                   rows={10}
-                  placeholder="Add the movie angle, cast hook, announcement type, release timing, and the story direction you want the publication to carry."
+                  placeholder="Add the brand angle, creator hook, announcement type, launch timing, and the story direction you want the publication to carry."
                   className="mt-6 w-full rounded-[24px] border border-[#d7dded] bg-[#f8faff] px-4 py-4 text-base text-[#101828] outline-none placeholder:text-[#98a2b3]"
                 />
 

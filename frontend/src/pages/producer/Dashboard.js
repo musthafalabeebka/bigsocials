@@ -5,7 +5,9 @@ import { analyticsAPI } from '../../services/api';
 import Sidebar from '../../components/Sidebar';
 import StatCard from '../../components/StatCard';
 import Button from '../../components/Button';
-import { BrainCircuit, Film, DollarSign, Users, TrendingUp, PanelsTopLeft, Newspaper, Radio, Megaphone, MapPinned, Handshake } from 'lucide-react';
+import { BadgeIndianRupee, BrainCircuit, Tag, DollarSign, Users, TrendingUp, PanelsTopLeft, Newspaper, Radio, Megaphone, MapPinned, Handshake } from 'lucide-react';
+
+const BRAND_BIDS_STORAGE_KEY = 'brand_dashboard_bids';
 
 const storageKeys = {
   billboards: 'billboard_live_campaigns',
@@ -27,6 +29,21 @@ const readStoredCampaigns = (key) => {
   const raw = window.localStorage.getItem(key);
   return raw ? JSON.parse(raw) : [];
 };
+
+const readStoredBids = () => {
+  if (typeof window === 'undefined') {
+    return [];
+  }
+
+  try {
+    const raw = window.localStorage.getItem(BRAND_BIDS_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
+const formatCurrency = (value) => `Rs ${Number(value || 0).toLocaleString('en-IN')}`;
 
 const normalizeStoredCampaigns = () => {
   const billboardCampaigns = readStoredCampaigns(storageKeys.billboards).map((campaign) => ({
@@ -158,11 +175,11 @@ const normalizeStoredCampaigns = () => {
 
 const aiScenarioOptions = [
   {
-    id: 'visibility',
-    title: 'Visibility',
+    id: 'brand-awareness',
+    title: 'Brand Awareness',
     subtitle: 'Mass awareness',
-    goal: 'Maximum reach across large audience',
-    bestFor: 'Big releases, star-driven films',
+    goal: 'Maximize recognition across a broad target audience',
+    bestFor: 'New product launches and market entries',
     allocations: [
       { label: 'Billboards', value: '40%', icon: PanelsTopLeft },
       { label: 'Newspaper', value: '20%', icon: Newspaper },
@@ -173,26 +190,26 @@ const aiScenarioOptions = [
     ],
   },
   {
-    id: 'ticket-sales',
-    title: 'Ticket Sales',
+    id: 'retail-traffic',
+    title: 'Retail Traffic',
     subtitle: 'Conversion focus',
-    goal: 'Drive people to theatres',
-    bestFor: 'Release week push',
+    goal: 'Drive customers to stores, landing pages, and purchase points',
+    bestFor: 'Store launches, offers, and seasonal sales pushes',
     allocations: [
-      { label: 'Notices near theatres', value: '25%', icon: MapPinned },
+      { label: 'Notices near retail locations', value: '25%', icon: MapPinned },
       { label: 'Radio reminders', value: '20%', icon: Radio },
       { label: 'Influencers', value: '20%', icon: Users },
       { label: 'Ambassadors', value: '15%', icon: Handshake },
-      { label: 'Billboards near theatres', value: '10%', icon: PanelsTopLeft },
+      { label: 'Billboards near retail locations', value: '10%', icon: PanelsTopLeft },
       { label: 'Tea Spots', value: '10%', icon: Megaphone },
     ],
   },
   {
     id: 'hyperlocal',
-    title: 'Hyperlocal Engagement',
-    subtitle: 'Kerala-style WOM',
-    goal: 'People talking everywhere locally',
-    bestFor: 'Small/mid films, strong story-based cinema',
+    title: 'Local Buzz',
+    subtitle: 'Community engagement',
+    goal: 'Create conversations in priority districts and neighborhoods',
+    bestFor: 'Regional brands, local launches, and community-led campaigns',
     allocations: [
       { label: 'Tea Shops / Tea Cups', value: '30%', icon: Megaphone },
       { label: 'Ambassadors', value: '25%', icon: Handshake },
@@ -203,10 +220,10 @@ const aiScenarioOptions = [
   },
   {
     id: 'balanced',
-    title: 'All 3',
+    title: 'Full Funnel',
     subtitle: 'Balanced campaign',
-    goal: 'Awareness + Buzz + Conversion',
-    bestFor: 'Most practical campaigns',
+    goal: 'Combine awareness, engagement, and conversion',
+    bestFor: 'Always-on brand marketing and multi-channel launches',
     allocations: [
       { label: 'Billboards', value: '25%', icon: PanelsTopLeft },
       { label: 'Influencers', value: '20%', icon: Users },
@@ -221,6 +238,9 @@ const aiScenarioOptions = [
 const ProducerDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const isDemoProducer = user?.email === 'producer@test.com' && user?.account_type !== 'brand';
+  const displayName = isDemoProducer ? 'Demo Producer' : user?.name;
+  const displayProductionHouse = isDemoProducer ? 'Demo Producer Co' : user?.production_house;
   const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedScenarioId, setSelectedScenarioId] = useState('');
@@ -261,6 +281,7 @@ const ProducerDashboard = () => {
   const totalBudget = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.budget || 0), 0);
   const totalSpent = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.spent || 0), 0);
   const totalReach = allCampaigns.reduce((sum, campaign) => sum + Number(campaign.reach || 0), 0);
+  const brandBids = readStoredBids();
   const selectedScenario =
     aiScenarioOptions.find((scenario) => scenario.id === selectedScenarioId) || null;
   const parsedBudget = Number(String(campaignBudget).replace(/,/g, '')) || 0;
@@ -289,9 +310,9 @@ const ProducerDashboard = () => {
         <div className="bg-white border-b border-[#eee] px-8 py-6">
           <div>
             <h1 className="text-3xl font-heading font-bold text-[#1b1c19] mb-1">
-              Welcome back, {user?.name}
+              Welcome back, {displayName}
             </h1>
-            <p className="text-sm text-[#888]">{user?.production_house}</p>
+            <p className="text-sm text-[#888]">{displayProductionHouse}</p>
           </div>
         </div>
 
@@ -302,7 +323,7 @@ const ProducerDashboard = () => {
               title="Total Campaigns"
               value={totalCampaignCount}
               subtitle={`${activeCampaignCount} active`}
-              icon={Film}
+              icon={Tag}
             />
             <StatCard
               title="Total Budget"
@@ -324,7 +345,7 @@ const ProducerDashboard = () => {
             />
           </div>
 
-          <section className="mb-8 rounded-[28px] border border-[#dbe5ff] bg-white p-6 shadow-sm">
+          <section id="movie-bids" className="mb-8 scroll-mt-6 rounded-[28px] border border-[#dbe5ff] bg-white p-6 shadow-sm">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-2 rounded-full bg-[#eef1ff] px-3 py-1 text-sm font-semibold text-[#0028aa]">
@@ -351,7 +372,7 @@ const ProducerDashboard = () => {
                     </div>
                     <h4 className="mt-3 text-base font-heading font-bold text-[#101828]">Enter Budget</h4>
                     <p className="mt-2 text-sm text-[#667085]">
-                      Add the total amount you want to spend for this movie campaign.
+                      Add the total amount you want to spend for this brand campaign.
                     </p>
                   </div>
                   <div className="rounded-2xl bg-white p-4">
@@ -360,7 +381,7 @@ const ProducerDashboard = () => {
                     </div>
                     <h4 className="mt-3 text-base font-heading font-bold text-[#101828]">Choose Objective</h4>
                     <p className="mt-2 text-sm text-[#667085]">
-                      Select whether the goal is visibility, ticket sales, hyperlocal engagement, or a balanced campaign.
+                      Select brand awareness, retail traffic, local buzz, or a full-funnel marketing plan.
                     </p>
                   </div>
                   <div className="rounded-2xl bg-white p-4">
@@ -478,6 +499,70 @@ const ProducerDashboard = () => {
             )}
           </section>
 
+          <section className="mb-8 rounded-[28px] border border-[#dbe5ff] bg-white p-6 shadow-sm">
+            <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-[#eef1ff] px-3 py-1 text-sm font-semibold text-[#0028aa]">
+                  <BadgeIndianRupee className="h-4 w-4" />
+                  Movie Bids
+                </div>
+                <h2 className="mt-4 text-2xl font-heading font-bold text-[#101828]">
+                  Applications from brands
+                </h2>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Review brand proposals submitted from the Brand Bid Box.
+                </p>
+              </div>
+              <div className="rounded-2xl bg-[#f8faff] px-5 py-4 text-right">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">Total bids</p>
+                <p className="mt-1 text-2xl font-heading font-bold text-[#0028aa]">{brandBids.length}</p>
+              </div>
+            </div>
+
+            {brandBids.length > 0 ? (
+              <div className="grid gap-4 lg:grid-cols-2">
+                {brandBids.slice(0, 4).map((bid) => (
+                  <article key={bid.id} className="rounded-[24px] border border-[#e4e9f4] bg-[#f8faff] p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">
+                          {bid.opportunityTitle || 'Brand proposal'}
+                        </p>
+                        <h3 className="mt-2 text-xl font-heading font-bold text-[#101828]">
+                          {bid.movieName || 'Campaign brief'}
+                        </h3>
+                      </div>
+                      <span className="rounded-full bg-[#eef1ff] px-3 py-1 text-xs font-bold uppercase text-[#0028aa]">
+                        {bid.status || 'submitted'}
+                      </span>
+                    </div>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <span className="rounded-full bg-white px-3 py-2 text-sm font-bold text-[#0028aa]">
+                        {formatCurrency(bid.amount)}
+                      </span>
+                      {bid.submittedAt && (
+                        <span className="rounded-full bg-white px-3 py-2 text-sm font-semibold text-[#667085]">
+                          {new Date(bid.submittedAt).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-4 line-clamp-3 text-sm leading-6 text-[#667085]">
+                      {bid.proposal || 'No proposal details added.'}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-[24px] border border-dashed border-[#c7d2fe] bg-[#f8faff] px-5 py-8 text-center">
+                <BadgeIndianRupee className="mx-auto h-10 w-10 text-[#0028aa]" />
+                <h3 className="mt-4 text-xl font-heading font-bold text-[#101828]">No brand bids yet</h3>
+                <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-[#667085]">
+                  Brand proposals will appear here after brands apply to briefs from their Bid Box.
+                </p>
+              </div>
+            )}
+          </section>
+
           {/* Recent Campaigns */}
           <div className="bg-white rounded-2xl border border-[#eee] p-6">
             <div className="flex items-center justify-between mb-6">
@@ -534,7 +619,7 @@ const ProducerDashboard = () => {
               </div>
             ) : (
               <div className="text-center py-12">
-                <Film className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                <Tag className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                 <p className="text-lg font-body text-muted-foreground mb-4">
                   No campaigns yet. Create your first campaign to get started!
                 </p>

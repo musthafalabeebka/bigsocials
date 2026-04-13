@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { authAPI } from '../services/api';
 import { toast } from 'sonner';
 import Button from '../components/Button';
-import { Film, User, Shield } from 'lucide-react';
+import { Tag, User, Shield } from 'lucide-react';
 
 const Login = () => {
   const [activeTab, setActiveTab] = useState('producer');
@@ -19,7 +19,7 @@ const Login = () => {
     password: '',
   });
 
-  // Producer register form
+  // Brand Team register form
   const [producerForm, setProducerForm] = useState({
     email: '',
     name: '',
@@ -118,7 +118,7 @@ const Login = () => {
 
   const categories = [
     'Lifestyle', 'Couples', 'Family', 'Youth', 'Kids', 'Music', 
-    'Meme', 'Review', 'Film', 'Fan Pages', 'Actor Pages'
+    'Meme', 'Review', 'Brand', 'Fan Pages', 'Actor Pages'
   ];
 
   const states = ['Kerala', 'Tamil Nadu', 'Andhra Pradesh', 'Telangana'];
@@ -129,7 +129,7 @@ const Login = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-5xl font-heading font-bold text-primary mb-2" data-testid="login-title">Big Social</h1>
-          <p className="text-lg font-body text-muted-foreground">Movie Marketing Platform</p>
+          <p className="text-lg font-body text-muted-foreground">Brand Marketing Platform</p>
         </div>
 
         {/* Main Card */}
@@ -137,7 +137,7 @@ const Login = () => {
           {/* Tabs */}
           <div className="flex border-b border-outline-variant/20">
             {[
-              { id: 'producer', label: 'Producer', icon: Film },
+              { id: 'producer', label: 'Brand Team', icon: Tag },
               { id: 'influencer', label: 'Influencer', icon: User },
               { id: 'admin', label: 'Admin', icon: Shield },
             ].map(({ id, label, icon: Icon }) => (

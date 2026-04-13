@@ -6,15 +6,15 @@ import { campaignAPI } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import { districtsByState } from '../../data/regions';
 import {
-  Film, MapPin, Users, Settings, ArrowRight, ChevronLeft,
+  Tag, MapPin, Users, Settings, ArrowRight, ChevronLeft,
   Check, Sparkles, Calendar, DollarSign,
 } from 'lucide-react';
 
 /* ── Static options ── */
 const GENRES = ['Action', 'Comedy', 'Drama', 'Romance', 'Thriller', 'Horror', 'Family', 'Biopic'];
-const PHASES = ['Announcement', 'Teaser', 'Trailer', 'Post-Release'];
+const PHASES = ['Announcement', 'Preview', 'Trailer', 'Post-Release'];
 const STATES = ['Kerala', 'Tamil Nadu', 'Andhra Pradesh', 'Telangana'];
-const CATS   = ['Lifestyle', 'Review', 'Meme', 'Film', 'Youth', 'Couples', 'Family', 'Music'];
+const CATS   = ['Lifestyle', 'Review', 'Meme', 'Brand', 'Youth', 'Couples', 'Family', 'Music'];
 const TIERS  = [
   { tier: 'nano',  label: 'Nano',  range: '1K – 10K',  color: '#059669', bg: '#ecfdf5' },
   { tier: 'micro', label: 'Micro', range: '10K – 100K', color: '#0891b2', bg: '#ecfeff' },
@@ -23,7 +23,7 @@ const TIERS  = [
 ];
 
 const STEPS = [
-  { num: 1, label: 'Movie Details',       icon: Film     },
+  { num: 1, label: 'Brand Details',       icon: Tag     },
   { num: 2, label: 'Reach & Regions',     icon: MapPin   },
   { num: 3, label: 'Influencer Criteria', icon: Users    },
   { num: 4, label: 'Review & Brief',      icon: Settings },
@@ -190,23 +190,23 @@ const CreateCampaignComplete = () => {
         {/* ── Step content ── */}
         <div className="p-8 max-w-2xl mx-auto">
 
-          {/* STEP 1 — Movie Details */}
+          {/* STEP 1 — Brand Details */}
           {step === 1 && (
             <div className="bg-white rounded-2xl border border-[#eee] p-6 space-y-5 animate-fade-in">
               <div className="mb-2">
-                <h2 className="text-xl font-heading font-bold text-[#1b1c19]">Tell us about your movie</h2>
-                <p className="text-sm text-[#888] mt-0.5">Basic details about the film you're promoting</p>
+                <h2 className="text-xl font-heading font-bold text-[#1b1c19]">Tell us about your brand campaign</h2>
+                <p className="text-sm text-[#888] mt-0.5">Basic details about the brand you're promoting</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2">
-                  <Field label="Movie Title" required htmlFor="movie-title">
+                  <Field label="Brand Campaign" required htmlFor="movie-title">
                     <input id="movie-title" type="text" value={formData.movie_title}
                       onChange={e => set('movie_title', e.target.value)}
                       placeholder="e.g. Pushpa 3" className={inputCls} />
                   </Field>
                 </div>
-                <Field label="Release Date" required htmlFor="release-date">
+                <Field label="Launch Date" required htmlFor="release-date">
                   <input id="release-date" type="date" value={formData.release_date}
                     onChange={e => set('release_date', e.target.value)}
                     className={inputCls} />
@@ -342,7 +342,7 @@ const CreateCampaignComplete = () => {
               {/* Summary card */}
               <div className="bg-[#eef1ff] rounded-2xl p-4 flex flex-wrap gap-4">
                 <div>
-                  <p className="text-xs text-[#0028aa] font-bold uppercase tracking-wider">Movie</p>
+                  <p className="text-xs text-[#0028aa] font-bold uppercase tracking-wider">Brand</p>
                   <p className="text-sm font-bold text-[#1b1c19] mt-0.5">{formData.movie_title}</p>
                 </div>
                 <div>

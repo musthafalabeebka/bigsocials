@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Film, LayoutDashboard, Users, Settings, LogOut, TrendingUp, Store, Sparkles, Handshake, BriefcaseBusiness } from 'lucide-react';
+import { Tag, LayoutDashboard, Users, Settings, LogOut, Store, Sparkles, Handshake, BadgeIndianRupee, BarChart3 } from 'lucide-react';
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -20,13 +20,16 @@ const Sidebar = () => {
           { icon: Handshake,       label: 'Vendors',     path: '/producer/vendors' },
           { icon: LayoutDashboard, label: 'Dashboard',   path: '/producer/dashboard' },
           { icon: Store,           label: 'Influencer Marketplace', path: '/producer/marketplace' },
-          { icon: TrendingUp,      label: 'Bookings',    path: '/producer/booking-analytics' },
+          { icon: BarChart3,       label: 'Booking Analytics', path: '/producer/booking-analytics' },
           { icon: Sparkles,        label: 'AI PR Agent', path: '/producer/ai-pr-agent' },
+          ...(user?.account_type === 'brand'
+            ? [{ icon: BadgeIndianRupee, label: 'Movie Bids', path: '/producer/movie-bids' }]
+            : []),
         ];
       case 'influencer':
         return [
           { icon: LayoutDashboard, label: 'Dashboard', path: '/influencer/dashboard' },
-          { icon: Film,            label: 'Campaigns', path: '/influencer/campaigns' },
+          { icon: Tag,            label: 'Campaigns', path: '/influencer/campaigns' },
         ];
       case 'admin':
         return [
@@ -37,7 +40,6 @@ const Sidebar = () => {
       case 'vendor':
         return [
           { icon: LayoutDashboard, label: 'Dashboard', path: '/vendor/dashboard' },
-          { icon: BriefcaseBusiness, label: 'Requests', path: '/vendor/dashboard' },
         ];
       default:
         return [];
@@ -56,13 +58,13 @@ const Sidebar = () => {
       <div className="px-6 py-6 border-b border-[#f0f0f0]">
         <Link to="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: roleAccent }}>
-            <Film className="w-4 h-4 text-white" />
+            <Tag className="w-4 h-4 text-white" />
           </div>
           <span className="text-xl font-heading font-bold" data-testid="app-logo">
             Big<span style={{ color: roleAccent }}>Social</span>
           </span>
         </Link>
-        <p className="text-xs text-[#aaa] font-body mt-1 pl-0.5">Movie Marketing</p>
+        <p className="text-xs text-[#aaa] font-body mt-1 pl-0.5">Brand campaigns</p>
       </div>
 
       {/* Navigation */}
@@ -70,8 +72,8 @@ const Sidebar = () => {
         <ul className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
-            const isActive = location.pathname === item.path ||
-              (item.path !== '/' && location.pathname.startsWith(item.path));
+            const [itemPath, itemHash] = item.path.split('#');
+            const isActive = location.pathname === itemPath && (!itemHash || location.hash === `#${itemHash}`);
             return (
               <li key={item.path}>
                 <Link

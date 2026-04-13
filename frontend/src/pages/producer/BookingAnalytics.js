@@ -18,7 +18,7 @@ import {
   Cell,
 } from 'recharts';
 import { mockBookingData } from '../../data/mockData';
-import { TrendingUp, DollarSign, Film, Users, MapPinned, BadgePercent } from 'lucide-react';
+import { TrendingUp, DollarSign, Tag, Users, MapPinned, BadgePercent } from 'lucide-react';
 
 const chartCard = 'bg-surface-container-lowest rounded-DEFAULT p-6 shadow-ambient';
 const tooltipStyle = {
@@ -174,7 +174,7 @@ const BookingAnalytics = () => {
         <div className="bg-surface-container-lowest border-b border-outline-variant/20 p-8">
           <h1 className="text-4xl font-heading font-bold text-on-surface mb-2">Bookings</h1>
           <p className="text-lg font-body text-muted-foreground">
-            Box office momentum, theatre performance, and market response in one view
+            Campaign momentum, retail performance, and market response in one view
           </p>
         </div>
 
@@ -213,14 +213,14 @@ const BookingAnalytics = () => {
 
             <div className={chartCard}>
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-body text-muted-foreground uppercase">Top Theatre Bookings</p>
-                <Film className="w-5 h-5 text-primary" />
+                <p className="text-sm font-body text-muted-foreground uppercase">Top Retail Bookings</p>
+                <Tag className="w-5 h-5 text-primary" />
               </div>
               <p className="text-3xl font-heading font-bold font-mono">
-                {mockBookingData.top_theatres[0].bookings.toLocaleString()}
+                {mockBookingData.top_retail_locations[0].bookings.toLocaleString()}
               </p>
               <p className="text-sm font-body text-muted-foreground mt-1">
-                {mockBookingData.top_theatres[0].theatre}
+                {mockBookingData.top_retail_locations[0].retail_location}
               </p>
             </div>
 
@@ -258,17 +258,17 @@ const BookingAnalytics = () => {
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <div className={chartCard}>
-              <h2 className="text-2xl font-heading font-bold mb-6">Top Performing Theatres</h2>
+              <h2 className="text-2xl font-heading font-bold mb-6">Top Performing Retail Locations</h2>
               <ResponsiveContainer width="100%" height={360}>
                 <BarChart
-                  data={mockBookingData.top_theatres}
+                  data={mockBookingData.top_retail_locations}
                   layout="vertical"
                   margin={{ top: 8, right: 16, bottom: 8, left: 110 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" stroke="#e9e8e2" />
                   <XAxis type="number" stroke="#79767d" />
                   <YAxis
-                    dataKey="theatre"
+                    dataKey="retail_location"
                     type="category"
                     width={150}
                     stroke="#3f3a46"
@@ -384,20 +384,20 @@ const BookingAnalytics = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {mockBookingData.top_theatres.map((theatre) => (
+                  {mockBookingData.top_retail_locations.map((retailLocation) => (
                     <tr
-                      key={theatre.theatre}
+                      key={retailLocation.retail_location}
                       className="border-b border-outline-variant/10 hover:bg-surface-container-low transition-colors"
                     >
                       <td className="py-4 px-4">
-                        <p className="font-body font-semibold">{theatre.theatre}</p>
-                        <p className="text-xs text-muted-foreground">{theatre.city}</p>
+                        <p className="font-body font-semibold">{retailLocation.retail_location}</p>
+                        <p className="text-xs text-muted-foreground">{retailLocation.city}</p>
                       </td>
                       <td className="py-4 px-4 text-right font-mono font-bold">
-                        {theatre.bookings.toLocaleString()}
+                        {retailLocation.bookings.toLocaleString()}
                       </td>
                       <td className="py-4 px-4 text-right font-mono font-bold text-primary">
-                        ₹{(theatre.revenue / 100000).toFixed(1)}L
+                        ₹{(retailLocation.revenue / 100000).toFixed(1)}L
                       </td>
                     </tr>
                   ))}

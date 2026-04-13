@@ -133,7 +133,7 @@ const TeaCupMarketingPayment = () => {
 
             <div className="space-y-4">
               <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">
-                <span className="font-body text-muted-foreground">Movie Name</span>
+                <span className="font-body text-muted-foreground">Brand Name</span>
                 <span className="font-semibold">{movieName || 'N/A'}</span>
               </div>
               <div className="flex items-center justify-between rounded-lg bg-surface-container-low p-4">

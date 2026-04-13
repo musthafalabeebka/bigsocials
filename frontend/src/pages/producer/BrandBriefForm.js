@@ -81,7 +81,7 @@ const BrandBriefForm = () => {
               </div>
               <h1 className="mt-4 text-4xl font-heading font-bold">{selectedOpportunity.title}</h1>
               <p className="mt-3 text-base font-body text-white/80">
-                Fill in the commercial details below. Once submitted, the bidding goes live and producers can track the incoming brand bids.
+                Fill in the commercial details below. Once submitted, the bidding goes live and campaign teams can track incoming brand bids.
               </p>
             </div>
           </section>
@@ -89,7 +89,7 @@ const BrandBriefForm = () => {
           <section className="rounded-[32px] border border-[#ece7f6] bg-white p-8 shadow-sm">
             <div className="grid gap-6 md:grid-cols-2">
               <label className="space-y-2">
-                <span className="text-sm font-semibold text-[#101828]">Movie name</span>
+                <span className="text-sm font-semibold text-[#101828]">Brand name</span>
                 <input
                   value={form.movieName}
                   onChange={(event) => updateField('movieName', event.target.value)}
@@ -98,7 +98,7 @@ const BrandBriefForm = () => {
               </label>
 
               <label className="space-y-2">
-                <span className="text-sm font-semibold text-[#101828]">Star cast</span>
+                <span className="text-sm font-semibold text-[#101828]">Partners / creators</span>
                 <input
                   value={form.starCast}
                   onChange={(event) => updateField('starCast', event.target.value)}
@@ -131,7 +131,7 @@ const BrandBriefForm = () => {
                 <textarea
                   value={form.deliverables}
                   onChange={(event) => updateField('deliverables', event.target.value)}
-                  placeholder='Example: "logo in 3 scenes", 2 trailer integrations, co-branded launch event mention'
+                  placeholder='Example: logo in 3 creator videos, 2 launch integrations, co-branded event mention'
                   className="min-h-[140px] w-full rounded-2xl border border-[#e7eaf2] bg-[#f8fbff] px-4 py-3 outline-none focus:border-[#0028aa]"
                 />
               </label>

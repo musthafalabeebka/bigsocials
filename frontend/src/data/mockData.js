@@ -5,7 +5,7 @@ export const mockCampaigns = [
     id: '1',
     producer_id: 'producer-1',
     campaign_type: 'influencer_marketing',
-    movie_title: 'Mission Impossible 8',
+    movie_title: 'Metro Fresh Launch',
     poster_url: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400',
     genre: ['Action', 'Thriller'],
     release_date: '2026-06-15',
@@ -13,17 +13,17 @@ export const mockCampaigns = [
     campaign_end_date: '2026-06-30',
     regions_state: ['Kerala', 'Tamil Nadu'],
     regions_district: ['Kochi', 'Chennai'],
-    campaign_phases: ['announcement', 'teaser', 'trailer'],
+    campaign_phases: ['announcement', 'preview', 'launch video'],
     total_budget: 500000,
     budget_spent: 125000,
     follower_ranges: [
       { tier: 'micro', count: 10 },
       { tier: 'macro', count: 5 }
     ],
-    influencer_categories: ['Lifestyle', 'Review', 'Film'],
+    influencer_categories: ['Lifestyle', 'Review', 'Brand'],
     review_mode: 'automated',
     tone_language_preferences: 'Exciting, energetic, youthful',
-    campaign_brief: 'Promote the latest Mission Impossible movie with high-energy content focusing on action sequences.',
+    campaign_brief: 'Promote the latest flagship product launch with high-energy content focused on customer benefits.',
     status: 'active',
     created_at: '2026-03-20T10:00:00Z'
   },
@@ -31,7 +31,7 @@ export const mockCampaigns = [
     id: '2',
     producer_id: 'producer-1',
     campaign_type: 'moment_marketing',
-    movie_title: 'The Romance Chronicles',
+    movie_title: 'GlowCare Festive Push',
     poster_url: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400',
     genre: ['Romance', 'Drama'],
     release_date: '2026-05-20',
@@ -39,7 +39,7 @@ export const mockCampaigns = [
     campaign_end_date: '2026-05-25',
     regions_state: ['Kerala'],
     regions_district: ['Thiruvananthapuram', 'Kochi'],
-    campaign_phases: ['trailer', 'post_release'],
+    campaign_phases: ['launch video', 'post_release'],
     total_budget: 300000,
     budget_spent: 180000,
     follower_ranges: [
@@ -57,7 +57,7 @@ export const mockCampaigns = [
     id: '3',
     producer_id: 'producer-1',
     campaign_type: 'influencer_marketing',
-    movie_title: 'Comedy Nights',
+    movie_title: 'SnackBox Campus Campaign',
     poster_url: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400',
     genre: ['Comedy'],
     release_date: '2026-04-30',
@@ -65,7 +65,7 @@ export const mockCampaigns = [
     campaign_end_date: '2026-05-05',
     regions_state: ['Tamil Nadu', 'Andhra Pradesh'],
     regions_district: ['Chennai', 'Hyderabad'],
-    campaign_phases: ['announcement', 'teaser'],
+    campaign_phases: ['announcement', 'preview'],
     total_budget: 200000,
     budget_spent: 200000,
     follower_ranges: [
@@ -74,7 +74,7 @@ export const mockCampaigns = [
     influencer_categories: ['Meme', 'Comedy', 'Youth'],
     review_mode: 'automated',
     tone_language_preferences: 'Funny, witty, entertaining',
-    campaign_brief: 'Create hilarious memes and comedy sketches to promote this comedy film.',
+    campaign_brief: 'Create hilarious memes and comedy sketches to promote this comedy brand.',
     status: 'completed',
     created_at: '2026-01-25T11:00:00Z'
   }
@@ -108,7 +108,7 @@ export const mockInfluencers = [
     engagement_rate: 7.2,
     location_state: 'Tamil Nadu',
     location_district: 'Chennai',
-    categories: ['Film', 'Review', 'Youth'],
+    categories: ['Brand', 'Review', 'Youth'],
     gender: 'male',
     age: 29,
     cost_per_post: 12500,
@@ -224,9 +224,9 @@ export const mockActiveCampaigns = [
       },
       {
         id: 'del-2',
-        phase: 'teaser',
+        phase: 'preview',
         status: 'submitted',
-        script_content: 'Check out the amazing teaser of Mission Impossible 8! The action is insane...',
+        script_content: 'Check out the amazing preview of Metro Fresh Launch! The action is insane...',
         video_link: null,
         submitted_at: '2026-03-28T10:00:00Z'
       }
@@ -238,9 +238,9 @@ export const mockUsers = [
   {
     id: 'user-1',
     name: 'Rahul Sharma',
-    email: 'rahul@producer.com',
+    email: 'brandteam.com',
     role: 'producer',
-    production_house: 'Sharma Productions',
+    production_house: 'Demo Brand Co',
     is_active: true,
     created_at: '2026-01-15T09:00:00Z'
   },
@@ -281,12 +281,12 @@ export const mockBookingData = {
   occupancy_rate: 78.5,
   screen_count: 1250,
   shows_per_day: 4500,
-  top_theatres: [
-    { theatre: 'PVR Lulu Kochi', city: 'Kochi', bookings: 18250, occupancy: 92, revenue: 4200000 },
-    { theatre: 'INOX Marina Chennai', city: 'Chennai', bookings: 17680, occupancy: 90, revenue: 3980000 },
-    { theatre: 'AMB Cinemas Hyderabad', city: 'Hyderabad', bookings: 16420, occupancy: 88, revenue: 3720000 },
-    { theatre: 'Aries Plex Trivandrum', city: 'Thiruvananthapuram', bookings: 14880, occupancy: 84, revenue: 3310000 },
-    { theatre: 'SPI Sathyam Chennai', city: 'Chennai', bookings: 14210, occupancy: 82, revenue: 3180000 }
+  top_retail_locations: [
+    { retail_location: 'PVR Lulu Kochi', city: 'Kochi', bookings: 18250, occupancy: 92, revenue: 4200000 },
+    { retail_location: 'INOX Marina Chennai', city: 'Chennai', bookings: 17680, occupancy: 90, revenue: 3980000 },
+    { retail_location: 'AMB Cinemas Hyderabad', city: 'Hyderabad', bookings: 16420, occupancy: 88, revenue: 3720000 },
+    { retail_location: 'Aries Plex Trivandrum', city: 'Thiruvananthapuram', bookings: 14880, occupancy: 84, revenue: 3310000 },
+    { retail_location: 'SPI Sathyam Chennai', city: 'Chennai', bookings: 14210, occupancy: 82, revenue: 3180000 }
   ],
   district_wise: [
     { district: 'Chennai', state: 'Tamil Nadu', bookings: 48200, revenue: 11000000, intensity: 96 },

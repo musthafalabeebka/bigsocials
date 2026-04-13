@@ -77,7 +77,7 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
       : TEA_CUP_CAMPAIGNS_STORAGE_KEY;
   const pageLabel = isTeaShopBoards ? 'Tea shop boards' : isNoticeMarketing ? 'Notice marketing' : 'Tea cup marketing';
   const heroTitle = isTeaShopBoards
-    ? 'Take Your Movie Promotions to Every Local Tea Shop'
+    ? 'Take Your Brand Promotions to Every Local Tea Shop'
     : isNoticeMarketing
       ? 'Reach Local Audiences with High-Visibility Notice Campaigns'
     : 'Launch Tea Cup Campaigns. Track Results in Real Time.';
@@ -93,10 +93,10 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
     : 'Reserve tea cup inventory by location.';
   const bookingModalLabel = isTeaShopBoards ? 'Tea shop boards booking' : isNoticeMarketing ? 'Notice marketing booking' : 'Tea cup marketing booking';
   const bookingModalDescription = isTeaShopBoards
-    ? 'Upload the movie poster or board artwork, add the movie name, and confirm the print details.'
+    ? 'Upload the brand creative or board artwork, add the brand name, and confirm the print details.'
     : isNoticeMarketing
-      ? 'Upload the movie poster or notice artwork, add the movie name, and confirm the print details.'
-    : 'Upload the movie poster or cup artwork, add the movie name, and confirm the print details.';
+      ? 'Upload the brand creative or notice artwork, add the brand name, and confirm the print details.'
+    : 'Upload the brand creative or cup artwork, add the brand name, and confirm the print details.';
   const guideTitle = isTeaShopBoards
     ? 'Launch your tea shop board campaign in 3 steps'
     : isNoticeMarketing
@@ -111,7 +111,7 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
     ? [
         {
           title: 'Select District',
-          description: 'Choose the district where you want tea shop boards installed for the movie promotion.',
+          description: 'Choose the district where you want tea shop boards installed for the brand promotion.',
         },
         {
           title: 'Book and Pay',
@@ -305,7 +305,7 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
 
     if (selectedReportCampaign.isSample) {
       setSelectedReportCampaign((current) => (current ? { ...current, producerRemark: campaignRemark } : current));
-      toast.success('Producer remark saved');
+      toast.success('Brand team remark saved');
       return;
     }
 
@@ -321,7 +321,7 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
     setCampaigns(nextCampaigns);
     persistCampaigns(nextCampaigns, storageKey);
     setSelectedReportCampaign((current) => (current ? { ...current, producerRemark: campaignRemark } : current));
-    toast.success('Producer remark saved');
+    toast.success('Brand team remark saved');
   };
 
   return (
@@ -553,7 +553,7 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
 
             <div className="mt-6 grid gap-5 md:grid-cols-2">
               <label className="space-y-2">
-                <span className="text-sm font-semibold text-[#101828]">Movie name</span>
+                <span className="text-sm font-semibold text-[#101828]">Brand name</span>
                 <input
                   value={bookingForm.movieName}
                   onChange={(event) => updateField('movieName', event.target.value)}
@@ -591,7 +591,7 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
 
               <label className="space-y-2 md:col-span-2">
                 <span className="text-sm font-semibold text-[#101828]">
-                  {isTeaShopBoards ? 'Movie poster / photos to be printed on boards' : isNoticeMarketing ? 'Movie poster / artwork to be used for notices' : 'Movie poster / photos to be printed on cups'}
+                  {isTeaShopBoards ? 'Brand creative / photos to be printed on boards' : isNoticeMarketing ? 'Brand creative / artwork to be used for notices' : 'Brand creative / photos to be printed on cups'}
                 </span>
                 <label className="flex min-h-[140px] cursor-pointer flex-col items-center justify-center rounded-[28px] border border-dashed border-[#cfd6e4] bg-[#f8fbff] px-6 py-8 text-center">
                   <ImagePlus className="h-8 w-8 text-[#0028aa]" />
@@ -623,7 +623,7 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
                 <textarea
                   value={bookingForm.printDetails}
                   onChange={(event) => updateField('printDetails', event.target.value)}
-                  placeholder="Example: include movie title in English and Malayalam, hero image on one side, release date on the back"
+                  placeholder="Example: include brand campaign in English and Malayalam, hero image on one side, launch date on the back"
                   className="min-h-[120px] w-full rounded-2xl border border-[#e7eaf2] bg-[#f8fbff] px-4 py-3 outline-none focus:border-[#0028aa]"
                 />
               </label>
@@ -725,7 +725,7 @@ const TeaCupMarketing = ({ mode = 'tea-cup-marketing' }) => {
               </div>
 
               <div className="rounded-3xl border border-[#e3e8f3] bg-[#f8fbff] p-5">
-                <p className="text-sm font-semibold text-[#101828]">Producer remarks for field agent</p>
+                <p className="text-sm font-semibold text-[#101828]">Brand team remarks for field agent</p>
                 <textarea
                   value={campaignRemark}
                   onChange={(event) => setCampaignRemark(event.target.value)}

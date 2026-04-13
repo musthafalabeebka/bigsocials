@@ -20,7 +20,7 @@ const enriched = mockInfluencers.map(inf => ({
   content_language: contentLanguageByInfluencer[inf.id] || 'English',
 }));
 
-const categories  = ['Lifestyle', 'Couples', 'Family', 'Youth', 'Kids', 'Music', 'Meme', 'Review', 'Film'];
+const categories  = ['Lifestyle', 'Couples', 'Family', 'Youth', 'Kids', 'Music', 'Meme', 'Review', 'Brand'];
 const followerOpts = ['1K–10K', '10K–50K', '50K–100K', '100K–250K', '250K+'];
 const costOpts     = ['Up to ₹5K', '₹5K–₹10K', '₹10K–₹20K', '₹20K+'];
 const engOpts      = ['Under 3%', '3%–5%', '5%–8%', '8%+'];

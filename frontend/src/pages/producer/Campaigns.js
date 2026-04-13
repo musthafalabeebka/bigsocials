@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import Button from '../../components/Button';
-import { Film, Plus, Calendar, DollarSign, Users } from 'lucide-react';
+import { Tag, Plus, Calendar, DollarSign, Users } from 'lucide-react';
 import { mockCampaigns } from '../../data/mockData';
 
 const ProducerCampaigns = () => {
@@ -56,7 +56,7 @@ const ProducerCampaigns = () => {
                 </div>
                 <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Create Campaign</h3>
                 <p className="mt-2 text-sm text-[#667085]">
-                  Start a new influencer campaign by setting the movie brief, budget, and creator requirements.
+                  Start a new influencer campaign by setting the brand brief, budget, and creator requirements.
                 </p>
                 <p className="mt-4 text-sm font-semibold text-[#123bb7]">Open create campaign</p>
               </article>
@@ -167,7 +167,7 @@ const ProducerCampaigns = () => {
             </div>
           ) : (
             <div className="bg-surface-container-lowest rounded-DEFAULT shadow-ambient p-12 text-center">
-              <Film className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+              <Tag className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
               <p className="text-lg font-body text-muted-foreground mb-4">
                 No {filter !== 'all' ? filter : ''} campaigns found
               </p>

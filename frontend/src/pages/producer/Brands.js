@@ -10,20 +10,20 @@ export const biddingOpportunities = [
   {
     slug: 'product-placement-in-movie',
     icon: BriefcaseBusiness,
-    title: 'Product placement in movie',
-    description: 'Invite brands to place products naturally inside scenes, sets, or scripted moments.',
+    title: 'Product placement in creator content',
+    description: 'Invite brands to place products naturally inside campaign videos, retail content, or launch moments.',
   },
   {
     slug: 'brand-placement-in-promotions',
     icon: Sparkles,
     title: 'Brand placement in promotions-online and offline',
-    description: 'Open bundled promotional slots across digital campaigns, events, trailers, and ground activations.',
+    description: 'Open bundled promotional slots across digital campaigns, events, launch videos, and ground activations.',
   },
   {
     slug: 'movie-stars-on-product-packaging',
     icon: Package2,
-    title: 'Movie stars on product packaging of brands',
-    description: 'Offer packaging collaborations where brand SKUs feature movie stars and campaign visuals.',
+    title: 'Creators on product packaging of brands',
+    description: 'Offer packaging collaborations where brand SKUs feature creators, ambassadors, and campaign visuals.',
   },
   {
     slug: 'merchandising-partner',
@@ -34,8 +34,8 @@ export const biddingOpportunities = [
   {
     slug: 'movie-stars-caravan-branding',
     icon: Ticket,
-    title: 'Movie stars caravan branding',
-    description: 'Allow brands to bid for caravan wraps and high-visibility on-ground star movement branding.',
+    title: 'Field activation vehicle branding',
+    description: 'Allow brands to bid for vehicle wraps and high-visibility on-ground activation branding.',
   },
 ];
 
@@ -44,17 +44,17 @@ const fallbackBids = {
     {
       brand: 'Coca-Cola',
       amount: 4500000,
-      note: 'Logo and bottle visibility across three hero scenes',
-      pitch: 'Coca-Cola proposes integrated hero placement during two celebration scenes and one interval beat, supported by branded cooler props and on-ground multiplex sampling in launch week.',
-      deliverables: '3 scene integrations, 1 launch event zone, 20 multiplex kiosks',
+      note: 'Logo and bottle visibility across three creator videos',
+      pitch: 'Coca-Cola proposes integrated placement during launch-week creator content, supported by branded cooler props and on-ground retail sampling.',
+      deliverables: '3 creator integrations, 1 launch event zone, 20 retail kiosks',
       status: 'pending',
     },
     {
       brand: 'Boat',
       amount: 3900000,
-      note: 'Lead gadget placement plus social amplification',
-      pitch: 'Boat wants the lead cast to feature branded audio wearables in performance and rehearsal sequences, followed by influencer-led digital snippets using the same creative language.',
-      deliverables: '2 hero placements, 6 digital cutdowns, 1 social contest',
+      note: 'Gadget placement plus social amplification',
+      pitch: 'Boat wants creators to feature branded audio wearables in launch content, followed by influencer-led digital snippets using the same creative language.',
+      deliverables: '2 hero content placements, 6 digital cutdowns, 1 social contest',
       status: 'pending',
     },
   ],
@@ -62,9 +62,9 @@ const fallbackBids = {
     {
       brand: 'Zomato',
       amount: 3000000,
-      note: 'Offline launch event plus digital trailer integration',
-      pitch: 'Zomato proposes city-wise food activation during trailer launch week, co-branded promo codes, and logo support across the offline press tour backdrop.',
-      deliverables: '4-city promo code campaign, launch backdrop branding, digital trailer end-card',
+      note: 'Offline launch event plus digital launch integration',
+      pitch: 'Zomato proposes city-wise food activation during launch week, co-branded promo codes, and logo support across the offline press tour backdrop.',
+      deliverables: '4-city promo code campaign, launch backdrop branding, digital video end-card',
       status: 'pending',
     },
   ],
@@ -73,7 +73,7 @@ const fallbackBids = {
       brand: 'Aachi',
       amount: 5200000,
       note: 'Mass retail pack refresh across South India',
-      pitch: 'Aachi is offering a wide retail packaging refresh featuring the lead pair, with in-store POS support and retailer contests timed to release week.',
+      pitch: 'Aachi is offering a wide retail packaging refresh featuring campaign creators, with in-store POS support and retailer contests timed to launch week.',
       deliverables: 'Packaging redesign, 12,000 POS units, retailer contest program',
       status: 'pending',
     },
@@ -83,7 +83,7 @@ const fallbackBids = {
       brand: 'Myntra',
       amount: 2500000,
       note: 'Apparel capsule with online-first drop',
-      pitch: 'Myntra proposes a capsule merchandise line with cast-inspired looks, front-page app placement, and launch-day creator drops.',
+      pitch: 'Myntra proposes a capsule merchandise line with creator-led looks, front-page app placement, and launch-day creator drops.',
       deliverables: '12-SKU capsule, app homepage feature, creator seeding kits',
       status: 'pending',
     },
@@ -92,9 +92,9 @@ const fallbackBids = {
     {
       brand: 'Mahindra',
       amount: 1800000,
-      note: 'Caravan wrap plus PR visibility during city tours',
-      pitch: 'Mahindra proposes branded caravan wraps across the city tour leg, plus branded arrival moments and press photo wall integration.',
-      deliverables: '2 caravan wraps, 5-city PR support, arrival branding',
+      note: 'Vehicle wrap plus PR visibility during city tours',
+      pitch: 'Mahindra proposes branded activation vehicle wraps across the city tour leg, plus branded arrival moments and press photo wall integration.',
+      deliverables: '2 vehicle wraps, 5-city PR support, arrival branding',
       status: 'pending',
     },
   ],
@@ -103,10 +103,10 @@ const fallbackBids = {
 const mockLiveBidBriefs = [
   {
     id: 'mock-brand-brief-1',
-    movieName: 'Sarwam Maya',
-    opportunityTitle: 'Product placement in movie',
+    movieName: 'Metro Fresh Launch',
+    opportunityTitle: 'Product placement in creator content',
     opportunitySlug: 'product-placement-in-movie',
-    starCast: 'Lead ensemble cast',
+    starCast: 'Creator and retail partner network',
     expectedReach: '1,200,000',
     deliverables: 'Logo in 3 scenes, branded prop visibility, 1 launch event integration',
     deadline: '2026-04-18',
@@ -118,12 +118,12 @@ const mockLiveBidBriefs = [
   },
   {
     id: 'mock-brand-brief-2',
-    movieName: 'City Nights',
+    movieName: 'City Nights Retail Push',
     opportunityTitle: 'Brand placement in promotions-online and offline',
     opportunitySlug: 'brand-placement-in-promotions',
-    starCast: 'Lead pair plus supporting cast',
+    starCast: 'Urban creator group and media partners',
     expectedReach: '850,000',
-    deliverables: 'Digital trailer end-card, press meet backdrop, promo contest integration',
+    deliverables: 'Digital launch video end-card, press meet backdrop, promo contest integration',
     deadline: '2026-04-22',
     basePrice: 2200000,
     bids: fallbackBids['brand-placement-in-promotions'].slice(0, 1).map((bid) => ({
@@ -201,7 +201,7 @@ const Brands = () => {
                   <BadgeIndianRupee className="h-4 w-4" />
                   Brands
                 </div>
-                <h1 className="mt-4 text-4xl font-heading font-bold">Monetize Your Movie with Brand Collaborations</h1>
+                <h1 className="mt-4 text-4xl font-heading font-bold">Monetize Your Campaign with Brand Collaborations</h1>
                 <p className="mt-3 text-base font-body text-white/80">
                   Start a bidding opportunity, publish the brief, and track what brands are offering.
                 </p>
@@ -215,7 +215,7 @@ const Brands = () => {
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">How It Works</p>
                 <h2 className="mt-2 text-2xl font-heading font-bold text-[#101828]">Launch your brand collaboration in 3 steps</h2>
                 <p className="mt-2 text-sm text-[#667085]">
-                  Use this workflow to create a brief, collect brand bids, and lock the right collaboration for your movie.
+                  Use this workflow to create a brief, collect brand bids, and lock the right collaboration for your campaign.
                 </p>
               </div>
 
@@ -226,7 +226,7 @@ const Brands = () => {
                   </div>
                   <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Enter Brief</h3>
                   <p className="mt-2 text-sm text-[#667085]">
-                    Choose a brand opportunity and create the movie brief with deliverables, reach, pricing, and deadline.
+                    Choose a brand opportunity and create the campaign brief with deliverables, reach, pricing, and deadline.
                   </p>
                 </article>
 
@@ -246,7 +246,7 @@ const Brands = () => {
                   </div>
                   <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Accept the Right Brand</h3>
                   <p className="mt-2 text-sm text-[#667085]">
-                    Open the bid details, compare the pitch, and accept or reject based on the best movie fit.
+                    Open the bid details, compare the pitch, and accept or reject based on the best campaign fit.
                   </p>
                 </article>
               </div>
@@ -327,7 +327,7 @@ const Brands = () => {
                         <div className="space-y-2">
                           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8a94a6]">{brief.opportunityTitle}</p>
                           <h3 className="text-2xl font-heading font-bold text-[#101828]">{brief.movieName}</h3>
-                          <p className="text-sm font-body text-[#667085]">Star cast: {brief.starCast}</p>
+                          <p className="text-sm font-body text-[#667085]">Partners: {brief.starCast}</p>
                           <p className="text-sm font-body text-[#667085]">Expected reach: {brief.expectedReach}</p>
                           <p className="text-sm font-body text-[#667085]">Deliverables: {brief.deliverables}</p>
                           <p className="text-sm font-body text-[#667085]">Deadline: {brief.deadline}</p>

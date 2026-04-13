@@ -180,10 +180,22 @@ const demoUsers = {
     email: 'producer@test.com',
     name: 'Demo Producer',
     role: 'producer',
-    production_house: 'Big Social Studios',
+    production_house: 'Demo Producer Co',
     gst_number: '22AAAAA0000A1Z5',
     website: 'https://bigsocialstudios.example',
     mobile: '+91 98765 43210',
+    is_active: true,
+  },
+  brand: {
+    id: 'brand-1',
+    email: 'brand@test.com',
+    name: 'Demo Brand',
+    role: 'producer',
+    account_type: 'brand',
+    production_house: 'Demo Brand Co',
+    gst_number: '22BBBBB0000B1Z5',
+    website: 'https://demobrand.example',
+    mobile: '+91 98765 43211',
     is_active: true,
   },
   influencer: {
@@ -319,6 +331,10 @@ const buildMockUser = (email, role) => {
 
   if (role === 'producer' && email === demoUsers.producer.email) {
     return demoUsers.producer;
+  }
+
+  if (role === 'producer' && email === demoUsers.brand.email) {
+    return demoUsers.brand;
   }
 
   if (role === 'influencer' && email === demoUsers.influencer.email) {

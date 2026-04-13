@@ -6,7 +6,7 @@ import {
   Instagram, CheckCircle2, AlertCircle, ArrowRight,
   Loader2, ShieldCheck, RefreshCw, ExternalLink,
 } from 'lucide-react';
-import { Film } from 'lucide-react';
+import { Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 /* ── Mock Instagram OAuth config ── */
@@ -95,11 +95,11 @@ const InstagramVerification = () => {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-2">
             <div className="w-9 h-9 rounded-xl bg-[#0028aa] flex items-center justify-center">
-              <Film className="w-5 h-5 text-white" />
+              <Tag className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-heading font-bold">Big<span className="text-[#0028aa]">Social</span></span>
           </Link>
-          <p className="text-sm text-[#888]">Movie Marketing Platform</p>
+          <p className="text-sm text-[#888]">Brand Marketing Platform</p>
         </div>
 
         <div className="bg-white rounded-3xl shadow-sm border border-[#eee] p-8">

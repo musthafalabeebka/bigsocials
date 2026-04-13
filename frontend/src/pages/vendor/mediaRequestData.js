@@ -13,7 +13,7 @@ export const defaultMediaRequests = [
     startDate: '2026-04-09',
     budget: 65000,
     artwork: 'Launch-Week-PR-Brief.pdf',
-    notes: 'Need feature placement tied to trailer launch and first-weekend ticketing spike.',
+    notes: 'Need feature placement tied to launch video and launch-window ticketing spike.',
     status: 'pending',
     requestedAt: '2026-04-04T10:10:00.000Z',
   },

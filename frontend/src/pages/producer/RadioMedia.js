@@ -139,7 +139,7 @@ const fallbackLiveCampaigns = [
     price: 32000,
     status: 'Live',
     deliveredSpots: 14,
-    reportSummary: 'Morning bursts are driving strong recall around theatre clusters and commuter-heavy routes.',
+    reportSummary: 'Morning bursts are driving strong recall around retail clusters and commuter-heavy routes.',
   },
   {
     id: 'radio-live-2',

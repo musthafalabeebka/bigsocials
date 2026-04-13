@@ -1,7 +1,7 @@
 // PREVIEW C — "Vibrant Gradient"
 // Deep indigo-to-purple gradient, glassmorphism cards, modern startup feel
 import React, { useState } from 'react';
-import { Film, Users, TrendingUp, Shield, ChevronDown, BarChart3, Zap, Play, Star, ArrowRight, Instagram } from 'lucide-react';
+import { Tag, Users, TrendingUp, Shield, ChevronDown, BarChart3, Zap, Play, Star, ArrowRight, Instagram } from 'lucide-react';
 
 const glass = {
   background: 'rgba(255,255,255,0.07)',
@@ -25,7 +25,7 @@ const PreviewC = () => {
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl flex items-center justify-center"
             style={{ background: 'linear-gradient(135deg,#818cf8,#c084fc)' }}>
-            <Film className="w-5 h-5 text-white" />
+            <Tag className="w-5 h-5 text-white" />
           </div>
           <span className="text-xl font-heading font-bold">Big<span style={{ background: 'linear-gradient(90deg,#818cf8,#c084fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Social</span></span>
         </div>
@@ -50,10 +50,10 @@ const PreviewC = () => {
                 <a href="/login?role=producer" className="flex items-center gap-3 px-4 py-3.5 hover:bg-white/5 transition-colors text-sm">
                   <div className="w-9 h-9 rounded-xl flex items-center justify-center"
                     style={{ background: 'rgba(129,140,248,0.2)' }}>
-                    <Film className="w-4 h-4" style={{ color: '#818cf8' }} />
+                    <Tag className="w-4 h-4" style={{ color: '#818cf8' }} />
                   </div>
                   <div>
-                    <div className="font-semibold" style={{ color: '#818cf8' }}>Producer</div>
+                    <div className="font-semibold" style={{ color: '#818cf8' }}>Brand Team</div>
                     <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Google / Email OTP</div>
                   </div>
                 </a>
@@ -85,11 +85,11 @@ const PreviewC = () => {
                 <a href="/register?role=producer" className="flex items-center gap-3 px-4 py-3.5 hover:bg-white/5 transition-colors text-sm">
                   <div className="w-9 h-9 rounded-xl flex items-center justify-center"
                     style={{ background: 'rgba(129,140,248,0.2)' }}>
-                    <Film className="w-4 h-4" style={{ color: '#818cf8' }} />
+                    <Tag className="w-4 h-4" style={{ color: '#818cf8' }} />
                   </div>
                   <div>
-                    <div className="font-semibold" style={{ color: '#818cf8' }}>Producer</div>
-                    <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Register your film</div>
+                    <div className="font-semibold" style={{ color: '#818cf8' }}>Brand Team</div>
+                    <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Register your brand</div>
                   </div>
                 </a>
                 <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '0 16px' }} />
@@ -128,20 +128,20 @@ const PreviewC = () => {
           <h1 className="text-5xl md:text-7xl font-heading font-extrabold mb-6 leading-[1.05]">
             India's Smartest<br />
             <span style={{ background: 'linear-gradient(90deg,#818cf8,#c084fc,#f472b6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Movie × Influencer
+              Brand × Influencer
             </span><br />
             Platform
           </h1>
 
           <p className="text-lg mb-10 max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.8 }}>
             AI-powered campaigns. 12,000+ verified influencers. Escrow-protected payments.
-            South India's most trusted film marketing ecosystem.
+            South India's most trusted brand marketing ecosystem.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center mb-14">
             <button className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-base transition-all hover:scale-105"
               style={{ background: 'linear-gradient(135deg,#818cf8,#6366f1)', color: 'white' }}>
-              <Film className="w-5 h-5" /> I'm a Producer <ArrowRight className="w-4 h-4" />
+              <Tag className="w-5 h-5" /> I'm a Brand <ArrowRight className="w-4 h-4" />
             </button>
             <button className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-base transition-all hover:scale-105"
               style={{ background: 'rgba(192,132,252,0.15)', border: '1px solid rgba(192,132,252,0.4)', color: '#c084fc' }}>
@@ -152,7 +152,7 @@ const PreviewC = () => {
           {/* Floating cards */}
           <div className="flex flex-wrap gap-4 justify-center">
             {[
-              { n: '500+', l: 'Movies' },
+              { n: '500+', l: 'Brands' },
               { n: '12K+', l: 'Influencers' },
               { n: '₹80Cr', l: 'Campaigns' },
               { n: '4', l: 'States' },
@@ -171,7 +171,7 @@ const PreviewC = () => {
       <section id="features" className="py-20 px-6 max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-4xl font-heading font-bold mb-4">Powerful Features</h2>
-          <p style={{ color: 'rgba(255,255,255,0.5)' }}>Everything built for Indian film marketing.</p>
+          <p style={{ color: 'rgba(255,255,255,0.5)' }}>Everything built for Indian brand marketing.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {[
@@ -179,7 +179,7 @@ const PreviewC = () => {
             { icon: Users, g: ['#c084fc','#a855f7'], title: 'Smart Matching', desc: 'Influencer recommendations by tier, region, category & engagement.' },
             { icon: Shield, g: ['#34d399','#059669'], title: 'Escrow Payments', desc: 'Funds locked until deliverables go live. Zero payment risk.' },
             { icon: BarChart3, g: ['#fb923c','#f97316'], title: 'Campaign Analytics', desc: 'Real-time reach, engagement, and ROI across all phases.' },
-            { icon: Play, g: ['#60a5fa','#3b82f6'], title: 'Phase Management', desc: 'Announcement, Teaser, Trailer, Post-Release — all managed.' },
+            { icon: Play, g: ['#60a5fa','#3b82f6'], title: 'Phase Management', desc: 'Announcement, Preview, Trailer, Post-Release — all managed.' },
             { icon: TrendingUp, g: ['#f472b6','#ec4899'], title: 'Booking Analytics', desc: "Box office data integrated with campaign performance." },
           ].map(({ icon: Icon, g, title, desc }) => (
             <div key={title} className="p-6 rounded-2xl transition-all hover:-translate-y-1" style={glass}>
@@ -200,7 +200,7 @@ const PreviewC = () => {
           <h2 className="text-4xl font-heading font-bold mb-14">Three Steps to Launch</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { n: '01', g: ['#818cf8','#6366f1'], title: 'Create Campaign', desc: 'Set movie details, budget, regions, influencer tiers and phases.' },
+              { n: '01', g: ['#818cf8','#6366f1'], title: 'Create Campaign', desc: 'Set brand details, budget, regions, influencer tiers and phases.' },
               { n: '02', g: ['#c084fc','#a855f7'], title: 'Pick Influencers', desc: 'AI matches the best creators. Lock them in with escrow.' },
               { n: '03', g: ['#34d399','#059669'], title: 'Go Live & Pay', desc: 'Content reviewed, posted, and payment auto-released.' },
             ].map(({ n, g, title, desc }) => (
@@ -221,11 +221,11 @@ const PreviewC = () => {
       <section className="py-20 px-6 text-center">
         <div className="max-w-xl mx-auto p-12 rounded-3xl" style={glass}>
           <h2 className="text-4xl font-heading font-bold mb-5">Start Your Campaign</h2>
-          <p className="mb-8" style={{ color: 'rgba(255,255,255,0.55)' }}>Join India's fastest growing movie marketing platform.</p>
+          <p className="mb-8" style={{ color: 'rgba(255,255,255,0.55)' }}>Join India's fastest growing brand marketing platform.</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <button className="px-8 py-4 rounded-2xl font-bold"
               style={{ background: 'linear-gradient(135deg,#818cf8,#6366f1)', color: 'white' }}>
-              Register as Producer
+              Register as Brand
             </button>
             <button className="px-8 py-4 rounded-2xl font-bold"
               style={{ background: 'rgba(192,132,252,0.15)', border: '1px solid rgba(192,132,252,0.4)', color: '#c084fc' }}>
@@ -236,7 +236,7 @@ const PreviewC = () => {
       </section>
 
       <footer className="py-8 text-center text-xs" style={{ color: 'rgba(255,255,255,0.3)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-        © 2026 BigSocial · Movie Marketing Platform · India
+        © 2026 BigSocial · Brand Marketing Platform · India
       </footer>
     </div>
   );

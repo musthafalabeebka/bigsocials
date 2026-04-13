@@ -104,7 +104,7 @@ const InfluencerCampaigns = () => {
                         <div className="space-y-2 mb-4">
                           <div className="flex items-center gap-2 text-sm font-body">
                             <Calendar className="w-4 h-4 text-muted-foreground" />
-                            <span>Release: {new Date(request.campaign.release_date).toLocaleDateString()}</span>
+                            <span>Launch: {new Date(request.campaign.release_date).toLocaleDateString()}</span>
                           </div>
                           <div className="flex items-center gap-2 text-sm font-body">
                             <DollarSign className="w-4 h-4 text-muted-foreground" />

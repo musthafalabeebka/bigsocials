@@ -1,7 +1,7 @@
 // PREVIEW B — "Clean & Professional" (Light, brand blue)
 // Cream white base, deep blue primary, minimal, B2B SaaS feel
 import React, { useState } from 'react';
-import { Film, Users, TrendingUp, Shield, ChevronDown, BarChart3, Zap, Play, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Tag, Users, TrendingUp, Shield, ChevronDown, BarChart3, Zap, Play, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const PreviewB = () => {
   const [loginOpen, setLoginOpen] = useState(false);
@@ -15,7 +15,7 @@ const PreviewB = () => {
         style={{ borderBottom: '1px solid #eee' }}>
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: '#0028aa' }}>
-            <Film className="w-5 h-5 text-white" />
+            <Tag className="w-5 h-5 text-white" />
           </div>
           <span className="text-xl font-heading font-bold" style={{ color: '#0028aa' }}>Big<span style={{ color: '#1b1c19' }}>Social</span></span>
         </div>
@@ -39,10 +39,10 @@ const PreviewB = () => {
                 style={{ border: '1px solid #eee' }}>
                 <a href="/login?role=producer" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#f5f4ff] transition-colors text-sm">
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#eef1ff' }}>
-                    <Film className="w-4 h-4" style={{ color: '#0028aa' }} />
+                    <Tag className="w-4 h-4" style={{ color: '#0028aa' }} />
                   </div>
                   <div>
-                    <div className="font-semibold text-[#0028aa]">Producer</div>
+                    <div className="font-semibold text-[#0028aa]">Brand Team</div>
                     <div className="text-xs" style={{ color: '#999' }}>Google / Email OTP</div>
                   </div>
                 </a>
@@ -72,11 +72,11 @@ const PreviewB = () => {
                 style={{ border: '1px solid #eee' }}>
                 <a href="/register?role=producer" className="flex items-center gap-3 px-4 py-3.5 hover:bg-[#f5f4ff] transition-colors text-sm">
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#eef1ff' }}>
-                    <Film className="w-4 h-4" style={{ color: '#0028aa' }} />
+                    <Tag className="w-4 h-4" style={{ color: '#0028aa' }} />
                   </div>
                   <div>
-                    <div className="font-semibold text-[#0028aa]">Producer</div>
-                    <div className="text-xs" style={{ color: '#999' }}>Register your film</div>
+                    <div className="font-semibold text-[#0028aa]">Brand Team</div>
+                    <div className="text-xs" style={{ color: '#999' }}>Register your brand</div>
                   </div>
                 </a>
                 <div style={{ height: '1px', background: '#f0f0f0', margin: '0 16px' }} />
@@ -101,10 +101,10 @@ const PreviewB = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6"
               style={{ background: '#eef1ff', color: '#0028aa', border: '1px solid #c7d2fe' }}>
-              🎬 South India's Movie Marketing Platform
+              🎬 South India's Brand Marketing Platform
             </div>
             <h1 className="text-5xl md:text-6xl font-heading font-extrabold mb-6 leading-[1.1]">
-              Market Your Movie<br />
+              Market Your Brand<br />
               <span style={{ color: '#0028aa' }}>the Smart Way</span>
             </h1>
             <p className="text-lg mb-8" style={{ color: '#666', lineHeight: 1.8 }}>
@@ -124,7 +124,7 @@ const PreviewB = () => {
             <div className="flex gap-4">
               <button className="flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-base transition-all hover:-translate-y-0.5 hover:shadow-lg"
                 style={{ background: '#0028aa', color: 'white' }}>
-                Start as Producer <ArrowRight className="w-4 h-4" />
+                Start as Brand <ArrowRight className="w-4 h-4" />
               </button>
               <button className="flex items-center gap-2 px-7 py-3.5 rounded-2xl font-bold text-base transition-all hover:-translate-y-0.5"
                 style={{ border: '1.5px solid #9333ea', color: '#9333ea', background: 'transparent' }}>
@@ -152,7 +152,7 @@ const PreviewB = () => {
                     style={{ background: 'rgba(255,255,255,0.08)' }}>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-xl" style={{ background: `${color}30` }}>
-                        <Film className="w-4 h-4 mt-2 ml-2" style={{ color }} />
+                        <Tag className="w-4 h-4 mt-2 ml-2" style={{ color }} />
                       </div>
                       <span className="text-white font-semibold text-sm">{label}</span>
                     </div>
@@ -174,7 +174,7 @@ const PreviewB = () => {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-12" style={{ borderTop: '1px solid #eee' }}>
-          {[['500+', 'Movies Marketed'], ['12,000+', 'Influencers'], ['₹80Cr+', 'Budget Managed'], ['4', 'States Covered']].map(([num, label]) => (
+          {[['500+', 'Brands Marketed'], ['12,000+', 'Influencers'], ['₹80Cr+', 'Budget Managed'], ['4', 'States Covered']].map(([num, label]) => (
             <div key={label}>
               <div className="text-3xl font-heading font-extrabold" style={{ color: '#0028aa' }}>{num}</div>
               <div className="text-sm mt-1" style={{ color: '#888' }}>{label}</div>
@@ -187,8 +187,8 @@ const PreviewB = () => {
       <section id="features" className="py-20 px-6" style={{ background: '#fbf9f3' }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-4xl font-heading font-bold mb-4">Built for Movie Marketing</h2>
-            <p style={{ color: '#888' }}>Every feature designed for South Indian film campaigns.</p>
+            <h2 className="text-4xl font-heading font-bold mb-4">Built for Brand Marketing</h2>
+            <p style={{ color: '#888' }}>Every feature designed for South Indian brand campaigns.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -196,8 +196,8 @@ const PreviewB = () => {
               { icon: Users, bg: '#fce8ff', ic: '#9333ea', title: 'Smart Matching', desc: 'Recommendations by follower tier (Nano to Mega), location, category, and engagement rate.' },
               { icon: Shield, bg: '#ecfdf5', ic: '#059669', title: 'Escrow Protection', desc: 'Funds locked safely. Released to influencers only after verified post goes live.' },
               { icon: BarChart3, bg: '#fff7ed', ic: '#ea580c', title: 'Live Analytics', desc: 'Real-time reach, engagement, and ROI tracking across all campaign phases.' },
-              { icon: Play, bg: '#eff6ff', ic: '#2563eb', title: 'Phase Management', desc: 'Manage Announcement, Teaser, Trailer and Post-Release phases from one place.' },
-              { icon: TrendingUp, bg: '#fef2f2', ic: '#dc2626', title: 'Booking Analytics', desc: "Exclusive box office data to align your influencer campaign with real-time collections." },
+              { icon: Play, bg: '#eff6ff', ic: '#2563eb', title: 'Phase Management', desc: 'Manage Announcement, Preview, Trailer and Post-Release phases from one place.' },
+              { icon: TrendingUp, bg: '#fef2f2', ic: '#dc2626', title: 'Booking Analytics', desc: "Exclusive market data to align your influencer campaign with real-time collections." },
             ].map(({ icon: Icon, bg, ic, title, desc }) => (
               <div key={title} className="p-6 bg-white rounded-2xl shadow-sm hover:-translate-y-1 transition-all"
                 style={{ border: '1px solid #f0f0f0' }}>
@@ -217,7 +217,7 @@ const PreviewB = () => {
         <h2 className="text-4xl font-heading font-bold mb-14">Launch in 3 Steps</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { n: '1', title: 'Create Campaign', desc: 'Set your movie details, budget, target regions, and the influencer tiers you need.' },
+            { n: '1', title: 'Create Campaign', desc: 'Set your brand details, budget, target regions, and the influencer tiers you need.' },
             { n: '2', title: 'Pick Influencers', desc: 'Browse AI recommendations, confirm your lineup, and lock funds into escrow.' },
             { n: '3', title: 'Go Live & Pay', desc: 'Influencers submit content, get reviewed, post it, and receive automatic payment.' },
           ].map(({ n, title, desc }) => (
@@ -233,11 +233,11 @@ const PreviewB = () => {
 
       {/* CTA */}
       <section className="py-20 px-6 text-center" style={{ background: '#0028aa' }}>
-        <h2 className="text-4xl font-heading font-bold text-white mb-6">Ready to Market Your Film?</h2>
-        <p className="mb-10 text-white/70">Join 500+ producers and 12,000+ influencers on BigSocial.</p>
+        <h2 className="text-4xl font-heading font-bold text-white mb-6">Ready to Market Your Brand?</h2>
+        <p className="mb-10 text-white/70">Join 500+ campaign teams and 12,000+ influencers on BigSocial.</p>
         <div className="flex flex-wrap gap-4 justify-center">
           <button className="px-8 py-4 rounded-2xl font-bold text-base bg-white" style={{ color: '#0028aa' }}>
-            Start as Producer
+            Start as Brand
           </button>
           <button className="px-8 py-4 rounded-2xl font-bold text-base"
             style={{ border: '2px solid rgba(255,255,255,0.4)', color: 'white', background: 'transparent' }}>
@@ -247,7 +247,7 @@ const PreviewB = () => {
       </section>
 
       <footer className="py-8 text-center text-sm" style={{ color: '#999', borderTop: '1px solid #f0f0f0' }}>
-        © 2026 BigSocial · Movie Marketing Platform · India
+        © 2026 BigSocial · Brand Marketing Platform · India
       </footer>
     </div>
   );

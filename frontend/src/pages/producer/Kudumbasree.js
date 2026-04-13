@@ -60,6 +60,67 @@ const liveCampaignsByType = {
   ],
 };
 
+const ambassadorGigsByType = {
+  kudumbasree: [
+    {
+      title: 'Neighborhood Poster Circulation',
+      assetType: 'Poster',
+      targetViews: '200000',
+      budget: 'Rs 50,000',
+      duration: '10 days',
+      locations: 'Kannur, Kozhikode, Malappuram',
+      description: 'Kudumbasree members circulate posters through local neighborhoods, shops, and community groups.',
+    },
+    {
+      title: 'Family Audience Reel Push',
+      assetType: 'Reel',
+      targetViews: '400000',
+      budget: 'Rs 100,000',
+      duration: '14 days',
+      locations: 'Ernakulam, Thrissur, Kottayam',
+      description: 'Community members share short-form campaign assets across family and local social circles.',
+    },
+    {
+      title: 'Local Market Awareness Drive',
+      assetType: 'Poster',
+      targetViews: '300000',
+      budget: 'Rs 75,000',
+      duration: '12 days',
+      locations: 'Palakkad, Alappuzha, Kollam',
+      description: 'Ground-led awareness through market visits, local group circulation, and poster distribution.',
+    },
+  ],
+  students: [
+    {
+      title: 'Campus Poster Drive',
+      assetType: 'Poster',
+      targetViews: '180000',
+      budget: 'Rs 45,000',
+      duration: '9 days',
+      locations: 'Kochi, Kottayam, Thrissur',
+      description: 'Student ambassadors place and circulate campaign posters across campus and youth hangout zones.',
+    },
+    {
+      title: 'College Reel Sprint',
+      assetType: 'Reel',
+      targetViews: '500000',
+      budget: 'Rs 125,000',
+      duration: '14 days',
+      locations: 'Kozhikode, Kannur, Trivandrum',
+      description: 'Student creators and campus groups push campaign reels across youth networks.',
+    },
+    {
+      title: 'Youth Event Buzz Team',
+      assetType: 'Preview',
+      targetViews: '250000',
+      budget: 'Rs 62,500',
+      duration: '7 days',
+      locations: 'Ernakulam, Calicut, Thiruvananthapuram',
+      description: 'Campus teams build pre-event awareness through student groups, stories, reels, and local posters.',
+    },
+  ],
+};
+
 const Kudumbasree = ({ campaignType = 'kudumbasree' }) => {
   const navigate = useNavigate();
   const isStudents = campaignType === 'students';
@@ -78,7 +139,8 @@ const Kudumbasree = ({ campaignType = 'kudumbasree' }) => {
     ? '/producer/vendors/ambassadors/students/payment'
     : '/producer/vendors/ambassadors/kudumbasree/payment';
   const liveCampaigns = liveCampaignsByType[campaignType] || liveCampaignsByType.kudumbasree;
-  const [activeTab, setActiveTab] = useState('create');
+  const ambassadorGigs = ambassadorGigsByType[campaignType] || ambassadorGigsByType.kudumbasree;
+  const [activeTab, setActiveTab] = useState('gigs');
   const [selectedCampaignReport, setSelectedCampaignReport] = useState(null);
   const [form, setForm] = useState({
     campaignName: '',
@@ -120,6 +182,18 @@ const Kudumbasree = ({ campaignType = 'kudumbasree' }) => {
         files: form.files.map((file) => file.name),
       },
     });
+  };
+
+  const selectGig = (gig) => {
+    setForm((current) => ({
+      ...current,
+      campaignName: gig.title,
+      assetType: gig.assetType,
+      targetViews: gig.targetViews,
+      budget: gig.budget,
+      duration: gig.duration,
+    }));
+    setActiveTab('create');
   };
 
   return (
@@ -201,6 +275,17 @@ const Kudumbasree = ({ campaignType = 'kudumbasree' }) => {
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"
+                onClick={() => setActiveTab('gigs')}
+                className={`min-w-[190px] rounded-full px-6 py-3 text-base font-bold uppercase tracking-[0.04em] transition ${
+                  activeTab === 'gigs'
+                    ? 'bg-[#123bb7] text-white shadow-lg'
+                    : 'bg-[#e9edf5] text-[#20242c]'
+                }`}
+              >
+                Available Gigs
+              </button>
+              <button
+                type="button"
                 onClick={() => setActiveTab('create')}
                 className={`min-w-[190px] rounded-full px-6 py-3 text-base font-bold uppercase tracking-[0.04em] transition ${
                   activeTab === 'create'
@@ -224,7 +309,41 @@ const Kudumbasree = ({ campaignType = 'kudumbasree' }) => {
             </div>
           </section>
 
-          {activeTab === 'create' ? (
+          {activeTab === 'gigs' ? (
+            <section className="rounded-[32px] border border-[#e3e8f3] bg-white p-8 shadow-sm">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8a94a6]">Available gigs</p>
+                <h2 className="mt-2 text-3xl font-heading font-bold text-[#101828]">
+                  Choose an available {campaignLabel} ambassador gig.
+                </h2>
+                <p className="mt-2 text-sm text-[#667085]">
+                  Select a ready-made ambassador gig to prefill the campaign form and continue to payment.
+                </p>
+              </div>
+
+              <div className="mt-6 grid gap-4 lg:grid-cols-3">
+                {ambassadorGigs.map((gig) => (
+                  <article key={gig.title} className="rounded-[28px] border border-[#e3e8f3] bg-[#f8fbff] p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef1ff] text-[#0028aa]">
+                      <Users className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-4 text-xl font-heading font-bold text-[#101828]">{gig.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#667085]">{gig.description}</p>
+                    <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-[#475467]">
+                      <span className="rounded-full bg-white px-3 py-2">{gig.assetType}</span>
+                      <span className="rounded-full bg-white px-3 py-2">{Number(gig.targetViews).toLocaleString('en-IN')} views</span>
+                      <span className="rounded-full bg-white px-3 py-2">{gig.budget}</span>
+                      <span className="rounded-full bg-white px-3 py-2">{gig.duration}</span>
+                    </div>
+                    <p className="mt-4 text-sm font-semibold text-[#667085]">{gig.locations}</p>
+                    <Button className="mt-5 w-full bg-[#0028aa] text-white hover:bg-[#001f85]" onClick={() => selectGig(gig)}>
+                      Select gig
+                    </Button>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : activeTab === 'create' ? (
             <section className="rounded-[32px] border border-[#e3e8f3] bg-white p-8 shadow-sm">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8a94a6]">Create campaign</p>
@@ -242,7 +361,7 @@ const Kudumbasree = ({ campaignType = 'kudumbasree' }) => {
                 </label>
 
                 <label className="space-y-2">
-                  <span className="text-sm font-semibold text-[#101828]">Upload campaign (Poster / Teaser / Trailer / Reel)</span>
+                  <span className="text-sm font-semibold text-[#101828]">Upload campaign (Poster / Preview / Trailer / Reel)</span>
                   <label className="flex min-h-[120px] cursor-pointer flex-col items-center justify-center rounded-[28px] border border-dashed border-[#cfd6e4] bg-[#f8fbff] px-6 py-6 text-center">
                     <FileUp className="h-8 w-8 text-[#0028aa]" />
                     <span className="mt-3 text-sm font-semibold text-[#101828]">Upload campaign assets</span>

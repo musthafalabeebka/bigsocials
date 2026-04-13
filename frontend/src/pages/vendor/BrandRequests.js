@@ -66,7 +66,7 @@ const BrandRequests = () => {
               </div>
               <h1 className="mt-4 text-4xl font-heading font-bold">Review pending brand requests</h1>
               <p className="mt-3 text-base font-body text-white/80">
-                Evaluate collaboration details, deliverables, and campaign timing before accepting or rejecting a producer request.
+                Evaluate collaboration details, deliverables, and campaign timing before accepting or rejecting a brand request.
               </p>
             </div>
           </section>
@@ -82,7 +82,7 @@ const BrandRequests = () => {
               <p className="mt-2 text-4xl font-heading font-bold text-[#101828]">
                 {requests.filter((request) => request.status === 'accepted').length}
               </p>
-              <p className="mt-3 text-sm text-[#667085]">Accepted brand requests are ready for producer payment.</p>
+              <p className="mt-3 text-sm text-[#667085]">Accepted brand requests are ready for brand payment.</p>
             </article>
             <article className="rounded-[28px] border border-[#dbe3f3] bg-white p-6 shadow-sm">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">Rejected</p>
@@ -167,7 +167,7 @@ const BrandRequests = () => {
                       </div>
 
                       <div className="rounded-2xl border border-[#dbe3f3] bg-[#f8faff] p-4">
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">Producer Notes</p>
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a94a6]">Brand Notes</p>
                         <p className="mt-2 flex items-start gap-2 text-sm text-[#475467]">
                           <MessageSquareText className="mt-0.5 h-4 w-4 shrink-0 text-[#123bb7]" />
                           <span>{request.notes}</span>
@@ -203,7 +203,7 @@ const BrandRequests = () => {
                           }`}
                         >
                           {isAccepted
-                            ? 'Request accepted. Producer can now proceed to payment.'
+                            ? 'Request accepted. Brand team can now proceed to payment.'
                             : 'Request rejected. This brand collaboration remains unavailable for this campaign.'}
                         </div>
                       )}

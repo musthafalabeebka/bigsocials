@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { analyticsAPI } from '../../services/api';
 import Sidebar from '../../components/Sidebar';
 import StatCard from '../../components/StatCard';
-import { DollarSign, Film, TrendingUp, AlertCircle } from 'lucide-react';
+import { DollarSign, Tag, TrendingUp, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 const InfluencerDashboard = () => {
@@ -70,7 +70,7 @@ const InfluencerDashboard = () => {
               title="Active Campaigns"
               value={dashboard?.active_campaigns || 0}
               subtitle="Currently participating"
-              icon={Film}
+              icon={Tag}
               clickable
               onClick={() => navigate('/influencer/campaigns?tab=active')}
             />
@@ -182,7 +182,7 @@ const InfluencerDashboard = () => {
               </div>
             ) : (
               <div className="text-center py-12">
-                <Film className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                <Tag className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                 <p className="text-lg font-body text-muted-foreground">
                   No activity yet. Start accepting campaign requests!
                 </p>

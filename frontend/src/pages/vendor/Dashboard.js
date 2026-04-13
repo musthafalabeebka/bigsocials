@@ -7,15 +7,15 @@ import { getVendorDashboardPath, getVendorTypeConfig } from './vendorTypes';
 
 const requestCardsByType = {
   billboards: [
-    { title: 'Pending Billboard Requests', value: '12', detail: 'Producer requests waiting for inventory confirmation.', icon: PanelsTopLeft },
+    { title: 'Pending Billboard Requests', value: '12', detail: 'Brand requests waiting for inventory confirmation.', icon: PanelsTopLeft },
     { title: 'Total Earnings', value: 'Rs 1.52L', detail: 'Completed billboard bookings and payments received across closed campaigns.', icon: ClipboardList },
   ],
   brands: [
-    { title: 'Pending Brand Requests', value: '2', detail: 'Producer collaboration requests waiting for brand-side review.', icon: Handshake },
+    { title: 'Pending Brand Requests', value: '2', detail: 'Brand collaboration requests waiting for brand-side review.', icon: Handshake },
     { title: 'Total Earnings', value: 'Rs 4.6L', detail: 'Completed brand collaborations and payments received across closed deals.', icon: ClipboardList },
   ],
   media: [
-    { title: 'Pending Media Requests', value: '2', detail: 'Producer media placement requests waiting for scheduling confirmation.', icon: Tv },
+    { title: 'Pending Media Requests', value: '2', detail: 'Brand media placement requests waiting for scheduling confirmation.', icon: Tv },
     { title: 'Total Earnings', value: 'Rs 1.28L', detail: 'Completed media placements and payments received across closed campaigns.', icon: ClipboardList },
   ],
   newspapers: [
@@ -44,7 +44,7 @@ const requestCardsByType = {
   ],
   ambassadors: [
     { title: 'Ambassador Requests', value: '8', detail: 'Community activation requests waiting for assignment.', icon: Users },
-    { title: 'Active Ambassador Campaigns', value: '5', detail: 'Local ambassador campaigns currently active.', icon: Sparkles },
+    { title: 'Total Earnings', value: 'Rs 1.85L', detail: 'Completed ambassador campaign earnings available for withdrawal.', icon: ClipboardList },
   ],
   kudumbasree: [
     { title: 'Kudumbasree Activations', value: '6', detail: 'Community activation campaigns waiting for rollout.', icon: Sparkles },
@@ -68,6 +68,14 @@ const requestCardLinksByType = {
   media: {
     'Pending Media Requests': '/vendor/dashboard/media/requests',
     'Total Earnings': '/vendor/dashboard/media/completed',
+  },
+  'field-agents': {
+    'Execution Jobs': '/vendor/dashboard/field-agents/execution',
+    'Reporting Tasks': '/vendor/dashboard/field-agents/reports',
+  },
+  ambassadors: {
+    'Ambassador Requests': '/vendor/dashboard/ambassadors/requests',
+    'Total Earnings': '/vendor/dashboard/ambassadors/earnings',
   },
 };
 
@@ -104,7 +112,7 @@ const VendorDashboard = () => {
               </div>
               <h1 className="mt-4 text-4xl font-heading font-bold">Welcome back, {user?.name}</h1>
               <p className="mt-3 text-base font-body text-white/80">
-                Review incoming producer requests, manage placements, and track active {vendorConfig.title.toLowerCase()} jobs from one place.
+                Review incoming brand requests, manage placements, and track active {vendorConfig.title.toLowerCase()} jobs from one place.
               </p>
             </div>
           </section>

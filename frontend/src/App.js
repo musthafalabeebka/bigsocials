@@ -22,8 +22,14 @@ import InfluencerRecommendations from './pages/producer/InfluencerRecommendation
 import CampaignPayment from './pages/producer/CampaignPayment';
 import DeliverableTracker from './pages/producer/DeliverableTracker';
 import AiPrAgent from './pages/producer/AiPrAgent';
+import MovieBids from './pages/producer/MovieBids';
 import AiCampaignManagerPayment from './pages/producer/AiCampaignManagerPayment';
 import Vendors from './pages/producer/Vendors';
+import BtlMarketing from './pages/producer/BtlMarketing';
+import BtlPartnerCampaign from './pages/producer/BtlPartnerCampaign';
+import QuickCommerce from './pages/producer/QuickCommerce';
+import QuickCommerceCampaign from './pages/producer/QuickCommerceCampaign';
+import TheatreAds from './pages/producer/TheatreAds';
 import Billboards from './pages/producer/Billboards';
 import Brands from './pages/producer/Brands';
 import BrandBriefForm from './pages/producer/BrandBriefForm';
@@ -49,6 +55,9 @@ import MediaRequests from './pages/vendor/MediaRequests';
 import MediaCompletedRequests from './pages/vendor/MediaCompletedRequests';
 import BrandRequests from './pages/vendor/BrandRequests';
 import BrandCompletedRequests from './pages/vendor/BrandCompletedRequests';
+import AmbassadorVendorGigs from './pages/vendor/AmbassadorVendorGigs';
+import FieldAgentVendorJobs from './pages/vendor/FieldAgentVendorJobs';
+import BrandDashboard from './pages/brand/Dashboard';
 
 import InfluencerDashboard from './pages/influencer/Dashboard';
 import InfluencerCampaigns from './pages/influencer/Campaigns';
@@ -117,6 +126,24 @@ const AppRoutes = () => {
         }
       />
 
+      {/* Brand Routes */}
+      <Route
+        path="/brand/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <BrandDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/brand/movie-bids"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <MovieBids />
+          </ProtectedRoute>
+        }
+      />
+
       {/* Producer Routes */}
       <Route
         path="/producer/dashboard"
@@ -175,6 +202,14 @@ const AppRoutes = () => {
         }
       />
       <Route
+        path="/producer/movie-bids"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <MovieBids />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/producer/vendors"
         element={
           <ProtectedRoute allowedRoles={['producer']}>
@@ -187,6 +222,78 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={['producer']}>
             <AiCampaignManagerPayment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/btl"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <BtlMarketing />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/btl/uber"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <BtlPartnerCampaign mode="uber" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/btl/ksrtc"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <BtlPartnerCampaign mode="ksrtc" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/quick-commerce"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <QuickCommerce />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/quick-commerce/swiggy"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <QuickCommerceCampaign mode="swiggy" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/quick-commerce/zepto"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <QuickCommerceCampaign mode="zepto" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/quick-commerce/blinkit"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <QuickCommerceCampaign mode="blinkit" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/quick-commerce/notice-distribution"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <QuickCommerceCampaign mode="notice-distribution" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/vendors/theatre-ads"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <TheatreAds />
           </ProtectedRoute>
         }
       />
@@ -447,6 +554,38 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={['vendor']}>
             <BrandCompletedRequests />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/field-agents/execution"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <FieldAgentVendorJobs mode="execution" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/field-agents/reports"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <FieldAgentVendorJobs mode="reports" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/ambassadors/requests"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <AmbassadorVendorGigs mode="requests" />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vendor/dashboard/ambassadors/earnings"
+        element={
+          <ProtectedRoute allowedRoles={['vendor']}>
+            <AmbassadorVendorGigs mode="earnings" />
           </ProtectedRoute>
         }
       />

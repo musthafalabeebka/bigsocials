@@ -4,7 +4,7 @@ import { adminAPI } from '../../services/api';
 import Sidebar from '../../components/Sidebar';
 import StatCard from '../../components/StatCard';
 import Button from '../../components/Button';
-import { Users, Film, DollarSign, AlertCircle } from 'lucide-react';
+import { Users, Tag, DollarSign, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { mockCampaigns } from '../../data/mockData';
 
@@ -77,7 +77,7 @@ const AdminDashboard = () => {
             <StatCard
               title="Total Users"
               value={dashboard?.total_users || 0}
-              subtitle={`${dashboard?.total_producers || 0} producers, ${dashboard?.total_influencers || 0} influencers`}
+              subtitle={`${dashboard?.total_producers || 0} campaign teams, ${dashboard?.total_influencers || 0} influencers`}
               icon={Users}
               clickable
               onClick={() => navigate('/admin/users')}
@@ -86,7 +86,7 @@ const AdminDashboard = () => {
               title="Total Campaigns"
               value={dashboard?.total_campaigns || 0}
               subtitle="Platform-wide"
-              icon={Film}
+              icon={Tag}
               clickable
               onClick={() =>
                 setActivePanel((current) => (current === 'campaigns' ? null : 'campaigns'))
@@ -137,7 +137,7 @@ const AdminDashboard = () => {
               <h2 className="text-xl font-heading font-bold text-on-surface mb-4">User Distribution</h2>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-body text-muted-foreground">Producers</span>
+                  <span className="font-body text-muted-foreground">Brand Teams</span>
                   <span className="font-mono font-bold text-on-surface">{dashboard?.total_producers || 0}</span>
                 </div>
                 <div className="flex items-center justify-between">
