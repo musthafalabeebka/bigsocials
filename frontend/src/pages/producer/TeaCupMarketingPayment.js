@@ -61,7 +61,7 @@ const TeaCupMarketingPayment = () => {
   const createCampaignRecord = () => ({
     id: `${isTeaShopBoards ? 'tea-shop-boards' : isNoticeMarketing ? 'notice-marketing' : 'tea-cup'}-${Date.now()}`,
     mode,
-    movieName: movieName || 'Sarwam maya',
+    movieName: movieName || 'Sarvam Maya',
     district: bookingArea || 'Kerala',
     distributed: quantity || 0,
     status: 'Live',

@@ -218,6 +218,26 @@ const demoUsers = {
     account_type: 'creator',
     mobile: '+91 98765 43210',
   },
+  actor: {
+    ...mockUsers.find((user) => user.role === 'influencer'),
+    id: 'actor-demo-1',
+    email: 'actor@test.com',
+    name: 'Nivin Pauly',
+    role: 'influencer',
+    instagram_handle: '@demoactor',
+    follower_count: 185000,
+    engagement_rate: 7.2,
+    location_state: 'Kerala',
+    location_district: 'Kochi',
+    categories: ['Actor', 'Film', 'Lifestyle'],
+    gender: 'male',
+    age: 31,
+    cost_per_post: 25000,
+    is_verified: true,
+    is_active: true,
+    account_type: 'actor',
+    mobile: '+91 98765 43212',
+  },
   vendors: {
     billboards: {
       id: 'vendor-billboards-demo',
@@ -339,6 +359,10 @@ const buildMockUser = (email, role) => {
 
   if (role === 'influencer' && email === demoUsers.influencer.email) {
     return demoUsers.influencer;
+  }
+
+  if (role === 'influencer' && email === demoUsers.actor.email) {
+    return demoUsers.actor;
   }
 
   if (role === 'vendor') {

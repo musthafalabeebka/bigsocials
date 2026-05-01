@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, CupSoda, Megaphone, ScrollText } from 'lucide-react';
+import { ArrowLeft, CupSoda, Megaphone, ScrollText, Store } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 
@@ -24,6 +24,12 @@ const options = [
     icon: ScrollText,
     path: '/producer/vendors/field-agents/notice-marketing',
     cta: 'Book notice marketing',
+  },
+  {
+    title: 'Supermarkets',
+    description: 'Place campaign materials across supermarket counters, billing areas, and shopper-facing store zones.',
+    icon: Store,
+    cta: 'Coming soon',
   },
 ];
 
@@ -73,7 +79,7 @@ const FieldAgents = () => {
                 </div>
                 <h3 className="mt-3 text-lg font-heading font-bold text-[#101828]">Choose Format</h3>
                 <p className="mt-2 text-sm text-[#667085]">
-                  Pick the field activation format such as tea cup marketing, tea shop boards, or notice marketing.
+                  Pick the field activation format such as tea cup marketing, tea shop boards, notice marketing, or supermarkets.
                 </p>
               </article>
 

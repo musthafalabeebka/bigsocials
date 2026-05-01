@@ -22,6 +22,7 @@ import InfluencerRecommendations from './pages/producer/InfluencerRecommendation
 import CampaignPayment from './pages/producer/CampaignPayment';
 import DeliverableTracker from './pages/producer/DeliverableTracker';
 import AiPrAgent from './pages/producer/AiPrAgent';
+import MiaAgent from './pages/producer/MiaAgent';
 import MovieBids from './pages/producer/MovieBids';
 import AiCampaignManagerPayment from './pages/producer/AiCampaignManagerPayment';
 import Vendors from './pages/producer/Vendors';
@@ -62,6 +63,17 @@ import BrandDashboard from './pages/brand/Dashboard';
 import InfluencerDashboard from './pages/influencer/Dashboard';
 import InfluencerCampaigns from './pages/influencer/Campaigns';
 import InstagramVerification from './pages/influencer/InstagramVerification';
+import ActorDashboard from './pages/actor/Dashboard';
+import Films from './pages/actor/Films';
+import SocialMedia from './pages/actor/SocialMedia';
+import ContentPlanner from './pages/actor/ContentPlanner';
+import ActorPrDashboard from './pages/actor/PrDashboard';
+import AiResponseDesk from './pages/actor/AiResponseDesk';
+import BrandCollabs from './pages/actor/BrandCollabs';
+import CommercialTools from './pages/actor/CommercialTools';
+import PrMedia from './pages/actor/PrMedia';
+import FansUnits from './pages/actor/FansUnits';
+import Competitors from './pages/actor/Competitors';
 
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminUsers from './pages/admin/Users';
@@ -111,6 +123,8 @@ const AppRoutes = () => {
           user ? (
             user.role === 'producer' ? (
               <Navigate to="/producer/dashboard" replace />
+            ) : user.role === 'influencer' && user.account_type === 'actor' ? (
+              <Navigate to="/actor/dashboard" replace />
             ) : user.role === 'influencer' ? (
               <Navigate to="/influencer/dashboard" replace />
             ) : user.role === 'vendor' ? (
@@ -190,6 +204,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={['producer']}>
             <BookingAnalytics />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/producer/mia-agent"
+        element={
+          <ProtectedRoute allowedRoles={['producer']}>
+            <MiaAgent />
           </ProtectedRoute>
         }
       />
@@ -483,6 +505,94 @@ const AppRoutes = () => {
       />
 
       {/* Influencer Routes */}
+      <Route
+        path="/actor/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <ActorDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/films"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <Films />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/social-media"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <SocialMedia />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/content-planner"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <ContentPlanner />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/pr-dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <ActorPrDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/ai-response-desk"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <AiResponseDesk />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/brand-collabs"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <BrandCollabs />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/commercial-tools"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <CommercialTools />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/pr-media"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <PrMedia />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/fans-units"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <FansUnits />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/actor/competitors"
+        element={
+          <ProtectedRoute allowedRoles={['influencer']}>
+            <Competitors />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/influencer/verify-instagram" element={<InstagramVerification />} />
       <Route path="/influencer/verify-instagram/callback" element={<InstagramVerification />} />
       <Route

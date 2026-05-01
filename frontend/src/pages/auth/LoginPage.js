@@ -3,12 +3,12 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { authAPI } from '../../services/api';
 import { toast } from 'sonner';
-import { Tag, Instagram, ArrowLeft, ArrowRight, Mail, Lock, Megaphone } from 'lucide-react';
+import { Tag, Instagram, ArrowLeft, ArrowRight, Mail, Lock, Megaphone, Clapperboard } from 'lucide-react';
 
 // Step 1: Choose role  |  Step 2: Choose method  |  Step 3: Enter credentials
 const LoginPage = () => {
   const [searchParams] = useSearchParams();
-  const initialRole = searchParams.get('role'); // 'producer' | 'brand' | 'influencer' | 'vendor'
+  const initialRole = searchParams.get('role'); // 'producer' | 'brand' | 'influencer' | 'actor' | 'vendor'
 
   const [role, setRole] = useState(initialRole || null);
   const [method, setMethod] = useState(null); // 'google' | 'email' | 'instagram'
@@ -23,15 +23,19 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const authRole = role === 'brand' ? 'producer' : role;
+      const authRole = role === 'brand' ? 'producer' : role === 'actor' ? 'influencer' : role;
       const response = await authAPI.login(email, authRole === 'admin' ? password : null, authRole);
-      const nextUser = role === 'brand'
-        ? { ...response.data.user, account_type: 'brand', name: response.data.user.name || 'Brand User' }
-        : response.data.user;
+      const nextUser =
+        role === 'brand'
+          ? { ...response.data.user, account_type: 'brand', name: response.data.user.name || 'Brand User' }
+          : role === 'actor'
+            ? { ...response.data.user, account_type: 'actor', name: response.data.user.name || 'Actor' }
+            : response.data.user;
       login(nextUser);
       toast.success('Welcome back!');
       if (role === 'brand') navigate('/producer/dashboard');
       else if (role === 'producer') navigate('/producer/dashboard');
+      else if (role === 'actor') navigate('/actor/dashboard');
       else if (role === 'influencer') navigate('/influencer/dashboard');
       else if (role === 'vendor') navigate(response.data.user.onboarding_completed ? '/vendor/dashboard' : '/vendor/onboarding');
       else navigate('/admin/dashboard');
@@ -73,6 +77,13 @@ const LoginPage = () => {
             title="Influencer"
             subtitle="Sign in with Instagram"
             onClick={() => setRole('influencer')}
+          />
+          <RoleCard
+            icon={Clapperboard}
+            iconBg="#ecfeff" iconColor="#0f766e"
+            title="Actor"
+            subtitle="Sign in with Email"
+            onClick={() => setRole('actor')}
           />
           <RoleCard
             icon={Lock}
@@ -158,6 +169,31 @@ const LoginPage = () => {
     );
   }
 
+  if (role === 'actor' && !method) {
+    return (
+      <AuthShell onBack={back} backLabel="Back">
+        <div className="flex items-center gap-3 mb-8 justify-center">
+          <div className="w-10 h-10 rounded-xl bg-[#ecfeff] flex items-center justify-center">
+            <Clapperboard className="w-5 h-5 text-[#0f766e]" />
+          </div>
+          <div>
+            <div className="font-heading font-bold text-[#0f766e]">Actor Login</div>
+            <div className="text-xs text-[#999]">Continue with email</div>
+          </div>
+        </div>
+        <MethodButton
+          icon={<Mail className="w-5 h-5 text-[#0f766e]" />}
+          label="Continue with Email"
+          onClick={() => setMethod('email')}
+          secondary
+        />
+        <p className="mt-5 rounded-2xl bg-[#ecfeff] px-4 py-3 text-center text-sm font-semibold text-[#0f766e]">
+          Demo email: actor@test.com
+        </p>
+      </AuthShell>
+    );
+  }
+
   /* ─── Step 2: Influencer — go straight to form ─── */
   if (role === 'influencer' && !method) {
     return (
@@ -212,11 +248,11 @@ const LoginPage = () => {
 
   /* ─── Step 3: Credentials form ─── */
   const isInstagram = method === 'instagram';
-  const accent = role === 'influencer' ? '#9333ea' : '#0028aa';
-  const accentBg = role === 'influencer' ? '#fce8ff' : '#eef1ff';
+  const accent = role === 'actor' ? '#0f766e' : role === 'influencer' ? '#9333ea' : '#0028aa';
+  const accentBg = role === 'actor' ? '#ecfeff' : role === 'influencer' ? '#fce8ff' : '#eef1ff';
   const MethodIcon = method === 'google' ? GoogleIcon : method === 'instagram' ? () => <Instagram className="w-5 h-5" style={{ color: accent }} /> : () => <Mail className="w-5 h-5" style={{ color: accent }} />;
   const methodLabel = method === 'google' ? 'Google Account' : method === 'instagram' ? 'Instagram Account' : 'Email / OTP';
-  const roleLabel = role === 'brand' ? 'Brand' : role === 'producer' ? 'Producer' : role === 'vendor' ? 'Vendor' : 'Influencer';
+  const roleLabel = role === 'brand' ? 'Brand' : role === 'producer' ? 'Producer' : role === 'vendor' ? 'Vendor' : role === 'actor' ? 'Actor' : 'Influencer';
 
   return (
     <AuthShell onBack={back} backLabel="Back">
@@ -238,7 +274,7 @@ const LoginPage = () => {
           type="email"
           value={email}
           onChange={setEmail}
-          placeholder={isInstagram ? 'your@instagram-email.com' : 'your@email.com'}
+          placeholder={role === 'actor' ? 'actor@test.com' : isInstagram ? 'your@instagram-email.com' : 'your@email.com'}
           required
           accent={accent}
         />

@@ -350,15 +350,22 @@ const ProducerDashboard = () => {
               <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-2 rounded-full bg-[#eef1ff] px-3 py-1 text-sm font-semibold text-[#0028aa]">
                   <BrainCircuit className="h-4 w-4" />
-                  AI Campaign Manager
+                  MIA
                 </div>
                 <h2 className="mt-4 text-2xl font-heading font-bold text-[#101828]">
-                  Set your budget. Choose your goal. Get the right channel mix.
+                  Marketing Intelligence Agent
                 </h2>
                 <p className="mt-2 text-sm text-[#667085]">
-                  Our inbuilt campaign manager helps you distribute your efforts effectively across channels.
+                  Set your budget, choose your goal, and get the right channel mix.
                 </p>
               </div>
+              <button
+                type="button"
+                onClick={() => navigate('/producer/mia-agent')}
+                className="rounded-2xl bg-[#123bb7] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#0f33a4]"
+              >
+                Open MIA
+              </button>
             </div>
 
             <div className="mt-6 grid gap-4 lg:grid-cols-2">

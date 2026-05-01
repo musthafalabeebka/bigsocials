@@ -18,7 +18,17 @@ export const AuthProvider = ({ children }) => {
     // Check if user is stored in localStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      const nextUser =
+        parsedUser?.account_type === 'actor' && parsedUser?.name === 'Demo Actor'
+          ? { ...parsedUser, name: 'Nivin Pauly' }
+          : parsedUser;
+
+      if (nextUser !== parsedUser) {
+        localStorage.setItem('user', JSON.stringify(nextUser));
+      }
+
+      setUser(nextUser);
     }
     setLoading(false);
   }, []);

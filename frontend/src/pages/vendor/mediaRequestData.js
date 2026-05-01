@@ -3,7 +3,7 @@ export const MEDIA_VENDOR_REQUESTS_STORAGE_KEY = 'vendor_media_requests';
 export const defaultMediaRequests = [
   {
     id: 'vendor-media-request-1',
-    producerName: 'Sarwam Maya Productions',
+    producerName: 'Sarvam Maya Productions',
     campaignName: 'Launch Week Digital Push',
     placementTitle: 'Regional Entertainment News Coverage',
     location: 'Kochi, Kerala',

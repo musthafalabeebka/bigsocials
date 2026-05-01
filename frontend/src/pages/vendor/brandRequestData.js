@@ -3,8 +3,8 @@ export const BRAND_VENDOR_REQUESTS_STORAGE_KEY = 'vendor_brand_requests';
 export const defaultBrandRequests = [
   {
     id: 'vendor-brand-request-1',
-    producerName: 'Sarwam Maya Productions',
-    campaignName: 'Sarwam Maya Brand Integration',
+    producerName: 'Sarvam Maya Productions',
+    campaignName: 'Sarvam Maya Brand Integration',
     placementTitle: 'Product Placement in Campaign Content',
     location: 'Kerala Release Circuit',
     mediaType: 'Brand Collaboration',
@@ -12,7 +12,7 @@ export const defaultBrandRequests = [
     requestedDuration: 'Campaign window: 21 days',
     startDate: '2026-04-15',
     budget: 250000,
-    artwork: 'Sarwam-Maya-Brand-Integration-Brief.pdf',
+    artwork: 'Sarvam-Maya-Brand-Integration-Brief.pdf',
     notes: 'Looking for a premium consumer brand tie-in with strong theatrical and promo visibility.',
     status: 'pending',
     requestedAt: '2026-04-04T09:50:00.000Z',

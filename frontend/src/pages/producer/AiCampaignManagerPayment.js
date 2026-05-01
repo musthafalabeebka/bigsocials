@@ -17,7 +17,7 @@ const AiCampaignManagerPayment = () => {
   const paymentData = location.state;
 
   if (!paymentData?.budget || !paymentData?.scenarioId || !paymentData?.allocations?.length) {
-    navigate('/producer/dashboard', { replace: true });
+    navigate('/producer/mia-agent', { replace: true });
     return null;
   }
 
@@ -71,7 +71,7 @@ const AiCampaignManagerPayment = () => {
         amount: paymentData.budget * 100,
         currency: 'INR',
         name: 'Big Social',
-        description: `AI Campaign Manager - ${paymentData.scenarioTitle}`,
+        description: `MIA - ${paymentData.scenarioTitle}`,
         handler: handleSuccess,
         theme: {
           color: '#123bb7',
@@ -95,11 +95,11 @@ const AiCampaignManagerPayment = () => {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm font-semibold">
                 <BrainCircuit className="h-4 w-4" />
-                AI Campaign Manager Payment
+                MIA Payment
               </div>
               <h1 className="mt-4 text-4xl font-heading font-bold">Confirm payment and send requests automatically</h1>
               <p className="mt-3 text-base text-white/80">
-                Once payment is complete, the AI campaign manager will push the allocation requests into your vendor workflow automatically.
+                Once payment is complete, MIA will push the allocation requests into your vendor workflow automatically.
               </p>
             </div>
           </section>

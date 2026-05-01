@@ -3,8 +3,8 @@ export const BILLBOARD_VENDOR_REQUESTS_STORAGE_KEY = 'vendor_billboard_requests'
 export const defaultBillboardRequests = [
   {
     id: 'vendor-bb-request-1',
-    producerName: 'Sarwam Maya Productions',
-    campaignName: 'Sarwam Maya City Visibility Push',
+    producerName: 'Sarvam Maya Productions',
+    campaignName: 'Sarvam Maya City Visibility Push',
     billboardTitle: 'MG Road LED Billboard',
     location: 'MG Road, Kochi, Kerala',
     mediaType: 'LED',
@@ -12,7 +12,7 @@ export const defaultBillboardRequests = [
     requestedDuration: '14 days',
     startDate: '2026-04-08',
     budget: 85000,
-    artwork: 'Sarwam-Maya-Outdoor-Key-Art.jpg',
+    artwork: 'Sarvam-Maya-Outdoor-Key-Art.jpg',
     notes: 'Need the creative to go live before launch window. Priority is evening commuter visibility.',
     status: 'pending',
     requestedAt: '2026-04-04T09:30:00.000Z',

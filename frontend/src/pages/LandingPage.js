@@ -5,6 +5,7 @@ import {
   BadgeCheck,
   BarChart3,
   ChevronDown,
+  Clapperboard,
   Tag,
   Instagram,
   MapPinned,
@@ -61,6 +62,14 @@ const LandingPage = () => {
       detail: 'Creator login',
       accent: '#1a3fd4',
       bg: '#eef6ff',
+    },
+    {
+      to: '/login?role=actor',
+      icon: Clapperboard,
+      title: 'Actor',
+      detail: 'Actor login',
+      accent: '#0f766e',
+      bg: '#ecfeff',
     },
     {
       to: '/login?role=vendor',
